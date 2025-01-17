@@ -1,0 +1,7 @@
+{
+  "name": "frontendMeatBall",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
