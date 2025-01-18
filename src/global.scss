@@ -35,3 +35,19 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+.centrar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconColor{
+  color: #362110;
+}
+
+.marronClaro{
+  --background: #6C4E31 !important;
+  --color: #6C4E31;
+}

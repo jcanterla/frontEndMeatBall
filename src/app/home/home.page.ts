@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {IonTitle, IonContent, IonImg, IonButton} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonTitle, IonContent, IonImg, IonButton],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, NavbarInferiorComponent],
+  standalone: true,
 })
 export class HomePage {
   constructor() {}
