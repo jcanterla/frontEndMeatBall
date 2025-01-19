@@ -11,6 +11,10 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path:'chat',
+    loadComponent: () => import('./chat/chat.component').then((m) => m.ChatComponent),
+  },
+  {
     path: 'registro',
     loadComponent: () => import('./registrar/registrar.component').then((m) => m.RegistrarComponent),
   },
