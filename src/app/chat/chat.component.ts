@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {CommonModule} from "@angular/common";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
+import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 
 @Component({
   selector: 'app-chat',
@@ -11,7 +12,8 @@ import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.compon
   imports: [
     IonicModule,
     CommonModule,
-    NavbarInferiorComponent
+    NavbarInferiorComponent,
+    NavbarSuperiorComponent
   ]
 })
 export class ChatComponent  implements OnInit {

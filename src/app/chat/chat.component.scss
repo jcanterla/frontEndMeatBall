@@ -39,6 +39,24 @@ ion-col.sin-espacios {
   color: #362110;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between; /* Espacio entre título y menú */
+  align-items: center; /* Centrado vertical */
+  width: 100%; /* Asegúrate de que ocupe todo el ancho */
+}
+
+ion-title {
+  margin: 0;
+  font-size: 20px;
+}
+
+app-navbar-superior {
+  display: flex;
+  gap: 15px;
+}
+
+
 // Simplemente quito los bordes porque si no, se ve mal el borde
 ion-item.tarjetaImpar, ion-item.tarjetaPar {
   --inner-border-width: 0px;
