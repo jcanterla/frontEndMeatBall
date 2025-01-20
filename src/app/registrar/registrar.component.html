@@ -1,0 +1,40 @@
+<ion-content [fullscreen]="true">
+  <div class="contenido">
+
+    <ion-title class="titulo">Registro</ion-title>
+
+    <ion-text class="rellenar">Rellena lo siguientes datos personales</ion-text>
+
+    <ion-list class="lista">
+      <ion-text class="usuario">Usuario</ion-text>
+      <div class="contenedor">
+        <ion-input class="usuarioInput" placeholder="Introduce tu usuario" fill="outline"></ion-input>
+      </div>
+
+      <ion-text class="email">Email</ion-text>
+      <div class="contenedor">
+        <ion-input class="emailInput" placeholder="Introduce tu email" fill="outline"></ion-input>
+      </div>
+
+      <ion-text class="contrasena">Contraseña</ion-text>
+      <div class="contenedor">
+        <ion-input class="contrasenaInput" placeholder="Introduce tu contraseña" fill="outline"></ion-input>
+      </div>
+
+      <ion-text class="confirmarContrasena">Confirmar contraseña</ion-text>
+      <div class="contenedor">
+        <ion-input class="confirmarContrasenaInput" placeholder="Vuelve a introducir tu contraseña" fill="outline"></ion-input>
+      </div>
+
+      <ion-checkbox labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
+    </ion-list>
+
+    <div class="mismaLinea">
+      <ion-text class="cuenta">¿Ya tienes una cuenta?</ion-text>
+      <ion-text class="iniciarSesion">Iniciar sesión</ion-text>
+    </div>
+
+    <ion-button expand="block" class="botonSiguiente">Siguiente</ion-button>
+
+  </div>
+</ion-content>
