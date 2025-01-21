@@ -75,5 +75,19 @@ ion-thumbnail img {
   color: white;
 }
 
+.back-arrow {
+  display: none;
+  color: white;
+}
+
+@media (max-width: 412px) {
+  .back-arrow {
+    display: block !important;
+    font-size: 1.5em !important;
+    color: white !important;
+    margin-top: 1%;
+    margin-right: 5%;
+  }
+}
 
 
