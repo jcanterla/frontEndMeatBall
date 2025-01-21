@@ -3,6 +3,8 @@ import {IonicModule} from "@ionic/angular";
 import {CommonModule} from "@angular/common";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
+import {addIcons} from "ionicons";
+import {arrowBackOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-chat',
@@ -18,7 +20,9 @@ import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.compon
 })
 export class ChatComponent  implements OnInit {
 
-  constructor() { }
+  constructor() {
+    addIcons({"arrow-back-outline": arrowBackOutline})
+  }
 
   ngOnInit() {}
 
