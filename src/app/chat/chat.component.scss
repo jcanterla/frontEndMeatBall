@@ -41,9 +41,9 @@ ion-col.sin-espacios {
 
 .header-content {
   display: flex;
-  justify-content: space-between; /* Espacio entre título y menú */
-  align-items: center; /* Centrado vertical */
-  width: 100%; /* Asegúrate de que ocupe todo el ancho */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 ion-title {
@@ -71,6 +71,9 @@ ion-thumbnail img {
   border-radius: 50px;
 }
 
+.blanco {
+  color: white;
+}
 
 
 
