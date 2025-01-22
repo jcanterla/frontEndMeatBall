@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Registro } from "../modelos/Registro";
+import { CommonModule } from "@angular/common";
+import { RegistroService } from '../servicios/registroService';
 import {
   IonButton,
   IonCheckbox,
@@ -20,13 +24,41 @@ import {
     IonCheckbox,
     IonButton,
     IonInput,
-    IonText
+    IonText,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
   ]
 })
-export class RegistrarComponent  implements OnInit {
 
-  constructor() { }
+export class RegistrarComponent implements OnInit {
+  registroForm: FormGroup;
+  registro: Registro = new Registro();
+
+  constructor(private fb: FormBuilder, private registroService: RegistroService) {
+    this.registroForm = this.fb.group({
+      username: [this.registro.username, Validators.required],
+      password: [this.registro.password, Validators.required],
+      email: [this.registro.email, Validators.required]
+    });
+  }
 
   ngOnInit() {}
 
+  doRegister() {
+    if (this.registroForm.valid) {
+      this.registro = { ...this.registro, ...this.registroForm.value };
+      this.registroService.registrarUsuario(this.registro).subscribe(
+        response => {
+          console.log('Registro exitoso:', response);
+          this.registroForm.reset()
+        },
+        error => {
+          console.error('Error en el registro:', error);
+        }
+      );
+    } else {
+      console.log('Formulario inválido. Por favor verifica los datos.');
+    }
+  }
 }

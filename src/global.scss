@@ -35,3 +35,53 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+.centrar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconColor{
+  color: #362110;
+}
+
+.marronClaro{
+  --background: #6C4E31 !important;
+  --color: #6C4E31;
+}
+
+.marronOscuro{
+  --background: #362110 !important;
+  --color: #362110;
+}
+
+.blanco{
+  --background: #FFF2DB !important;
+  --color: #FFF2DB;
+}
+
+body{
+  --ion-background-color: #FFF2DB;
+}
+
+app-navbar-superior {
+  display: flex;
+  justify-content: space-between; /* Distribuye los elementos con espacio entre ellos */
+  align-items: center; /* Alinea verticalmente los elementos */
+  width: 100%;
+  height: 100%;
+}
+
+.desktop-menu {
+  display: flex; /* Cambia a flexbox */
+  gap: 10px; /* Espaciado entre los ítems */
+  padding: 0 10px; /* Margen interno */
+}
+
+.desktop-menu ion-label {
+  font-size: 14px; /* Tamaño de texto más pequeño */
+  color: white; /* Asegúrate de que sea visible */
+  cursor: pointer; /* Cambia el cursor para indicar interactividad */
+}

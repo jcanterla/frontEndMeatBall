@@ -5,25 +5,27 @@
 
     <ion-text class="rellenar">Rellena los datos de inicio sesión</ion-text>
 
-    <ion-list class="lista">
-      <ion-text class="usuario">Usuario</ion-text>
-      <div class="contenedor1">
-        <ion-input class="usuarioInput" placeholder="Introduce tu usuario" fill="outline"></ion-input>
-      </div>
+    <form [formGroup]="loginForm">
+      <ion-list class="lista">
+        <ion-text class="username">Usuario</ion-text>
+        <div class="contenedor1">
+          <ion-input class="usernameInput" placeholder="Introduce tu usuario" fill="outline" formControlName="username" ></ion-input>
+        </div>
 
-      <ion-text class="contrasena">Contraseña</ion-text>
-      <div class="contenedor2">
-        <ion-input class="contrasenaInput" placeholder="Introduce tu contraseña" fill="outline"></ion-input>
-      </div>
+        <ion-text class="password">Contraseña</ion-text>
+        <div class="contenedor2">
+          <ion-input class="passwordInput" placeholder="Introduce tu contraseña" fill="outline" formControlName="password" type="password"></ion-input>
+        </div>
 
-    </ion-list>
+      </ion-list>
+    </form>
 
     <div class="mismaLinea">
       <ion-text class="cuenta">¿No tienes cuenta?</ion-text>
       <ion-text class="registrarse">Crear cuenta</ion-text>
     </div>
 
-    <ion-button expand="block" class="botonSiguiente">Siguiente</ion-button>
+    <ion-button expand="block" class="botonSiguiente" (click)="doLogin()">Siguiente</ion-button>
 
   </div>
 </ion-content>
