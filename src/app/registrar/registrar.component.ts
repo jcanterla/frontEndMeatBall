@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Registro } from "../modelos/Registro";
 import { CommonModule } from "@angular/common";
-import { RegistroService } from '../servicios/registroService';
+import { RegistroService } from '../servicios/registro.service';
 import {
   IonButton,
   IonCheckbox,
@@ -11,6 +11,7 @@ import {
   IonList, IonText,
   IonTitle
 } from "@ionic/angular/standalone";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registrar',
@@ -35,7 +36,7 @@ export class RegistrarComponent implements OnInit {
   registroForm: FormGroup;
   registro: Registro = new Registro();
 
-  constructor(private fb: FormBuilder, private registroService: RegistroService) {
+  constructor(private fb: FormBuilder, private registroService: RegistroService, private router: Router) {
     this.registroForm = this.fb.group({
       username: [this.registro.username, Validators.required],
       password: [this.registro.password, Validators.required],
@@ -52,6 +53,7 @@ export class RegistrarComponent implements OnInit {
         response => {
           console.log('Registro exitoso:', response);
           this.registroForm.reset()
+          this.router.navigate(['/parati']);
         },
         error => {
           console.error('Error en el registro:', error);

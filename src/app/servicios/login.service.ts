@@ -1,7 +1,6 @@
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
-import {Registro} from "../modelos/Registro";
-import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
 import {Login} from "../modelos/Login";
 
 @Injectable({
