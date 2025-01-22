@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {CommonModule} from "@angular/common";
 import {Login} from "../modelos/Login";
 import {Router} from "@angular/router";
-import {LoginService} from "../servicios/loginService";
+import {LoginService} from "../servicios/login.service";
 
 @Component({
     selector: 'app-login',
@@ -24,7 +24,7 @@ import {LoginService} from "../servicios/loginService";
     ]
 })
 
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   login: Login = new Login();
 
