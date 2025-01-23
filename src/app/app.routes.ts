@@ -37,5 +37,9 @@ export const routes: Routes = [
   {
     path: 'agregar',
     loadComponent: () => import('./agregar/agregar.component').then((m) => m.AgregarComponent),
+  },
+  {
+    path: 'notificaciones',
+    loadComponent: () => import('./notificaciones/notificaciones.component').then((m) => m.NotificacionesComponent),
   }
 ];
