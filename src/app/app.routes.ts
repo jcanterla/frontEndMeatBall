@@ -33,5 +33,9 @@ export const routes: Routes = [
   {
     path: 'perfil',
     loadComponent: () => import('./perfil/perfil.component').then((m) => m.PerfilComponent),
+  },
+  {
+    path: 'agregar',
+    loadComponent: () => import('./agregar/agregar.component').then((m) => m.AgregarComponent),
   }
 ];

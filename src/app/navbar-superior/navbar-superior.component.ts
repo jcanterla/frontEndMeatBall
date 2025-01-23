@@ -32,4 +32,8 @@ export class NavbarSuperiorComponent  implements OnInit {
   navigateToPerfil() {
     this.router.navigate(['/perfil']);
   }
+
+  navigateToAgregar() {
+    this.router.navigate(['/agregar']);
+  }
 }
