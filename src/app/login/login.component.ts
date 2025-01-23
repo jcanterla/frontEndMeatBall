@@ -55,4 +55,8 @@ export class LoginComponent implements OnInit {
       console.log('Formulario inválido. Por favor verifica los datos.');
     }
   }
+
+  navigateToRegistro() {
+    this.router.navigate(['/registro']);
+  }
 }
