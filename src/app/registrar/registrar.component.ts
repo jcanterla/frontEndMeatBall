@@ -11,6 +11,7 @@ import {
   IonList, IonText,
   IonTitle
 } from "@ionic/angular/standalone";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registrar',
@@ -35,7 +36,7 @@ export class RegistrarComponent implements OnInit {
   registroForm: FormGroup;
   registro: Registro = new Registro();
 
-  constructor(private fb: FormBuilder, private registroService: RegistroService) {
+  constructor(private fb: FormBuilder, private registroService: RegistroService, private router: Router) {
     this.registroForm = this.fb.group({
       username: [this.registro.username, Validators.required],
       password: [this.registro.password, Validators.required],
@@ -60,5 +61,9 @@ export class RegistrarComponent implements OnInit {
     } else {
       console.log('Formulario inválido. Por favor verifica los datos.');
     }
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }
