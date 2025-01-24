@@ -15,7 +15,7 @@
 
         <ion-text class="email">Email</ion-text>
         <div class="contenedor">
-          <ion-input class="emailInput" placeholder="Introduce tu email" fill="outline" formControlName="email"></ion-input>
+          <ion-input class="emailInput" [ngClass]="{'input-error': !registroForm.get('email')?.valid && registroForm.get('email')?.touched}" placeholder="Introduce tu email" fill="outline" formControlName="email"></ion-input>
         </div>
 
         <ion-text class="password">Contraseña</ion-text>
@@ -28,7 +28,7 @@
           <ion-input class="confirmarPasswordInput" placeholder="Vuelve a introducir tu contraseña" fill="outline" formControlName="password" type="password"></ion-input>
         </div>
 
-        <ion-checkbox labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
+        <ion-checkbox formControlName="acceptTerms" labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
       </ion-list>
     </form>
 
@@ -37,7 +37,7 @@
       <ion-text class="iniciarSesion">Iniciar sesión</ion-text>
     </div>
 
-    <ion-button expand="block" class="botonSiguiente" (click)="doRegister()">Siguiente</ion-button>
+    <ion-button expand="block" class="botonSiguiente" (click)="doRegister()" [disabled]="!registroForm.get('acceptTerms')?.value">Siguiente</ion-button>
 
   </div>
 </ion-content>

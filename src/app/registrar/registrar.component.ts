@@ -40,7 +40,8 @@ export class RegistrarComponent implements OnInit {
     this.registroForm = this.fb.group({
       username: [this.registro.username, Validators.required],
       password: [this.registro.password, Validators.required],
-      email: [this.registro.email, Validators.required]
+      email: [this.registro.email, [Validators.required, Validators.email]],
+      acceptTerms: [false, Validators.requiredTrue]
     });
   }
 

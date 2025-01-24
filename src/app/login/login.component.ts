@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  async alertaError(message: string) {
+  async alertaError(header: string, message: string) {
     const alert = await this.alertController.create({
-      header: 'Error',
+      header: header,
       message: message,
       buttons: ['OK']
     });
@@ -59,12 +59,12 @@ export class LoginComponent implements OnInit {
         },
         error: (e) => {
           console.error(e);
-          this.alertaError('La contraseña o el nombre de usuario son incorrectos.');
+          this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
         },
         complete: () => this.router.navigate(['parati'])
       });
     } else {
-      this.alertaError('Los campos están vacíos. Por favor inserta los datos.');
+      this.alertaError('Error | Sin Datos', 'Los campos están vacíos. Por favor inserta los datos.');
     }
   }
 
