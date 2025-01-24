@@ -1,0 +1,17 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.searchbar-blanco {
+  --background: #FFFFFF !important;
+}
+
+ion-icon {
+  font-size: 2em;
+  color: white;
+  margin-left: auto;
+  margin-right: 10px;
+}

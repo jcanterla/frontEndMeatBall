@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CommonModule} from "@angular/common";
 import {IonicModule} from "@ionic/angular";
-import {addIcons} from "ionicons";
 import {
   addCircleOutline,
   chatbubbleOutline,
@@ -9,6 +7,9 @@ import {
   personOutline,
   searchOutline
 } from "ionicons/icons";
+import {CommonModule} from "@angular/common";
+import {addIcons} from "ionicons";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar-inferior',
@@ -16,12 +17,12 @@ import {
   styleUrls: ['./navbar-inferior.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    IonicModule,]
+    IonicModule, CommonModule,
+  ]
 })
 export class NavbarInferiorComponent  implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({
       "home-outline": homeOutline,
       "add-circle-outline": addCircleOutline,
@@ -33,4 +34,23 @@ export class NavbarInferiorComponent  implements OnInit {
 
   ngOnInit() {}
 
+  navigateToExplorar() {
+    this.router.navigate(['/explorar']);
+  }
+
+  navigateToParati() {
+    this.router.navigate(['/parati']);
+  }
+
+  navigateToChat() {
+    this.router.navigate(['/chat']);
+  }
+
+  navigateToPerfil() {
+    this.router.navigate(['/perfil']);
+  }
+
+  navigateToAgregar() {
+    this.router.navigate(['/agregar']);
+  }
 }

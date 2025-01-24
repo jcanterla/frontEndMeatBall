@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import {IonTitle, IonContent, IonImg, IonButton} from '@ionic/angular/standalone';
+import {Router} from "@angular/router";
 import {IonicModule} from "@ionic/angular";
 
 @Component({
@@ -9,6 +10,16 @@ import {IonicModule} from "@ionic/angular";
   imports: [IonicModule],
   standalone: true,
 })
+
 export class HomePage {
-  constructor() {}
+  constructor(private router: Router,) {}
+
+  navigateToRegistro() {
+    this.router.navigate(['/registro']);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+
 }
