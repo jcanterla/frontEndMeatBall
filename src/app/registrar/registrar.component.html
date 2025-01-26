@@ -25,10 +25,18 @@
 
         <ion-text class="confirmarPassword">Confirmar contraseña</ion-text>
         <div class="contenedor">
-          <ion-input class="confirmarPasswordInput" placeholder="Vuelve a introducir tu contraseña" fill="outline" formControlName="password" type="password"></ion-input>
+          <ion-input
+            class="confirmarPasswordInput"
+            [ngClass]="{
+            'input-error': registroForm.errors?.['noCoinciden'] && registroForm.get('confirmarPassword')?.touched}"
+            placeholder="Vuelve a introducir tu contraseña"
+            fill="outline"
+            formControlName="confirmarPassword"
+            type="password">
+          </ion-input>
         </div>
 
-        <ion-checkbox formControlName="acceptTerms" labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
+        <ion-checkbox (click)="verPoliticas()" formControlName="acceptTerms" labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
       </ion-list>
     </form>
 
@@ -37,7 +45,7 @@
       <ion-text class="iniciarSesion">Iniciar sesión</ion-text>
     </div>
 
-    <ion-button expand="block" class="botonSiguiente" (click)="doRegister()" [disabled]="!registroForm.get('acceptTerms')?.value">Siguiente</ion-button>
+    <ion-button expand="block" class="botonSiguiente" (click)="doRegister()" [disabled]="!registroForm.valid">Siguiente</ion-button>
 
   </div>
 </ion-content>
