@@ -5,36 +5,39 @@
 
     <ion-text class="rellenar">Rellena lo siguientes datos personales</ion-text>
 
-    <ion-list class="lista">
-      <ion-text class="usuario">Usuario</ion-text>
-      <div class="contenedor">
-        <ion-input class="usuarioInput" placeholder="Introduce tu usuario" fill="outline"></ion-input>
-      </div>
 
-      <ion-text class="email">Email</ion-text>
-      <div class="contenedor">
-        <ion-input class="emailInput" placeholder="Introduce tu email" fill="outline"></ion-input>
-      </div>
+    <form [formGroup]="registroForm" id="registro">
+      <ion-list class="lista">
+        <ion-text class="username">Usuario</ion-text>
+        <div class="contenedor">
+          <ion-input class="usernameInput" placeholder="Introduce tu usuario" fill="outline" formControlName="username"></ion-input>
+        </div>
 
-      <ion-text class="contrasena">Contraseña</ion-text>
-      <div class="contenedor">
-        <ion-input class="contrasenaInput" placeholder="Introduce tu contraseña" fill="outline"></ion-input>
-      </div>
+        <ion-text class="email">Email</ion-text>
+        <div class="contenedor">
+          <ion-input class="emailInput" [ngClass]="{'input-error': !registroForm.get('email')?.valid && registroForm.get('email')?.touched}" placeholder="Introduce tu email" fill="outline" formControlName="email"></ion-input>
+        </div>
 
-      <ion-text class="confirmarContrasena">Confirmar contraseña</ion-text>
-      <div class="contenedor">
-        <ion-input class="confirmarContrasenaInput" placeholder="Vuelve a introducir tu contraseña" fill="outline"></ion-input>
-      </div>
+        <ion-text class="password">Contraseña</ion-text>
+        <div class="contenedor">
+          <ion-input class="passwordInput" placeholder="Introduce tu contraseña" fill="outline" formControlName="password" type="password"></ion-input>
+        </div>
 
-      <ion-checkbox labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
-    </ion-list>
+        <ion-text class="confirmarPassword">Confirmar contraseña</ion-text>
+        <div class="contenedor">
+          <ion-input class="confirmarPasswordInput" placeholder="Vuelve a introducir tu contraseña" fill="outline" formControlName="password" type="password"></ion-input>
+        </div>
 
-    <div class="mismaLinea">
+        <ion-checkbox formControlName="acceptTerms" labelPlacement="end" class="aceptarPoliticas">Acepto las políticas y condiciones</ion-checkbox>
+      </ion-list>
+    </form>
+
+    <div class="mismaLinea" (click)="navigateToLogin()">
       <ion-text class="cuenta">¿Ya tienes una cuenta?</ion-text>
       <ion-text class="iniciarSesion">Iniciar sesión</ion-text>
     </div>
 
-    <ion-button expand="block" class="botonSiguiente">Siguiente</ion-button>
+    <ion-button expand="block" class="botonSiguiente" (click)="doRegister()" [disabled]="!registroForm.get('acceptTerms')?.value">Siguiente</ion-button>
 
   </div>
 </ion-content>
