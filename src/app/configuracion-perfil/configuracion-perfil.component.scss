@@ -1,0 +1,98 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+ion-button {
+  --background: #6C4E31;
+  display: block;
+  margin: 10px 20px 0 20px;
+  margin-bottom: 10px;
+}
+
+.nombreUsuario {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  color: #6C4E31;
+}
+
+#fotoPerfil {
+  width: 170px;
+  height: 170px;
+  display: inline-block;
+  margin-top: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+#iconoPerfil {
+  font-size: 35px;
+  vertical-align: middle;
+  margin-left: 10px;
+  color: #6C4E31;
+}
+
+.contenedor1 {
+  margin: 10px 20px 20px;
+}
+.nombre {
+  font-weight: bold;
+}
+
+.contenedor2 {
+  margin: 10px 20px 25px;
+}
+.apellidos {
+  font-weight: bold;
+}
+
+.contenedor3 {
+  margin: 10px 20px 25px;
+}
+.usuario {
+  font-weight: bold;
+}
+
+.contenedor4 {
+  margin: 10px 20px 25px;
+}
+.email {
+  font-weight: bold;
+}
+
+.contenedor5 {
+  margin: 10px 20px 0;
+}
+.telefono {
+  font-weight: bold;
+}
+
+ion-text {
+  color: #603F26;
+  padding-inline-start: 20px;
+}
+
+ion-list {
+  background: #FFF2DB;
+}
+
+ion-content {
+  --background: #FFF2DB;
+}
+
+ion-input {
+  background: white;
+  --border-color: transparent;
+  --border-width: 0;
+  --box-shadow: none;
+  border-color: #603F26;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  --placeholder-color: #603F26;
+}

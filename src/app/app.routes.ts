@@ -35,6 +35,10 @@ export const routes: Routes = [
     loadComponent: () => import('./perfil/perfil.component').then((m) => m.PerfilComponent),
   },
   {
+    path: 'configuracionPerfil',
+    loadComponent: () => import('./configuracion-perfil/configuracion-perfil.component').then((m) => m.ConfiguracionPerfilComponent),
+  },
+  {
     path: 'agregar',
     loadComponent: () => import('./agregar/agregar.component').then((m) => m.AgregarComponent),
   },

@@ -7,10 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-title class="nombreUsuario"></ion-title>
+<ion-content *ngFor="let perfil of perfiles">
+  <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
 
-  <ion-button expand="block" class="editarPerfil">Editar Perfil</ion-button>
+  <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
 </ion-content>
+
+<ion-button expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>
 
 <app-navbar-inferior></app-navbar-inferior>
