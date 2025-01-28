@@ -31,26 +31,6 @@ export const comprobarPassword: ValidatorFn = (control: AbstractControl): Valida
   return password && confirmarPassword && password.value !== confirmarPassword.value ? { 'noCoinciden': true } : null;
 }
 
-export function existeEmail(registroService: RegistroService): AsyncValidatorFn {
-  return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    return control.valueChanges.pipe(
-      switchMap(email => registroService.comprobarEmailExiste(email)),
-      map(exists => (exists ? { emailExists: true } : null)),
-      catchError(() => of(null))
-    );
-  };
-}
-
-export function existeUsername(registroService: RegistroService): AsyncValidatorFn {
-  return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    return control.valueChanges.pipe(
-      switchMap(username => registroService.comprobarUsernameExiste(username)),
-      map(exists => (exists ? {usernameExists: true} : null)),
-      catchError(() => of(null))
-    );
-  };
-}
-
 @Component({
   selector: 'app-registrar',
   templateUrl: './registrar.component.html',
@@ -78,10 +58,10 @@ export class RegistrarComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private registroService: RegistroService, private router: Router, private alertController: AlertController) {
     this.registroForm = this.fb.group({
-      username: [this.registro.username, Validators.required, existeUsername(this.registroService)],
+      username: [this.registro.username, Validators.required],
       password: [this.registro.password, Validators.required],
       confirmarPassword: ["", Validators.required],
-      email: [this.registro.email, [Validators.required, Validators.email], existeEmail(this.registroService)],
+      email: [this.registro.email, [Validators.required, Validators.email]],
       acceptTerms: [false, Validators.requiredTrue]
     }, { validator: comprobarPassword });
   }
