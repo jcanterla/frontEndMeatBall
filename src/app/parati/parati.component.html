@@ -19,9 +19,9 @@
     (slidechange)="swiperSlideChanged($event)"
     [loop]="true"
     [pagination]="true">
-    <swiper-slide>Slide1</swiper-slide>
-    <swiper-slide>Slide2</swiper-slide>
-    <swiper-slide>Slide3</swiper-slide>
+    <swiper-slide *ngFor="let slide of slides">
+      <img class="imagen" [src]="slide" alt="Slide image">
+    </swiper-slide>
   </swiper-container>
 
   <div class="posicion2">
@@ -34,9 +34,9 @@
     (slidechange)="swiperSlideChanged($event)"
     [loop]="true"
     [pagination]="true">
-    <swiper-slide>Slide1</swiper-slide>
-    <swiper-slide>Slide2</swiper-slide>
-    <swiper-slide>Slide3</swiper-slide>
+    <swiper-slide *ngFor="let slide of slides">
+      <img class="imagen" [src]="slide" alt="Slide image">
+    </swiper-slide>
   </swiper-container>
 
 </ion-content>

@@ -6,6 +6,7 @@ import {addIcons} from "ionicons";
 import {notificationsOutline} from "ionicons/icons";
 import {Router} from "@angular/router";
 import Swiper from "swiper";
+import {NgForOf} from "@angular/common";
 
 
 @Component({
@@ -16,17 +17,28 @@ import Swiper from "swiper";
   imports: [
     IonicModule,
     NavbarSuperiorComponent,
-    NavbarInferiorComponent
+    NavbarInferiorComponent,
+    NgForOf
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ParatiComponent{
-  @ViewChild('swiper')
-  swiperRef: ElementRef | undefined;
+
+export class ParatiComponent implements OnInit {
+  @ViewChild('swiper') swiperRef: ElementRef | undefined;
   swiper?: Swiper;
 
+  slides: string[] = [
+    'https://imag.bonviveur.com/pure-de-calabaza-listo-para-servir.jpg',
+    'https://chocolatestorras.com/wp-content/uploads/2021/08/Chocolate-bitter.jpg',
+    'https://hips.hearstapps.com/hmg-prod/images/paella-valenciana-elle-gourmet-65cd30a24348c.jpg?crop=0.639xw:0.958xh;0.0343xw,0.0319xh&resize=1200:*'
+  ];
+
   constructor(private router: Router) {
-    addIcons({"notifications-outline": notificationsOutline})
+    addIcons({ "notifications-outline": notificationsOutline });
+  }
+
+  ngOnInit() {
+
   }
 
   navigateToNotificaciones() {
