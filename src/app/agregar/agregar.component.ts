@@ -1,7 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
+import {
+  IonButton,
+  IonCheckbox,
+  IonContent, IonFooter, IonHeader,
+  IonInput, IonItem, IonLabel,
+  IonList, IonSearchbar, IonSelect, IonSelectOption,
+  IonText,
+  IonTextarea,
+  IonTitle, IonToolbar
+} from "@ionic/angular/standalone";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Agregar} from "../modelos/Agregar";
+import {AgregarService} from "../servicios/agregar.service";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
+import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 
 @Component({
   selector: 'app-agregar',
@@ -9,15 +21,56 @@ import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.compon
   styleUrls: ['./agregar.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
+    IonButton,
+    IonCheckbox,
+    IonContent,
+    IonInput,
+    IonList,
+    IonText,
+    IonTitle,
+    ReactiveFormsModule,
+    IonTextarea,
+    IonSearchbar,
+    IonItem,
+    IonLabel,
+    IonSelect,
+    IonSelectOption,
+    IonHeader,
+    IonToolbar,
+    NavbarInferiorComponent,
     NavbarSuperiorComponent,
-    NavbarInferiorComponent
+    IonFooter
   ]
 })
 export class AgregarComponent  implements OnInit {
+  agregarForm: FormGroup;
+  agregar: Agregar = new Agregar();
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private agregarService: AgregarService) {
+    this.agregarForm = this.fb.group({
+      titulo: [this.agregar.titulo, Validators.required],
+      imagen_link: [this.agregar.imagen_link, Validators.required],
+      descripcion: [this.agregar.descripcion, Validators.required],
+      receta: [this.agregar.receta, Validators.required],
+      dificultad: [this.agregar.dificultad, Validators.required],
+      tiempo_preparacion: [this.agregar.tiempo_preparacion, Validators.required],
+      tiempo_coccion: [this.agregar.tiempo_coccion, Validators.required],
+      raciones: [this.agregar.raciones, Validators.required],
+      estado: [this.agregar.estado, Validators.required],
+    });
+  }
 
   ngOnInit() {}
 
+  doAnyadirPublicacion() {
+    this.agregar = this.agregarForm.value;
+    this.agregarService.agregar(this.agregar).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

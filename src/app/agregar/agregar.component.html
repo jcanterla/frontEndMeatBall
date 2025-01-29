@@ -1,10 +1,56 @@
 <ion-header class="marronClaro">
   <ion-toolbar class="marronClaro">
     <div class="header-content">
-      <ion-title class="blanco">Añadir</ion-title>
+      <ion-title class="blanco">Añadir Publicación</ion-title>
       <app-navbar-superior></app-navbar-superior>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<app-navbar-inferior></app-navbar-inferior>
+<ion-content [fullscreen]="true" class="background">
+  <div class="contenido">
+    <!-- imagen por url -->
+    <div class="imagen">
+      <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="Imagen de la receta" /> <!-- src="{{agregarForm.get('imagen').value}}" -->
+    </div>
+
+    <form [formGroup]="agregarForm" id="registro">
+      <ion-list class="lista">
+        <ion-text class="imagen">Imagen</ion-text>
+        <div class="contenedor">
+          <ion-input class="imagenInput" placeholder="Introduce la URL de la imagen" fill="outline" formControlName="imagen"></ion-input>
+        </div>
+
+        <ion-text class="nombre">Nombre de la receta</ion-text>
+        <div class="contenedor">
+          <ion-input class="nombreInput" placeholder="Introduce el nombre de la receta" fill="outline" formControlName="titulo"></ion-input>
+        </div>
+
+        <ion-text class="descripcion">Descripción</ion-text>
+        <div class="contenedor">
+          <ion-textarea class="descripcionInput" placeholder="Introduce la descripción de la receta" fill="outline" formControlName="descripcion"></ion-textarea>
+        </div>
+
+        <ion-text class="ingredientes">Ingredientes</ion-text>
+        <div class="contenedor">
+          <ion-textarea class="ingredientesInput" placeholder="Ingredientes de la receta" fill="outline" formControlName="ingredientes" readonly></ion-textarea>
+          <div class="ingredientes-busqueda">
+            <div class="busqueda-contenedor">
+              <ion-searchbar class="busqueda" placeholder="" formControlName="ingredienteBusqueda"></ion-searchbar>
+            </div>
+            <div class="cant-unidad-contenedor">
+              <ion-input class="cantidad" placeholder="Cantidad" formControlName="cantidad"></ion-input>
+              <ion-select class="unidad" placeholder="Unidad" formControlName="unidad">
+                <ion-select-option value="gramos">Gramos</ion-select-option>
+                <ion-select-option value="mililitros">Mililitros</ion-select-option>
+                <ion-select-option value="tazas">Tazas</ion-select-option>
+                <ion-select-option value="piezas">Piezas</ion-select-option>
+              </ion-select>
+            </div>
+            <ion-button>Añadir</ion-button>
+          </div>
+        </div>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>
