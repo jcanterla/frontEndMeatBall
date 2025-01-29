@@ -33,7 +33,7 @@
 
   <div class="image-grid">
     <div class="image-item" *ngFor="let item of filteredItems">
-      <img [src]="item" alt="Image">
+      <img [src]="item.url" [alt]="item.name">
     </div>
   </div>
 

@@ -22,15 +22,15 @@ import { CommonModule } from '@angular/common';
 export class ExplorarComponent implements OnInit {
 
   // Lista de URLs de imágenes
-  items: string[] = [
-    'https://www.lavanguardia.com/files/og_thumbnail/uploads/2018/07/17/5e997a42b5463.jpeg',
-    'https://elikaeskola.com/wp-content/uploads/me-siento-culpable-por-comer.png',
-    'https://www.hola.com/horizon/landscape/b746be5ae38a-adobestock496117067.jpg',
-    'https://imag.bonviveur.com/macarrones-con-bacon-y-nata.jpg',
-    'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/croquetas-de-jamon-1080x671.jpg',
-    'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/01/lentejas-con-chorizo.jpg'
+  items: { url: string, name: string }[] = [
+    { url: 'https://www.lavanguardia.com/files/og_thumbnail/uploads/2018/07/17/5e997a42b5463.jpeg', name: 'Albondiga' },
+    { url: 'https://elikaeskola.com/wp-content/uploads/me-siento-culpable-por-comer.png', name: 'Tortilla' },
+    { url: 'https://www.hola.com/horizon/landscape/b746be5ae38a-adobestock496117067.jpg', name: 'Ensaladilla' },
+    { url: 'https://imag.bonviveur.com/macarrones-con-bacon-y-nata.jpg', name: 'Macarrones' },
+    { url: 'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/croquetas-de-jamon-1080x671.jpg', name: 'Croquetas' },
+    { url: 'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/01/lentejas-con-chorizo.jpg', name: 'Lentejas' }
   ];
-  filteredItems: string[] = []; // Lista filtrada
+  filteredItems: { url: string, name: string }[] = [];
   searchText: string = ''; // Texto ingresado por el usuario
   selectedFilter: string | null = null; // Filtro seleccionado
 
@@ -60,17 +60,17 @@ export class ExplorarComponent implements OnInit {
 
     // Filtrar por texto ingresado
     this.filteredItems = this.items.filter((item) =>
-      item.toLowerCase().includes(lowerCaseSearchText)
+      item.name.toLowerCase().includes(lowerCaseSearchText)
     );
 
     // Aplicar el filtro adicional (si corresponde)
     if (this.selectedFilter === 'Empiezan con A') {
       this.filteredItems = this.filteredItems.filter((item) =>
-        item.toLowerCase().startsWith('a')
+        item.name.toLowerCase().startsWith('a')
       );
     } else if (this.selectedFilter === 'Empiezan con B') {
       this.filteredItems = this.filteredItems.filter((item) =>
-        item.toLowerCase().startsWith('b')
+        item.name.toLowerCase().startsWith('b')
       );
     }
   }
