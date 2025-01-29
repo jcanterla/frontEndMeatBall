@@ -5,8 +5,10 @@
   width: 100%;
 }
 
-.searchbar-blanco {
-  --background: #FFFFFF !important;
+ion-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
 }
 
 ion-icon {
@@ -14,4 +16,36 @@ ion-icon {
   color: white;
   margin-left: auto;
   margin-right: 10px;
+}
+
+.search-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.narrow-select {
+  width: 50px;
+}
+
+.filtro {
+  width: 50px;
+}
+
+.searchbar-blanco {
+  --background: #FFFFFF;
+  --box-shadow: none;
+  --border: none;
+  border-radius: 40px;
+}
+
+.select-blanco {
+  --background: #FFFFFF;
+  --border-radius: 40px;
+}
+
+.buscador {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 40px ;
 }

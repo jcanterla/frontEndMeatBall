@@ -1,30 +1,74 @@
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
-import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
-import {addIcons} from "ionicons";
-import {notificationsOutline} from "ionicons/icons";
-import {Router} from "@angular/router";
+import { IonicModule } from "@ionic/angular";
+import { NavbarInferiorComponent } from "../navbar-inferior/navbar-inferior.component";
+import { NavbarSuperiorComponent } from "../navbar-superior/navbar-superior.component";
+import { Router } from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-explorar',
-    templateUrl: './explorar.component.html',
-    styleUrls: ['./explorar.component.scss'],
-    standalone: true,
-    imports: [
-        IonicModule,
-        NavbarInferiorComponent,
-        NavbarSuperiorComponent
-    ]
+  selector: 'app-explorar',
+  templateUrl: './explorar.component.html',
+  styleUrls: ['./explorar.component.scss'],
+  standalone: true,
+  imports: [
+    IonicModule,
+    NavbarInferiorComponent,
+    NavbarSuperiorComponent,
+    FormsModule,
+    CommonModule
+  ]
 })
-export class ExplorarComponent  implements OnInit {
+export class ExplorarComponent implements OnInit {
 
-  constructor(private router: Router) {
-    addIcons({"notifications-outline": notificationsOutline})
+  // Lista de datos iniciales
+  items: string[] = ['Manzana', 'Banana', 'Cereza', 'Durazno', 'Fresa', 'Pera'];
+  filteredItems: string[] = []; // Lista filtrada
+  searchText: string = ''; // Texto ingresado por el usuario
+  selectedFilter: string | null = null; // Filtro seleccionado
+
+  // Opciones para el filtro
+  filters: string[] = ['Todos', 'Empiezan con A', 'Empiezan con B'];
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    // Inicializar la lista filtrada con todos los elementos
+    this.filteredItems = [...this.items];
   }
 
-  ngOnInit() {}
+  // Método que se ejecuta al escribir en la barra de búsqueda
+  onSearch() {
+    this.applyFilters();
+  }
 
+  // Método que se ejecuta al cambiar el filtro
+  onFilterChange() {
+    this.applyFilters();
+  }
+
+  // Aplica tanto el texto de búsqueda como los filtros seleccionados
+  private applyFilters() {
+    const lowerCaseSearchText = this.searchText.toLowerCase();
+
+    // Filtrar por texto ingresado
+    this.filteredItems = this.items.filter((item) =>
+      item.toLowerCase().includes(lowerCaseSearchText)
+    );
+
+    // Aplicar el filtro adicional (si corresponde)
+    if (this.selectedFilter === 'Empiezan con A') {
+      this.filteredItems = this.filteredItems.filter((item) =>
+        item.toLowerCase().startsWith('a')
+      );
+    } else if (this.selectedFilter === 'Empiezan con B') {
+      this.filteredItems = this.filteredItems.filter((item) =>
+        item.toLowerCase().startsWith('b')
+      );
+    }
+  }
+
+  // Método para navegar a Notificaciones
   navigateToNotificaciones() {
     this.router.navigate(['/notificaciones']);
   }
