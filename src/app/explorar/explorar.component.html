@@ -9,33 +9,34 @@
 </ion-header>
 
 <ion-content>
-    <ion-card-content>
-      <div class="search-filter-container buscador">
-        <ion-searchbar
-          class="searchbar-blanco"
-          placeholder="Escribe tu búsqueda..."
-          [(ngModel)]="searchText"
-          (ionInput)="onSearch()"
-          showCancelButton="focus"
-        ></ion-searchbar>
+  <ion-card-content>
+    <div class="search-filter-container buscador">
+      <ion-searchbar
+        class="searchbar-blanco"
+        placeholder="Escribe tu búsqueda..."
+        [(ngModel)]="searchText"
+        (ionInput)="onSearch()"
+        showCancelButton="focus"
+      ></ion-searchbar>
 
-        <ion-select
-          class="filtro select-blanco"
-          [(ngModel)]="selectedFilter"
-          (ionChange)="onFilterChange()"
-        >
-          <ion-select-option *ngFor="let filter of filters" [value]="filter">
-            {{ filter }}
-          </ion-select-option>
-        </ion-select>
-      </div>
-    </ion-card-content>
+      <ion-select
+        class="filtro select-blanco"
+        [(ngModel)]="selectedFilter"
+        (ionChange)="onFilterChange()"
+      >
+        <ion-select-option *ngFor="let filter of filters" [value]="filter">
+          {{ filter }}
+        </ion-select-option>
+      </ion-select>
+    </div>
+  </ion-card-content>
 
-  <ion-list>
-    <ion-item *ngFor="let item of filteredItems">
-      {{ item }}
-    </ion-item>
-  </ion-list>
+  <div class="image-grid">
+    <div class="image-item" *ngFor="let item of filteredItems">
+      <img [src]="item" alt="Image">
+    </div>
+  </div>
+
+
 </ion-content>
-
 <app-navbar-inferior></app-navbar-inferior>

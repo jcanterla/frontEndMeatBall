@@ -21,8 +21,15 @@ import { CommonModule } from '@angular/common';
 })
 export class ExplorarComponent implements OnInit {
 
-  // Lista de datos iniciales
-  items: string[] = ['Manzana', 'Banana', 'Cereza', 'Durazno', 'Fresa', 'Pera'];
+  // Lista de URLs de imágenes
+  items: string[] = [
+    'https://www.lavanguardia.com/files/og_thumbnail/uploads/2018/07/17/5e997a42b5463.jpeg',
+    'https://elikaeskola.com/wp-content/uploads/me-siento-culpable-por-comer.png',
+    'https://www.hola.com/horizon/landscape/b746be5ae38a-adobestock496117067.jpg',
+    'https://imag.bonviveur.com/macarrones-con-bacon-y-nata.jpg',
+    'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/croquetas-de-jamon-1080x671.jpg',
+    'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/01/lentejas-con-chorizo.jpg'
+  ];
   filteredItems: string[] = []; // Lista filtrada
   searchText: string = ''; // Texto ingresado por el usuario
   selectedFilter: string | null = null; // Filtro seleccionado
