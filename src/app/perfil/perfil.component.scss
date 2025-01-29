@@ -30,3 +30,37 @@ ion-button {
   object-fit: cover;
   overflow: hidden;
 }
+
+.contenedorBotones {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.contenedorBotones ion-button {
+  flex: 1;
+  margin: 0 5px;
+}
+
+.seguirPerfil {
+  &.siguiendo {
+    --background: #A67C52;
+    color: white;
+  }
+}
+
+.seguidores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  color: #6C4E31;
+}
+
+.fraseRecetas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  color: #6C4E31;
+}

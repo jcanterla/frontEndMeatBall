@@ -28,4 +28,8 @@ export class ExplorarComponent  implements OnInit {
   navigateToNotificaciones() {
     this.router.navigate(['/notificaciones']);
   }
+
+  navigateToVerPublicacion() {
+    this.router.navigate(['/verPublicacion']);
+  }
 }

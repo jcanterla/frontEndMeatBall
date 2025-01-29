@@ -11,8 +11,18 @@
   <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
 
   <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
+
+  <ion-label class="seguidores">x seguidores - x seguidos</ion-label>
+  <ion-label class="fraseRecetas">Recetas</ion-label>
 </ion-content>
 
-<ion-button expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>
+<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>
+
+<div *ngIf="fromVerPublicacion" class="contenedorBotones">
+  <ion-button expand="block" class="seguirPerfil" [class.siguiendo]="siguiendo" (click)="toggleSeguir()">
+    {{ siguiendo ? 'Siguiendo' : 'Seguir' }}
+  </ion-button>
+  <ion-button expand="block" class="enviarMensaje">Enviar Mensaje</ion-button>
+</div>
 
 <app-navbar-inferior></app-navbar-inferior>
