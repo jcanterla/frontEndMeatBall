@@ -6,3 +6,4 @@ export class Perfil{
   telefono?: string;
   foto?: string;
 }
+
