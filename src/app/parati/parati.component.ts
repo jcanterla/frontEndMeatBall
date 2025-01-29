@@ -6,6 +6,7 @@ import {addIcons} from "ionicons";
 import {notificationsOutline} from "ionicons/icons";
 import {Router} from "@angular/router";
 import Swiper from "swiper";
+import {NgForOf} from "@angular/common";
 
 
 @Component({
@@ -16,17 +17,24 @@ import Swiper from "swiper";
   imports: [
     IonicModule,
     NavbarSuperiorComponent,
-    NavbarInferiorComponent
+    NavbarInferiorComponent,
+    NgForOf
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ParatiComponent{
-  @ViewChild('swiper')
-  swiperRef: ElementRef | undefined;
+
+export class ParatiComponent implements OnInit {
+  @ViewChild('swiper') swiperRef: ElementRef | undefined;
   swiper?: Swiper;
 
+  slides: string[] = ['Slide1', 'Slide2', 'Slide3'];
+
   constructor(private router: Router) {
-    addIcons({"notifications-outline": notificationsOutline})
+    addIcons({ "notifications-outline": notificationsOutline });
+  }
+
+  ngOnInit() {
+
   }
 
   navigateToNotificaciones() {
