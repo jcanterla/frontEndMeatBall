@@ -17,17 +17,17 @@
     <ion-list>
       <ion-text>Nombre</ion-text>
       <div class="contenedor1">
-        <ion-input class="nombre" placeholder="Introduce tu nombre" fill="outline" formControlName="nombre" [disabled]="inputsDisabled"></ion-input>
+        <ion-input class="nombre" placeholder="Introduce tu nombre" fill="outline" formControlName="nombre" [(ngModel)]="perfilActual.nombre" [disabled]="inputsDisabled"></ion-input>
       </div>
 
       <ion-text>Apellidos</ion-text>
       <div class="contenedor2">
-        <ion-input class="apellidos" placeholder="Introduce tus apellidos" fill="outline" formControlName="apellidos" [disabled]="inputsDisabled"></ion-input>
+        <ion-input class="apellidos" placeholder="Introduce tus apellidos" fill="outline" formControlName="apellidos" [(ngModel)]="perfilActual.apellidos" [disabled]="inputsDisabled"></ion-input>
       </div>
 
       <ion-text>Nombre de usuario</ion-text>
       <div class="contenedor3">
-        <ion-input class="usuario" placeholder="Introduce tu usuario" fill="outline" formControlName="usuario" [(ngModel)]="perfilActual.username" [disabled]="inputsDisabled"></ion-input>
+        <ion-input class="usuario" placeholder="Introduce tu usuario" fill="outline" formControlName="usuario" [(ngModel)]="perfilActual.username" [disabled]="true"></ion-input>
       </div>
 
       <ion-text>Email</ion-text>
@@ -37,12 +37,12 @@
 
       <ion-text>Teléfono</ion-text>
       <div class="contenedor5">
-        <ion-input class="telefono" placeholder="Introduce tu telefono" fill="outline" formControlName="telefono" [disabled]="inputsDisabled"></ion-input>
+        <ion-input class="telefono" placeholder="Introduce tu telefono" fill="outline" formControlName="telefono" [(ngModel)]="perfilActual.telefono" [disabled]="inputsDisabled"></ion-input>
       </div>
     </ion-list>
   </form>
 </ion-content>
 
-<ion-button expand="block" class="guardar">Guardar</ion-button>
+<ion-button expand="block" class="guardar" (click)="guardarPerfil()">Guardar</ion-button>
 
 <app-navbar-inferior></app-navbar-inferior>

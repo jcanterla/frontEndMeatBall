@@ -34,7 +34,7 @@ export class ConfiguracionPerfilComponent implements OnInit {
     this.perfilForm = new FormGroup({
       nombre: new FormControl({ value: '', disabled: this.inputsDisabled }),
       apellidos: new FormControl({ value: '', disabled: this.inputsDisabled }),
-      usuario: new FormControl({ value: '', disabled: this.inputsDisabled }),
+      usuario: new FormControl({ value: '', disabled: true}),
       email: new FormControl({ value: '', disabled: this.inputsDisabled }),
       telefono: new FormControl({ value: '', disabled: this.inputsDisabled }),
     });
@@ -60,6 +60,20 @@ export class ConfiguracionPerfilComponent implements OnInit {
       this.perfilForm.disable();
     } else {
       this.perfilForm.enable();
+      this.perfilForm.controls['usuario'].disable();
+    }
+  }
+
+  guardarPerfil() {
+    if (this.perfilForm.valid) {
+      const perfilActualizado: Perfil = this.perfilForm.value;
+      this.perfilService.updatePerfil(perfilActualizado).subscribe(response => {
+        console.log('Perfil actualizado:', response);
+        this.inputsDisabled = true;
+        this.perfilForm.disable();
+      }, error => {
+        console.error('Error al actualizar el perfil:', error);
+      });
     }
   }
 }
