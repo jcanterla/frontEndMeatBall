@@ -1,6 +1,182 @@
+ion-content {
+  --background: #FFF2DB;
+}
+
+.contenido {
+  min-height: 1100px;
+}
+
+.titulo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #603F26;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+ion-text {
+  color: #603F26;
+  padding-inline-start: 20px;
+}
+
+ion-list {
+  background: #FFF2DB;
+  margin-top: 25px;
+}
+
+.contenedor {
+  margin: 10px 20px 20px;
+}
+
+ion-input, ion-textarea {
+  background: white;
+  border-color: #603F26;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  --placeholder-color: #603F26;
+}
+
+.ingredientes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ingredientesInput {
+  flex: 1;
+}
+
+.add-button {
+  flex: 0;
+  white-space: nowrap;
+  min-width: 100px;
+  margin: 0;
+}
+
+.ingredientes-busqueda {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ingredientes-busqueda ion-searchbar {
+  flex: 2;
+  min-width: 150px;
+  --background: #FFFFFF;
+  --box-shadow: none;
+  --border: none;
+  border-radius: 40px;
+  --placeholder-color: #603F26;
+  padding-left: 10px;
+  margin-left: 11px;
+}
+
+.ingredientes-busqueda ion-input {
+  flex: 1;
+  min-width: 100px;
+}
+
+.ingredientes-busqueda ion-select {
+  flex: 1;
+  min-width: 120px;
+}
+
+.ingredientes-busqueda ion-button {
+  flex: 0.5;
+  min-width: 80px;
+}
+
+ion-button {
+  --background: #6C4E31;
+  display: block;
+  margin: 80px 20px 0 20px;
+}
+
+.input-error {
+  border: 1px solid red;
+}
+
+.descripcionInput, .ingredientesInput, .recetaInput {
+  --padding-bottom: -40px;
+}
+
+.ingredientes-busqueda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-top: -18px;
+}
+
+.busqueda-contenedor {
+  flex: 2;
+  min-width: 200px;
+}
+
+.cant-unidad-contenedor {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  min-width: 220px;
+}
+
+ion-input, ion-textarea {
+  --padding-start: 10px;
+}
+
+.imagen img {
+  border-radius: 15px;
+  border: 3px solid #603F26;
+  display: block;
+  max-width: 60%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+@media (min-width: 1024px) {
+  .imagen img {
+    max-width: 30%; /* Ajusta este valor según tus necesidades */
+  }
+}
+
+.busquedaEtiq {
+  flex: 2;
+  min-width: 150px;
+  max-width: 385px;
+  --background: #FFFFFF;
+  --box-shadow: none;
+  --border: none;
+  border-radius: 40px;
+  --placeholder-color: #603F26;
+  padding-left: 10px;
+  margin-left: 11px;
+}
+
+
 .header-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+}
+
+ion-title {
+  flex: 1;
+  text-align: left;
+}
+
+
+.etiquetas-contenedor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button_anyadir {
+  margin-top: 10px;
 }
