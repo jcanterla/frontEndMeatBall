@@ -7,3 +7,4 @@ export class Perfil{
   foto?: string;
 }
 
+
