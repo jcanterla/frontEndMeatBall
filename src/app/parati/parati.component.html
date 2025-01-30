@@ -9,7 +9,36 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar class="searchbar-blanco" placeholder="Filtrar por ingredientes"></ion-searchbar>
+  <div class="posicion">
+    <ion-text>Recomendaciones</ion-text>
+  </div>
+
+  <swiper-container
+    #swiper
+    (afterinit)="swiperReady()"
+    (slidechange)="swiperSlideChanged($event)"
+    [loop]="true"
+    [pagination]="true">
+    <swiper-slide>Slide1</swiper-slide>
+    <swiper-slide>Slide2</swiper-slide>
+    <swiper-slide>Slide3</swiper-slide>
+  </swiper-container>
+
+  <div class="posicion2">
+    <ion-text>Probar lo siguiente</ion-text>
+  </div>
+
+  <swiper-container
+    #swiper
+    (afterinit)="swiperReady()"
+    (slidechange)="swiperSlideChanged($event)"
+    [loop]="true"
+    [pagination]="true">
+    <swiper-slide>Slide1</swiper-slide>
+    <swiper-slide>Slide2</swiper-slide>
+    <swiper-slide>Slide3</swiper-slide>
+  </swiper-container>
+
 </ion-content>
 
 <app-navbar-inferior></app-navbar-inferior>
