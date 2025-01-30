@@ -1,0 +1,13 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+ion-button {
+  --background: #6C4E31;
+  display: block;
+  margin: 80px 20px 0 20px;
+  margin-bottom: 10px;
+}
