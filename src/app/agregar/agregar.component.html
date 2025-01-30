@@ -1,7 +1,7 @@
 <ion-header class="marronClaro">
   <ion-toolbar class="marronClaro">
     <div class="header-content">
-      <ion-title class="blanco">Añadir Publicación</ion-title>
+      <ion-title class="blanco">Agregar</ion-title>
       <app-navbar-superior></app-navbar-superior>
     </div>
   </ion-toolbar>
@@ -9,9 +9,8 @@
 
 <ion-content [fullscreen]="true" class="background">
   <div class="contenido">
-    <!-- imagen por url -->
     <div class="imagen">
-      <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="Imagen de la receta" /> <!-- src="{{agregarForm.get('imagen').value}}" -->
+      <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="Imagen de la receta" />
     </div>
 
     <form [formGroup]="agregarForm" id="registro">
@@ -32,25 +31,39 @@
         </div>
 
         <ion-text class="ingredientes">Ingredientes</ion-text>
-        <div class="contenedor">
+        <div class="contenedor ingredientes-container">
           <ion-textarea class="ingredientesInput" placeholder="Ingredientes de la receta" fill="outline" formControlName="ingredientes" readonly></ion-textarea>
-          <div class="ingredientes-busqueda">
-            <div class="busqueda-contenedor">
-              <ion-searchbar class="busqueda" placeholder="" formControlName="ingredienteBusqueda"></ion-searchbar>
-            </div>
-            <div class="cant-unidad-contenedor">
-              <ion-input class="cantidad" placeholder="Cantidad" formControlName="cantidad"></ion-input>
-              <ion-select class="unidad" placeholder="Unidad" formControlName="unidad">
-                <ion-select-option value="gramos">Gramos</ion-select-option>
-                <ion-select-option value="mililitros">Mililitros</ion-select-option>
-                <ion-select-option value="tazas">Tazas</ion-select-option>
-                <ion-select-option value="piezas">Piezas</ion-select-option>
-              </ion-select>
-            </div>
-            <ion-button>Añadir</ion-button>
+          <ion-button class="add-button">Añadir</ion-button>
+        </div>
+
+        <div class="ingredientes-busqueda">
+          <div class="busqueda-contenedor">
+            <ion-searchbar class="busqueda" placeholder="Buscar" formControlName="ingredienteBusqueda"></ion-searchbar> <!-- Que busque en ingredientes -->
+          </div>
+          <div class="cant-unidad-contenedor">
+            <ion-input class="cantidad" placeholder="Cantidad" formControlName="cantidad"></ion-input>
+            <ion-select class="unidad" placeholder="Unidad" formControlName="unidad"> <!-- NgFor -->
+              <ion-select-option value="gramos">Gramos</ion-select-option>
+              <ion-select-option value="mililitros">Mililitros</ion-select-option>
+              <ion-select-option value="litros">Litros</ion-select-option>
+            </ion-select>
           </div>
         </div>
+
+        <ion-text class="receta">Paso a paso</ion-text>
+        <div class="contenedor">
+          <ion-textarea class="recetaInput" placeholder="Introduce los pasos para preparar la receta" fill="outline" formControlName="receta"></ion-textarea>
+        </div>
+
+        <ion-text class="etiquetas">Etiquetas</ion-text>
+        <div class="etiquetas-contenedor">
+          <ion-searchbar class="busquedaEtiq" placeholder="Buscar" formControlName="etiquetaBusqueda"></ion-searchbar>
+          <ion-button class="add-button">Añadir</ion-button>
+        </div>
       </ion-list>
+      <ion-button class="button_anyadir" expand="full" (click)="doAnyadirPublicacion()">Añadir nueva receta</ion-button>
     </form>
   </div>
 </ion-content>
+
+<app-navbar-inferior></app-navbar-inferior>

@@ -2,6 +2,10 @@ ion-content {
   --background: #FFF2DB;
 }
 
+.contenido {
+  min-height: 1100px;
+}
+
 .titulo {
   font-size: 26px;
   font-weight: bold;
@@ -33,25 +37,42 @@ ion-input, ion-textarea {
   --placeholder-color: #603F26;
 }
 
+.ingredientes-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ingredientesInput {
+  flex: 1;
+}
+
+.add-button {
+  flex: 0;
+  white-space: nowrap;
+  min-width: 100px;
+  margin: 0;
+}
+
 .ingredientes-busqueda {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .ingredientes-busqueda ion-searchbar {
   flex: 2;
   min-width: 150px;
-  background: white; /* Fondo blanco */
-  border-color: #603F26; /* Color de borde marrón */
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 10px; /* Bordes redondeados */
-  --placeholder-color: #603F26; /* Color del texto de placeholder */
-  padding-left: 10px; /* Añadir padding al contenido */
+  --background: #FFFFFF;
+  --box-shadow: none;
+  --border: none;
+  border-radius: 40px;
+  --placeholder-color: #603F26;
+  padding-left: 10px;
+  margin-left: 11px;
 }
-
 
 .ingredientes-busqueda ion-input {
   flex: 1;
@@ -78,13 +99,18 @@ ion-button {
   border: 1px solid red;
 }
 
+.descripcionInput, .ingredientesInput, .recetaInput {
+  --padding-bottom: -40px;
+}
+
 .ingredientes-busqueda {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Distribuye los elementos */
+  justify-content: space-between;
   gap: 10px;
-  flex-wrap: nowrap; /* Evita que los elementos se vayan a otra línea */
+  flex-wrap: nowrap;
   width: 100%;
+  margin-top: -18px;
 }
 
 .busqueda-contenedor {
@@ -95,21 +121,62 @@ ion-button {
 .cant-unidad-contenedor {
   flex: 1;
   display: flex;
-  gap: 5px;
+  gap: 10px;
   min-width: 220px;
 }
 
 ion-input, ion-textarea {
-  --padding-start: 10px; /* Ajusta el valor según prefieras */
+  --padding-start: 10px;
 }
 
 .imagen img {
-  border-radius: 15px; /* Bordes redondeados */
-  border: 3px solid #603F26; /* Borde marrón */
+  border-radius: 15px;
+  border: 3px solid #603F26;
   display: block;
   max-width: 60%;
   height: auto;
-  margin: 0 auto; /* Centrar la imagen */
-  margin-top: 20px; /* Espacio superior */
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
+@media (min-width: 1024px) {
+  .imagen img {
+    max-width: 30%; /* Ajusta este valor según tus necesidades */
+  }
+}
+
+.busquedaEtiq {
+  flex: 2;
+  min-width: 150px;
+  max-width: 385px;
+  --background: #FFFFFF;
+  --box-shadow: none;
+  --border: none;
+  border-radius: 40px;
+  --placeholder-color: #603F26;
+  padding-left: 10px;
+  margin-left: 11px;
+}
+
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+ion-title {
+  flex: 1;
+  text-align: left;
+}
+
+
+.etiquetas-contenedor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button_anyadir {
+  margin-top: 10px;
+}
