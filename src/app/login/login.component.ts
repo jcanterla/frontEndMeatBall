@@ -55,6 +55,8 @@ export class LoginComponent implements OnInit {
         next: (respuesta) => {
           const token = respuesta.token;
           sessionStorage.setItem("authToken", token);
+          const username = this.login.username || '';
+          sessionStorage.setItem("username", username);
           this.loginService.setAuthState(true);
         },
         error: (e) => {

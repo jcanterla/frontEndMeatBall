@@ -12,8 +12,14 @@
 
   <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
 
-  <ion-label class="seguidores">x seguidores - x seguidos</ion-label>
+  <ion-label class="seguidores">{{ seguidores }} seguidores - 0 seguidos</ion-label>
   <ion-label class="fraseRecetas">Recetas</ion-label>
+
+  <div class="image-grid">
+    <div class="image-item" *ngFor="let item of filteredItems">
+      <img [src]="item" alt="Image">
+    </div>
+  </div>
 </ion-content>
 
 <ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>

@@ -23,12 +23,16 @@ export class PerfilComponent  implements OnInit {
   perfiles: Perfil[] = [];
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
+  seguidores: number = 0;
+  filteredItems: string[] = [];
 
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const username = sessionStorage.getItem('username');
+
     this.perfilService.getPerfiles().subscribe((data: Perfil[]) => {
-      this.perfiles = data;
+      this.perfiles = data.filter(perfil => perfil.username === username);
     });
 
     this.route.paramMap.subscribe(params => {
@@ -37,14 +41,43 @@ export class PerfilComponent  implements OnInit {
 
     const siguiendo = localStorage.getItem('siguiendo');
     this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
+
+    this.loadSeguidores();
+    this.filteredItems = [...this.items];
   }
 
   nagivateToConfiguracionPerfil() {
     this.router.navigate(['/configuracionPerfil']);
   }
 
+  loadSeguidores() {
+    const seguidores = localStorage.getItem('seguidores');
+    if (seguidores) {
+      this.seguidores = parseInt(seguidores, 10);
+    }
+  }
+
+  saveSeguidores() {
+    localStorage.setItem('seguidores', this.seguidores.toString());
+  }
+
   toggleSeguir() {
     this.siguiendo = !this.siguiendo;
     localStorage.setItem('siguiendo', JSON.stringify(this.siguiendo));
+    if (this.siguiendo) {
+      this.seguidores += 1;
+    } else if (this.seguidores > 0) {
+      this.seguidores -= 1;
+    }
+    this.saveSeguidores();
   }
+
+  items: string[] = [
+    'https://www.goya.com/media/4173/creole-spaghetti.jpg?quality=80',
+    'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/02/carne-mechada.jpg',
+    'https://www.cnature.es/wp-content/uploads/2020/08/gazpacho-gallego-.jpg',
+    'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/cocido-madrileno-1080x671.jpg',
+    'https://www.bekiacocina.com/images/cocina/0000/179-h.jpg',
+    'https://www.annarecetasfaciles.com/files/pollo-en-salsa-1-1024x640.jpg'
+  ];
 }

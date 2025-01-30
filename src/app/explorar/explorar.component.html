@@ -9,9 +9,32 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar class="searchbar-blanco" placeholder="Buscar por MeatBall"></ion-searchbar>
+  <ion-card-content>
+    <div class="search-filter-container buscador">
+      <ion-searchbar
+        class="searchbar-blanco"
+        placeholder="Escribe tu búsqueda..."
+        [(ngModel)]="searchText"
+        (ionInput)="onSearch()"
+        showCancelButton="focus"
+      ></ion-searchbar>
+
+      <ion-select
+        class="filtro select-blanco"
+        [(ngModel)]="selectedFilter"
+        (ionChange)="onFilterChange()"
+      >
+        <ion-select-option *ngFor="let filter of filters" [value]="filter">
+          {{ filter }}
+        </ion-select-option>
+      </ion-select>
+    </div>
+  </ion-card-content>
+
+  <div class="image-grid">
+    <div class="image-item" *ngFor="let item of filteredItems" (click)="navigateToVerPublicacion()">
+      <img [src]="item.url" [alt]="item.name">
+    </div>
+  </div>
 </ion-content>
-
-<ion-button expand="block" class="editarPerfil" (click)="navigateToVerPublicacion()">Ver Publicación</ion-button>
-
 <app-navbar-inferior></app-navbar-inferior>
