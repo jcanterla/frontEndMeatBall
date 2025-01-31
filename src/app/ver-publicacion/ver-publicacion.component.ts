@@ -5,10 +5,12 @@ import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.compon
 import {Router} from "@angular/router";
 import {addIcons} from "ionicons";
 import {
- flashOutline,
- happyOutline,
- restaurantOutline,
- stopwatchOutline
+  chatbubbleEllipsesSharp, chatbubbleOutline,
+  flashOutline,
+  happyOutline, heartOutline,
+  restaurantOutline,
+  stopwatchOutline,
+
 } from "ionicons/icons";
 
 @Component({
@@ -32,6 +34,8 @@ export class VerPublicacionComponent  implements OnInit {
       "stopwatch-outline": stopwatchOutline,
       "flash-outline": flashOutline,
       "restaurant-outline": restaurantOutline,
+      "chatbubble-outline": chatbubbleOutline,
+      "heart-outline": heartOutline
     })
   }
 

@@ -5,6 +5,15 @@
   width: 100%;
 }
 
+ion-fab-button {
+  --background: #FFF2DB;
+}
+
+ion-fab{
+  margin-top: 2em;
+
+}
+
 ion-button {
   --background: #6C4E31;
   display: block;
@@ -78,4 +87,42 @@ ion-icon{
 .raciones{
   width: 100%;
   flex-wrap: nowrap;
+}
+
+// Comentarios
+
+ion-col.sin-espacios {
+  padding: 0;
+}
+
+.tarjetaImpar, .tarjetaPar {
+  margin: 0;
+  border-collapse: collapse;
+}
+
+
+.tarjetaImpar {
+  --background: #FFF2DB !important;
+  border-bottom: #362110 1px solid;
+}
+
+.img{
+  border-radius: 50px;
+}
+
+
+.textoUsuario {
+  font: bold 1.2em Arial;
+  color: #362110;
+  margin-bottom: 10px;
+}
+
+.mensaje {
+  color: #362110;
+}
+
+hr {
+  margin-bottom: 10px;
+  height: 1px;
+  background-color: #362110;
 }
