@@ -18,7 +18,6 @@ import {NgForOf} from "@angular/common";
     IonicModule,
     NavbarSuperiorComponent,
     NavbarInferiorComponent,
-    NgForOf
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
