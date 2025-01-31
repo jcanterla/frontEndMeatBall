@@ -6,6 +6,9 @@ import {addIcons} from "ionicons";
 import {notificationsOutline} from "ionicons/icons";
 import {Router} from "@angular/router";
 import Swiper from "swiper";
+import {Publicacion} from "../modelos/Publicacion";
+import {ParatiService} from "../services/parati.service";
+import {CommonModule} from "@angular/common";
 
 
 @Component({
@@ -16,7 +19,8 @@ import Swiper from "swiper";
   imports: [
     IonicModule,
     NavbarSuperiorComponent,
-    NavbarInferiorComponent
+    NavbarInferiorComponent,
+    CommonModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -24,13 +28,29 @@ export class ParatiComponent{
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
+  publicaciones: Publicacion[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private paratiService: ParatiService) {
     addIcons({"notifications-outline": notificationsOutline})
+  }
+
+  ngOnInit() {
+    this.getPublicaciones();
   }
 
   navigateToNotificaciones() {
     this.router.navigate(['/notificaciones']);
+  }
+
+  getPublicaciones(): void {
+      this.paratiService.getPublicacionesParaTi().subscribe({
+        next: (data: Publicacion[]) => {
+          this.publicaciones = data;
+          console.info('Hola soy las publicaciones', this.publicaciones);
+        },
+        error: (error: any) => console.error('Error: ', error),
+        complete: () => console.log('Petición completada')
+      });
   }
 
   swiperReady() {
