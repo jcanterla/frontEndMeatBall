@@ -16,16 +16,10 @@ ion-icon {
   margin-right: 10px;
 }
 
-swiper-container {
-  width: 80%;
-  height: 40%;
-}
-
-swiper-slide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+ion-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
 }
 
 ion-text {
@@ -45,7 +39,21 @@ ion-text {
   padding-top: 30px;
 }
 
-.imagen {
+swiper-container {
   width: 100%;
-  height: 200px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
+
+swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
