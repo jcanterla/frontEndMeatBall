@@ -1,4 +1,5 @@
 export class Perfil{
+  id?: number;
   username?: string;
   nombre?: string;
   apellidos?: string;

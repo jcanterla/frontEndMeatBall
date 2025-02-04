@@ -6,6 +6,7 @@ import {Perfil} from "../modelos/Perfil";
 import {PerfilService} from "../servicios/perfil.service";
 import {CommonModule} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Publicacion} from "../modelos/Publicacion";
 
 @Component({
   selector: 'app-perfil',
@@ -21,6 +22,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class PerfilComponent  implements OnInit {
   perfiles: Perfil[] = [];
+  publicaciones: Publicacion[] = [];
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
   seguidores: number = 0;
@@ -35,6 +37,10 @@ export class PerfilComponent  implements OnInit {
       this.perfiles = data.filter(perfil => perfil.username === username);
     });
 
+    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
+    });
+
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
     });
@@ -46,8 +52,12 @@ export class PerfilComponent  implements OnInit {
     this.filteredItems = [...this.items];
   }
 
-  nagivateToConfiguracionPerfil() {
+  navigateToConfiguracionPerfil() {
     this.router.navigate(['/configuracionPerfil']);
+  }
+
+  navigateToMensajes() {
+    this.router.navigate(['/mensajes']);
   }
 
   loadSeguidores() {
