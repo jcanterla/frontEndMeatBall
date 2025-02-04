@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Login} from "../modelos/Login";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = '/api/auth/login';
+  private apiUrl = environment.apiUrl;
   private authState = new BehaviorSubject<boolean>(!!sessionStorage.getItem('authToken'));
   authState$ = this.authState.asObservable();
 
@@ -18,6 +19,6 @@ export class LoginService {
   }
 
   loguearUsuario(login: Login): Observable<any>{
-    return this.http.post<any>(this.apiUrl,login) ;
+    return this.http.post<any>(`${this.apiUrl}/auth/login`,login) ;
   }
 }

@@ -1,0 +1,48 @@
+<ion-header class="marronClaro navbar-superior">
+  <ion-toolbar class="marronClaro">
+    <div class="header-content">
+      <ion-title class="blanco">Editar Perfil</ion-title>
+      <app-navbar-superior></app-navbar-superior>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="centrar">
+  <div style="text-align: center;">
+    <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
+    <ion-icon name="create-outline" id="iconoPerfil" (click)="activarInput()"></ion-icon>
+  </div>
+
+  <form [formGroup]="perfilForm">
+    <ion-list>
+      <ion-text>Nombre</ion-text>
+      <div class="contenedor1">
+        <ion-input class="nombre" placeholder="Introduce tu nombre" fill="outline" formControlName="nombre" [(ngModel)]="perfilActual.nombre" [disabled]="inputsDisabled"></ion-input>
+      </div>
+
+      <ion-text>Apellidos</ion-text>
+      <div class="contenedor2">
+        <ion-input class="apellidos" placeholder="Introduce tus apellidos" fill="outline" formControlName="apellidos" [(ngModel)]="perfilActual.apellidos" [disabled]="inputsDisabled"></ion-input>
+      </div>
+
+      <ion-text>Nombre de usuario</ion-text>
+      <div class="contenedor3">
+        <ion-input class="usuario" placeholder="Introduce tu usuario" fill="outline" formControlName="usuario" [(ngModel)]="perfilActual.username" [disabled]="true"></ion-input>
+      </div>
+
+      <ion-text>Email</ion-text>
+      <div class="contenedor4">
+        <ion-input class="email" placeholder="Introduce tu email" fill="outline" formControlName="email" [(ngModel)]="perfilActual.email" [disabled]="inputsDisabled"></ion-input>
+      </div>
+
+      <ion-text>Teléfono</ion-text>
+      <div class="contenedor5">
+        <ion-input class="telefono" placeholder="Introduce tu telefono" fill="outline" formControlName="telefono" [(ngModel)]="perfilActual.telefono" [disabled]="inputsDisabled"></ion-input>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-button expand="block" class="guardar" (click)="guardarPerfil()">Guardar</ion-button>
+
+<app-navbar-inferior></app-navbar-inferior>

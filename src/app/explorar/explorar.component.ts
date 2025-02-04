@@ -5,6 +5,8 @@ import { NavbarSuperiorComponent } from "../navbar-superior/navbar-superior.comp
 import { Router } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
+import {addIcons} from "ionicons";
+import {notificationsOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-explorar',
@@ -37,7 +39,9 @@ export class ExplorarComponent implements OnInit {
   // Opciones para el filtro
   filters: string[] = ['Todos', 'Empiezan con A', 'Empiezan con B'];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    addIcons({"notifications-outline": notificationsOutline})
+  }
 
   ngOnInit() {
     // Inicializar la lista filtrada con todos los elementos
@@ -78,5 +82,10 @@ export class ExplorarComponent implements OnInit {
   // Método para navegar a Notificaciones
   navigateToNotificaciones() {
     this.router.navigate(['/notificaciones']);
+  }
+
+
+  navigateToVerPublicacion() {
+    this.router.navigate(['/verPublicacion']);
   }
 }

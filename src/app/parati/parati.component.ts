@@ -1,4 +1,4 @@
-import {Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";

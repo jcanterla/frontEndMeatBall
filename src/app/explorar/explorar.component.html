@@ -32,11 +32,10 @@
   </ion-card-content>
 
   <div class="image-grid">
-    <div class="image-item" *ngFor="let item of filteredItems">
+    <div class="image-item" *ngFor="let item of filteredItems" (click)="navigateToVerPublicacion()">
       <img [src]="item.url" [alt]="item.name">
     </div>
   </div>
-
-
 </ion-content>
+
 <app-navbar-inferior></app-navbar-inferior>

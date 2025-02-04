@@ -54,7 +54,7 @@ export class RegistrarComponent implements OnInit {
         response => {
           console.log('Registro exitoso:', response);
           this.registroForm.reset()
-          this.router.navigate(['/parati']);
+          this.router.navigate(['/login']);
         },
         error => {
           console.error('Error en el registro:', error);

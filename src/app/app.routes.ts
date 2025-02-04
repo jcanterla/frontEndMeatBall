@@ -39,11 +39,23 @@ export const routes: Routes = [
     loadComponent: () => import('./perfil/perfil.component').then((m) => m.PerfilComponent),
   },
   {
+    path: 'configuracionPerfil',
+    loadComponent: () => import('./configuracion-perfil/configuracion-perfil.component').then((m) => m.ConfiguracionPerfilComponent),
+  },
+  {
     path: 'agregar',
     loadComponent: () => import('./agregar/agregar.component').then((m) => m.AgregarComponent),
   },
   {
     path: 'notificaciones',
     loadComponent: () => import('./notificaciones/notificaciones.component').then((m) => m.NotificacionesComponent),
+  },
+  {
+    path: 'verPublicacion',
+    loadComponent: () => import('./ver-publicacion/ver-publicacion.component').then((m) => m.VerPublicacionComponent),
+  },
+  {
+    path: 'mensajes',
+    loadComponent: () => import('./mensajes/mensajes.component').then((m) => m.MensajesComponent),
   }
 ];
