@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
   IonButton,
-  IonCheckbox,
-  IonContent, IonFooter, IonHeader,
-  IonInput, IonItem, IonLabel,
+  IonContent, IonHeader,
+  IonInput,
   IonList, IonSearchbar, IonSelect, IonSelectOption,
   IonText,
   IonTextarea,
@@ -22,7 +21,6 @@ import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.compon
   standalone: true,
   imports: [
     IonButton,
-    IonCheckbox,
     IonContent,
     IonInput,
     IonList,
@@ -31,15 +29,12 @@ import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.compon
     ReactiveFormsModule,
     IonTextarea,
     IonSearchbar,
-    IonItem,
-    IonLabel,
     IonSelect,
     IonSelectOption,
     IonHeader,
     IonToolbar,
     NavbarInferiorComponent,
     NavbarSuperiorComponent,
-    IonFooter
   ]
 })
 export class AgregarComponent  implements OnInit {

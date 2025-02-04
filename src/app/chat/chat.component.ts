@@ -21,7 +21,7 @@ import {Router} from "@angular/router";
 })
 export class ChatComponent  implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({"arrow-back-outline": arrowBackOutline})
   }
 

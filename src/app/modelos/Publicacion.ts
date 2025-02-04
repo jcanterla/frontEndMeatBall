@@ -8,4 +8,7 @@ export class Publicacion{
   tiempoPreparacion?:number;
   tiempoCoccion?:number;
   raciones?:number;
+  usuarioId?: number;
+  username?: string;
+
 }
