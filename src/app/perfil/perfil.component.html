@@ -1,4 +1,4 @@
-<ion-header class="marronClaro navbar-superior" >
+<ion-header class="marronClaro navbar-superior">
   <ion-toolbar class="marronClaro">
     <div class="header-content">
       <ion-title class="blanco">Perfil</ion-title>
@@ -7,10 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngFor="let perfil of perfiles">
+<ion-content>
   <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
 
-  <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
+  <ng-container *ngIf="!fromVerPublicacion">
+    <ion-title *ngFor="let perfil of perfiles" class="nombreUsuario">{{ perfil.username }}</ion-title>
+  </ng-container>
+  <ng-container *ngIf="fromVerPublicacion">
+    <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
+  </ng-container>
 
   <ion-label class="seguidores">{{ seguidores }} seguidores - 0 seguidos</ion-label>
   <ion-label class="fraseRecetas">Recetas</ion-label>
@@ -22,13 +27,13 @@
   </div>
 </ion-content>
 
-<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>
+<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="navigateToConfiguracionPerfil()">Editar Perfil</ion-button>
 
 <div *ngIf="fromVerPublicacion" class="contenedorBotones">
   <ion-button expand="block" class="seguirPerfil" [class.siguiendo]="siguiendo" (click)="toggleSeguir()">
     {{ siguiendo ? 'Siguiendo' : 'Seguir' }}
   </ion-button>
-  <ion-button expand="block" class="enviarMensaje">Enviar Mensaje</ion-button>
+  <ion-button expand="block" class="enviarMensaje" (click)="navigateToMensajes()">Enviar Mensaje</ion-button>
 </div>
 
 <app-navbar-inferior></app-navbar-inferior>

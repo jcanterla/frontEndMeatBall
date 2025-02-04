@@ -5,6 +5,7 @@ import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.compon
 import {arrowBackOutline} from "ionicons/icons";
 import {addIcons} from "ionicons";
 import {CommonModule} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -20,9 +21,13 @@ import {CommonModule} from "@angular/common";
 })
 export class ChatComponent  implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
     addIcons({"arrow-back-outline": arrowBackOutline})
   }
 
   ngOnInit() {}
+
+  navigateToMensajes() {
+    this.router.navigate(['/mensajes']);
+  }
 }

@@ -1,0 +1,22 @@
+<ion-header class="marronClaro">
+  <ion-toolbar class="marronClaro">
+    <div class="header-content">
+      <ion-icon class="volver" name="arrow-back-outline" (click)="goBack()"></ion-icon>
+      <ion-img id="foto" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
+      <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content>
+
+<ion-footer class="marronClaro">
+  <ion-toolbar class="marronClaro">
+    <div class="rectangulo">
+      <ion-input style="margin-left: 10px" placeholder="Escribe un mensaje"></ion-input>
+      <ion-icon class="enviar" name="send-outline"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-footer>
