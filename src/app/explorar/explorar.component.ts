@@ -5,8 +5,10 @@ import { NavbarSuperiorComponent } from "../navbar-superior/navbar-superior.comp
 import { Router } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
-import {addIcons} from "ionicons";
-import {notificationsOutline} from "ionicons/icons";
+import { addIcons } from "ionicons";
+import { notificationsOutline } from "ionicons/icons";
+import { ParatiService } from "../services/parati.service";
+import { Publicacion } from "../modelos/Publicacion";
 
 @Component({
   selector: 'app-explorar',
@@ -22,30 +24,31 @@ import {notificationsOutline} from "ionicons/icons";
   ]
 })
 export class ExplorarComponent implements OnInit {
-
-  // Lista de URLs de imágenes
-  items: { url: string, name: string }[] = [
-    { url: 'https://www.lavanguardia.com/files/og_thumbnail/uploads/2018/07/17/5e997a42b5463.jpeg', name: 'Albondiga' },
-    { url: 'https://elikaeskola.com/wp-content/uploads/me-siento-culpable-por-comer.png', name: 'Tortilla' },
-    { url: 'https://www.hola.com/horizon/landscape/b746be5ae38a-adobestock496117067.jpg', name: 'Ensaladilla' },
-    { url: 'https://imag.bonviveur.com/macarrones-con-bacon-y-nata.jpg', name: 'Macarrones' },
-    { url: 'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/croquetas-de-jamon-1080x671.jpg', name: 'Croquetas' },
-    { url: 'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/01/lentejas-con-chorizo.jpg', name: 'Lentejas' }
-  ];
-  filteredItems: { url: string, name: string }[] = [];
+  publicaciones: Publicacion[] = [];
+  filteredItems: Publicacion[] = [];
   searchText: string = ''; // Texto ingresado por el usuario
   selectedFilter: string | null = null; // Filtro seleccionado
 
   // Opciones para el filtro
   filters: string[] = ['Todos', 'Empiezan con A', 'Empiezan con B'];
 
-  constructor(private router: Router) {
-    addIcons({"notifications-outline": notificationsOutline})
+  constructor(private router: Router, private paratiService: ParatiService) {
+    addIcons({ "notifications-outline": notificationsOutline });
   }
 
   ngOnInit() {
-    // Inicializar la lista filtrada con todos los elementos
-    this.filteredItems = [...this.items];
+    this.getPublicaciones();
+  }
+
+  getPublicaciones(): void {
+    this.paratiService.getPublicacionesParaTi().subscribe({
+      next: (data: Publicacion[]) => {
+        this.publicaciones = data;
+        this.filteredItems = [...this.publicaciones];
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
   }
 
   // Método que se ejecuta al escribir en la barra de búsqueda
@@ -63,18 +66,18 @@ export class ExplorarComponent implements OnInit {
     const lowerCaseSearchText = this.searchText.toLowerCase();
 
     // Filtrar por texto ingresado
-    this.filteredItems = this.items.filter((item) =>
-      item.name.toLowerCase().includes(lowerCaseSearchText)
+    this.filteredItems = this.publicaciones.filter((item) =>
+      item.titulo?.toLowerCase().includes(lowerCaseSearchText)
     );
 
     // Aplicar el filtro adicional (si corresponde)
     if (this.selectedFilter === 'Empiezan con A') {
       this.filteredItems = this.filteredItems.filter((item) =>
-        item.name.toLowerCase().startsWith('a')
+        item.titulo?.toLowerCase().startsWith('a')
       );
     } else if (this.selectedFilter === 'Empiezan con B') {
       this.filteredItems = this.filteredItems.filter((item) =>
-        item.name.toLowerCase().startsWith('b')
+        item.titulo?.toLowerCase().startsWith('b')
       );
     }
   }
@@ -83,7 +86,6 @@ export class ExplorarComponent implements OnInit {
   navigateToNotificaciones() {
     this.router.navigate(['/notificaciones']);
   }
-
 
   navigateToVerPublicacion() {
     this.router.navigate(['/verPublicacion']);

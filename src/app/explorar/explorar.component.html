@@ -33,7 +33,8 @@
 
   <div class="image-grid">
     <div class="image-item" *ngFor="let item of filteredItems" (click)="navigateToVerPublicacion()">
-      <img [src]="item.url" [alt]="item.name">
+      <img [src]="item.imagenLink" [alt]="item.titulo">
+      <p>{{ item.titulo }}</p>
     </div>
   </div>
 </ion-content>

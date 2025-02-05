@@ -13,35 +13,10 @@
     <ion-text>Recomendaciones</ion-text>
   </div>
 
-  <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
-                    slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
-                    coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
-    <swiper-slide>
-      <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+  <swiper-container  class="mySwiper" init="false" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                     pagination="true" pagination-clickable="true" navigation="true">
+    <swiper-slide *ngFor="let publicacion of publicaciones">
+      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}">
     </swiper-slide>
   </swiper-container>
 
@@ -49,35 +24,10 @@
     <ion-text>Probar lo siguiente</ion-text>
   </div>
 
-  <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
-                    slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
-                    coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
-    <swiper-slide>
-      <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-    </swiper-slide>
-    <swiper-slide>
-      <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+  <swiper-container class="mySwiper" init="false" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                    pagination="true" pagination-clickable="true" navigation="true">
+    <swiper-slide *ngFor="let publicacion of publicaciones">
+      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}">
     </swiper-slide>
   </swiper-container>
 
