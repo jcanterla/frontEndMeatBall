@@ -3,7 +3,7 @@ ion-content {
 }
 
 .contenido {
-  min-height: 1100px;
+  min-height: 1250px;
 }
 
 .titulo {
@@ -52,6 +52,15 @@ ion-input, ion-textarea {
   white-space: nowrap;
   min-width: 100px;
   margin: 0;
+  margin-top: auto;
+}
+
+.add-button-2 {
+  flex: 0;
+  white-space: nowrap;
+  min-width: 100px;
+  margin: 0;
+  margin-top: auto;
 }
 
 .ingredientes-busqueda {
@@ -133,8 +142,9 @@ ion-input, ion-textarea {
   border-radius: 15px;
   border: 3px solid #603F26;
   display: block;
-  max-width: 60%;
+  width: 60%;
   height: auto;
+  object-fit: cover;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -147,8 +157,6 @@ ion-input, ion-textarea {
 
 .busquedaEtiq {
   flex: 2;
-  min-width: 150px;
-  max-width: 385px;
   --background: #FFFFFF;
   --box-shadow: none;
   --border: none;
@@ -156,6 +164,7 @@ ion-input, ion-textarea {
   --placeholder-color: #603F26;
   padding-left: 10px;
   margin-left: 11px;
+  margin-bottom: -10px;
 }
 
 
@@ -175,8 +184,13 @@ ion-title {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-right: 20px;
 }
 
 .button_anyadir {
   margin-top: 10px;
+}
+
+.ingredientesInput.extra-padding {
+  padding-bottom: 20px;
 }
