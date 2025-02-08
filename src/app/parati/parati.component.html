@@ -16,7 +16,7 @@
   <swiper-container  class="mySwiper" init="false" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                      pagination="true" pagination-clickable="true" navigation="true">
     <swiper-slide *ngFor="let publicacion of publicaciones">
-      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}">
+      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}" (click)="navigateToVerPublicacion(publicacion)">
     </swiper-slide>
   </swiper-container>
 
@@ -27,7 +27,7 @@
   <swiper-container class="mySwiper" init="false" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                     pagination="true" pagination-clickable="true" navigation="true">
     <swiper-slide *ngFor="let publicacion of publicaciones">
-      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}">
+      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}" (click)="navigateToVerPublicacion(publicacion)">
     </swiper-slide>
   </swiper-container>
 

@@ -90,6 +90,11 @@ export class ParatiComponent implements OnInit, OnDestroy {
     });
   }
 
+  navigateToVerPublicacion(item: any) {
+    sessionStorage.setItem('publicacion', JSON.stringify(item));
+    this.router.navigate(['/verPublicacion']);
+  }
+
   onResize() {
     this.initializeSwipers();
   }
