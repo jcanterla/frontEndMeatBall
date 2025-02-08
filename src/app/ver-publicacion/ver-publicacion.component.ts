@@ -15,7 +15,7 @@ import {
 import {Publicacion} from "../modelos/Publicacion";
 import {Comentario} from "../modelos/Comentario";
 import {ParatiService} from "../servicios/parati.service";
-import {NgForOf} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
 import {comentarioEnviar} from "../modelos/comentarioEnviar";
@@ -30,13 +30,16 @@ import {comentarioEnviar} from "../modelos/comentarioEnviar";
     NavbarSuperiorComponent,
     NavbarInferiorComponent,
     NgForOf,
-    FormsModule
+    FormsModule,
+    NgClass
   ]
 })
 export class VerPublicacionComponent  implements OnInit {
 
   @ViewChild(IonModal) modal!: IonModal;
   name!: string;
+
+  leHaDadoLike = false;
 
   publicacion: Publicacion = new Publicacion();
 
@@ -90,6 +93,13 @@ export class VerPublicacionComponent  implements OnInit {
       console.error('Error: La publicación o su ID no están definidos.');
       return;
     }
+
+    if(this.leHaDadoLike){
+      this.quitarLike();
+    }
+
+    this.leHaDadoLike = !this.leHaDadoLike;
+
     this.paratiService.darLike(this.publicacion.id).subscribe({
       next: (data: any) => {
         console.info('Like dado', data);
@@ -97,6 +107,21 @@ export class VerPublicacionComponent  implements OnInit {
       error: (error: any) => console.error('Error: ', error),
     });
   }
+
+  quitarLike(){
+    if (!this.publicacion?.id) {
+      console.error('Error: La publicación o su ID no están definidos.');
+      return;
+    }
+
+    this.paratiService.quitarLike(this.publicacion.id).subscribe({
+      next: (data: any) => {
+        console.info('Like quitado', data);
+      },
+      error: (error: any) => console.error('Error: ', error),
+    });
+  }
+
 
   comentar(){
     if (!this.publicacion?.id) {

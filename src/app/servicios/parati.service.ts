@@ -37,6 +37,19 @@ export class ParatiService {
     );
   }
 
+  quitarLike(idPublicacion: number): Observable<any> {
+    const authHeader = this.comunService.autorizarPeticion();
+
+    return this.httpClient.post<any>(
+      `/api/publicacion/unlike`,
+      null,
+      {
+        ...authHeader,
+        params: new HttpParams().set('idPublicacion', idPublicacion.toString()),
+      }
+    );
+  }
+
   comentarPublicacion(comentarioEnviar: comentarioEnviar): Observable<any> {
     const authHeader = this.comunService.autorizarPeticion();
     return this.httpClient.post<any>("/api/publicacion/comentar", comentarioEnviar, authHeader);
