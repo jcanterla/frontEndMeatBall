@@ -32,7 +32,7 @@
   </ion-card-content>
 
   <div class="image-grid">
-    <div class="image-item" *ngFor="let item of filteredItems" (click)="navigateToVerPublicacion()">
+    <div class="image-item" *ngFor="let item of filteredItems" (click)="navigateToVerPublicacion(item)">
       <img [src]="item.imagenLink" [alt]="item.titulo">
       <p>{{ item.titulo }}</p>
     </div>

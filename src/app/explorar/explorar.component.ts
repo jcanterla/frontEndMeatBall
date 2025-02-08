@@ -7,7 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { addIcons } from "ionicons";
 import { notificationsOutline } from "ionicons/icons";
-import { ParatiService } from "../services/parati.service";
+import { ParatiService } from "../servicios/parati.service";
 import { Publicacion } from "../modelos/Publicacion";
 
 @Component({
@@ -87,7 +87,9 @@ export class ExplorarComponent implements OnInit {
     this.router.navigate(['/notificaciones']);
   }
 
-  navigateToVerPublicacion() {
+  navigateToVerPublicacion(item: any) {
+    sessionStorage.setItem('publicacion', JSON.stringify(item));
     this.router.navigate(['/verPublicacion']);
   }
+
 }

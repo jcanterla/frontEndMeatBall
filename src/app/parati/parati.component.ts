@@ -7,7 +7,7 @@ import { notificationsOutline } from "ionicons/icons";
 import { Router } from "@angular/router";
 import Swiper from "swiper";
 import { Publicacion } from "../modelos/Publicacion";
-import { ParatiService } from "../services/parati.service";
+import { ParatiService } from "../servicios/parati.service";
 import { CommonModule } from "@angular/common";
 import { NgForOf } from "@angular/common";
 
