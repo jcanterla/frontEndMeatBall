@@ -126,9 +126,9 @@
 
   <hr>
 
-  <ion-label class="textoLabels">Comentarios</ion-label>
+  <ion-label class="textoLabels" (click)="mostrarComentariosFunc()">Comentarios</ion-label>
 
-  <ion-grid class="sin-espacios">
+  <ion-grid class="sin-espacios" [ngClass]="{'slide-down': mostrarComentarios, 'slide-up': !mostrarComentarios}" *ngIf="mostrarComentarios">
     <ion-row class="sin-espacios">
 
       <ion-col size="12" class="sin-espacios"  *ngFor="let comentario of comentarios">

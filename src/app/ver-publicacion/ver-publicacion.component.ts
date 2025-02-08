@@ -15,7 +15,7 @@ import {
 import {Publicacion} from "../modelos/Publicacion";
 import {Comentario} from "../modelos/Comentario";
 import {ParatiService} from "../servicios/parati.service";
-import {NgClass, NgForOf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
 import {comentarioEnviar} from "../modelos/comentarioEnviar";
@@ -31,7 +31,8 @@ import {comentarioEnviar} from "../modelos/comentarioEnviar";
     NavbarInferiorComponent,
     NgForOf,
     FormsModule,
-    NgClass
+    NgClass,
+    NgIf
   ]
 })
 export class VerPublicacionComponent  implements OnInit {
@@ -46,6 +47,8 @@ export class VerPublicacionComponent  implements OnInit {
   comentarios: Comentario[] = [];
 
   comentarioEnviar: comentarioEnviar = new comentarioEnviar();
+
+  mostrarComentarios = false;
 
   constructor(private router: Router, private paratiService: ParatiService) {
     const navigation = this.router.getCurrentNavigation();
@@ -163,6 +166,10 @@ export class VerPublicacionComponent  implements OnInit {
     if (event.detail.role === 'confirm') {
       this.message = `Hello, ${event.detail.data}!`;
     }
+  }
+
+  mostrarComentariosFunc(){
+    this.mostrarComentarios = !this.mostrarComentarios;
   }
 
 }
