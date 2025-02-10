@@ -5,5 +5,5 @@ export class Perfil{
   apellidos?: string;
   email?: string;
   telefono?: string;
-  foto?: string;
+  fotoPerfilLink?: string;
 }

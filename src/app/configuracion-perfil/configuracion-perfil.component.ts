@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {AlertController, IonicModule} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { PerfilService } from '../servicios/perfil.service';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class ConfiguracionPerfilComponent implements OnInit {
   perfilForm: FormGroup;
   inputsDisabled: boolean = true;
 
-  constructor(private perfilService: PerfilService, private router: Router) {
+  constructor(private perfilService: PerfilService, private router: Router, private alertController: AlertController) {
     this.perfilForm = new FormGroup({
       nombre: new FormControl({ value: '', disabled: this.inputsDisabled }),
       apellidos: new FormControl({ value: '', disabled: this.inputsDisabled }),
@@ -45,12 +45,12 @@ export class ConfiguracionPerfilComponent implements OnInit {
       "create-outline": createOutline,
     });
 
-    this.perfilService.getPerfiles().subscribe((data: Perfil[]) => {
-      this.perfiles = data;
-      if (this.perfiles.length > 0) {
-        this.perfilActual = this.perfiles[0];
-        this.perfilForm.patchValue(this.perfilActual);
-      }
+    this.perfilService.getPerfilPorToken().subscribe((data: Perfil) => {
+      this.perfilActual = data;
+      this.perfilForm.patchValue(this.perfilActual);
+      localStorage.setItem('perfilActual', JSON.stringify(this.perfilActual));
+    }, error => {
+      console.error('Error al obtener el perfil:', error);
     });
   }
 
@@ -67,13 +67,55 @@ export class ConfiguracionPerfilComponent implements OnInit {
   guardarPerfil() {
     if (this.perfilForm.valid) {
       const perfilActualizado: Perfil = this.perfilForm.value;
+      perfilActualizado.id = this.perfilActual.id;
+      perfilActualizado.username = this.perfilActual.username;
+      perfilActualizado.fotoPerfilLink = this.perfilActual.fotoPerfilLink;
       this.perfilService.updatePerfil(perfilActualizado).subscribe(response => {
         console.log('Perfil actualizado:', response);
+        this.perfilActual = perfilActualizado;
+        this.perfilForm.patchValue(this.perfilActual);
+        localStorage.setItem('perfilActual', JSON.stringify(this.perfilActual));
         this.inputsDisabled = true;
         this.perfilForm.disable();
       }, error => {
         console.error('Error al actualizar el perfil:', error);
       });
     }
+  }
+
+  async mostrarAlert() {
+    if (this.inputsDisabled) {
+      return;
+    }
+
+    const alert = await this.alertController.create({
+      header: 'Cambiar foto de perfil',
+      inputs: [
+        {
+          name: 'url',
+          type: 'url',
+          placeholder: 'Introduce la URL'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Aceptar',
+          handler: (data) => {
+            if (data.url) {
+              this.perfilActual.fotoPerfilLink = data.url;
+              this.perfilForm.patchValue({ fotoPerfilLink: data.url });
+              localStorage.setItem('perfilActual', JSON.stringify(this.perfilActual));
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

@@ -2,7 +2,7 @@
   <ion-toolbar class="marronClaro">
     <div class="header-content">
       <ion-icon class="volver" name="arrow-back-outline" (click)="goBack()"></ion-icon>
-      <ion-img id="foto" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
+      <ion-img *ngFor="let publicacion of publicaciones" class="foto" [src]="publicacion.fotoPerfilLink || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
       <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
     </div>
   </ion-toolbar>

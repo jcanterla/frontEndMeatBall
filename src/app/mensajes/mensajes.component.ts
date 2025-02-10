@@ -27,6 +27,8 @@ export class MensajesComponent implements OnInit {
     this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
       this.publicaciones = data;
     });
+
+
   }
 
   goBack() {
