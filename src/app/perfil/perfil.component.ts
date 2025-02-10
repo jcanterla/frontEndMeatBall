@@ -20,7 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
   ]
 })
 export class PerfilComponent  implements OnInit {
-  perfiles: Perfil[] = [];
+  perfil: Perfil = new Perfil();
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
   seguidores: number = 0;
@@ -29,11 +29,7 @@ export class PerfilComponent  implements OnInit {
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    const username = sessionStorage.getItem('username');
-
-    this.perfilService.getPerfiles().subscribe((data: Perfil[]) => {
-      this.perfiles = data.filter(perfil => perfil.username === username);
-    });
+    this.getPerfil();
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
@@ -44,6 +40,17 @@ export class PerfilComponent  implements OnInit {
 
     this.loadSeguidores();
     this.filteredItems = [...this.items];
+  }
+
+  getPerfil(): void {
+    this.perfilService.getPerfil().subscribe({
+      next: (data: Perfil) => {
+        this.perfil = data;
+        console.info('Hola soy el perfil', this.perfil);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
   }
 
   nagivateToConfiguracionPerfil() {
