@@ -95,7 +95,7 @@ export class VerPublicacionComponent  implements OnInit {
     });
   }
 
-  darLike(){
+    darLike(){
     if (!this.publicacion?.id) {
       console.error('Error: La publicación o su ID no están definidos.');
       return;
