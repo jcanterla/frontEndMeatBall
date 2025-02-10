@@ -11,7 +11,7 @@
   <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
 
   <ng-container *ngIf="!fromVerPublicacion">
-    <ion-title *ngFor="let perfil of perfiles" class="nombreUsuario">{{ perfil.username }}</ion-title>
+    <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
   </ng-container>
   <ng-container *ngIf="fromVerPublicacion">
     <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
@@ -27,7 +27,7 @@
   </div>
 </ion-content>
 
-<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="navigateToConfiguracionPerfil()">Editar Perfil</ion-button>
+<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>
 
 <div *ngIf="fromVerPublicacion" class="contenedorBotones">
   <ion-button expand="block" class="seguirPerfil" [class.siguiendo]="siguiendo" (click)="toggleSeguir()">

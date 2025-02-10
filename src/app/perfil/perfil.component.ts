@@ -6,6 +6,7 @@ import {Perfil} from "../modelos/Perfil";
 import {PerfilService} from "../servicios/perfil.service";
 import {CommonModule} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Publicacion} from "../modelos/Publicacion";
 
 @Component({
   selector: 'app-perfil',
@@ -24,6 +25,7 @@ export class PerfilComponent  implements OnInit {
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
   seguidores: number = 0;
+  publicaciones: Publicacion[] = [];
   filteredItems: string[] = [];
 
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
@@ -33,6 +35,10 @@ export class PerfilComponent  implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+    });
+
+    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
     });
 
     const siguiendo = localStorage.getItem('siguiendo');
@@ -78,6 +84,12 @@ export class PerfilComponent  implements OnInit {
     }
     this.saveSeguidores();
   }
+
+  navigateToMensajes() {
+    this.router.navigate(['/mensajes']);
+  }
+
+
 
   items: string[] = [
     'https://www.goya.com/media/4173/creole-spaghetti.jpg?quality=80',

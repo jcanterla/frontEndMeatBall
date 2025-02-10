@@ -65,6 +65,10 @@ export class VerPublicacionComponent  implements OnInit {
   }
 
   ngOnInit() {
+
+    const leHaDadoLike = localStorage.getItem('leHaDadoLike');
+    this.leHaDadoLike = leHaDadoLike ? JSON.parse(leHaDadoLike) : false;
+
     addIcons({
       "happy-outline": happyOutline,
       "stopwatch-outline": stopwatchOutline,
@@ -102,6 +106,7 @@ export class VerPublicacionComponent  implements OnInit {
     }
 
     this.leHaDadoLike = !this.leHaDadoLike;
+    localStorage.setItem('leHaDadoLike', JSON.stringify(this.leHaDadoLike));
 
     this.paratiService.darLike(this.publicacion.id).subscribe({
       next: (data: any) => {
