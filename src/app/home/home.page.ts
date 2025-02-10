@@ -10,6 +10,7 @@ import {CommonModule} from "@angular/common";
   imports: [IonicModule, CommonModule],
   standalone: true
 })
+
 export class HomePage {
   constructor(private router: Router,) {}
 

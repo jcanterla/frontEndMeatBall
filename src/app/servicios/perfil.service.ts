@@ -10,16 +10,10 @@ import {Perfil} from "../modelos/Perfil";
 })
 export class PerfilService {
   private perfilAllUrl = '/perfil/all';
-  private miPerfilUrl = '/perfil/miPerfil';
   private perfilAllUrl2 = '/perfil/update';
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private comunService: ComunService) { }
-
-  getPerfiles(): Observable<Perfil[]> {
-    const options = this.comunService.autorizarPeticion();
-    return this.http.get<any>(`${this.apiUrl+this.perfilAllUrl}`, options);
-  }
 
   updatePerfil(perfil: Perfil): Observable<Perfil> {
     const options = this.comunService.autorizarPeticion();
@@ -29,5 +23,10 @@ export class PerfilService {
   getPerfil(): Observable<Perfil>{
     const options = this.comunService.autorizarPeticion();
     return this.http.get<any>(`${this.apiUrl+this.miPerfilUrl}`,options);
+  }
+
+  getPublicacion(): Observable<Publicacion[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<any>(`${this.apiUrl+this.publicacionAllUrl}`, options);
   }
 }

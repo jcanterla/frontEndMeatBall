@@ -12,41 +12,68 @@
   <ion-grid>
     <ion-row class="header-content">
       <ion-col size="2" class="centrar">
-        <ion-fab>
-          <ion-fab-button>
-            <ion-icon name="heart-outline" class="centrar"></ion-icon>
+        <ion-fab (click)="darLike()">
+          <ion-fab-button [ngClass]="{'marronOscuro': leHaDadoLike}">
+            <ion-icon name="heart-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>
       </ion-col>
       <ion-col size="8" class="centrar">
-        <ion-text class="titulo centrar">Receta Título</ion-text>
+        <ion-text class="titulo centrar">{{publicacion.titulo}}</ion-text>
       </ion-col>
       <ion-col size="2" class="centrar">
         <ion-fab>
           <ion-fab-button>
-            <ion-icon name="chatbubble-outline"></ion-icon>
+            <ion-icon name="chatbubble-outline" id="open-modal" expand="block"></ion-icon>
           </ion-fab-button>
         </ion-fab>
       </ion-col>
     </ion-row>
   </ion-grid>
 
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)" class="marronOscuro">
+    <ng-template>
+      <ion-header class="marronOscuro">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancelar</ion-button>
+          </ion-buttons>
+          <ion-title>Comentar Publicación</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input
+            label="Comentario"
+            labelPlacement="stacked"
+            type="text"
+            placeholder="Escribe el comentario"
+            [(ngModel)]="textoComentario"
+          ></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
-  <img class="imagenes" src="https://www.hola.com/horizon/landscape/b746be5ae38a-adobestock496117067.jpg">
+
+  <img class="imagenes" src="{{publicacion.imagenLink}}">
 
   <ion-grid class="centrar">
     <ion-row>
       <ion-col>
         <ion-grid>
-          <ion-row class="fila">
+          <ion-row class="fila raciones">
             <ion-icon name="happy-outline" class="icono"></ion-icon>
-            <ion-text class="texto">Fácil</ion-text>
+            <ion-text class="texto">{{publicacion.dificultad}}</ion-text>
           </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row class="fila">
             <ion-icon name="stopwatch-outline"></ion-icon>
-            <ion-text class="texto">20 min</ion-text>
+            <ion-text class="texto">{{publicacion.tiempoCoccion}}</ion-text>
           </ion-row>
         </ion-grid>
       </ion-col>
@@ -55,13 +82,13 @@
         <ion-grid>
           <ion-row class="fila">
             <ion-icon name="flash-outline"></ion-icon>
-            <ion-text class="texto">30 min</ion-text>
+            <ion-text class="texto">{{publicacion.tiempoPreparacion}}</ion-text>
           </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row class="fila raciones">
             <ion-icon name="restaurant-outline"></ion-icon>
-            <ion-text class="texto">4 raciones</ion-text>
+            <ion-text class="texto">{{publicacion.raciones}}</ion-text>
           </ion-row>
         </ion-grid>
       </ion-col>
@@ -74,7 +101,7 @@
 
     <ion-card color="light">
       <ion-card-content>
-        <ion-text class="texto">Descripción de la receta</ion-text>
+        <ion-text class="texto">{{publicacion.descripcion}}</ion-text>
       </ion-card-content>
     </ion-card>
 
@@ -82,7 +109,7 @@
 
     <ion-card color="light">
       <ion-card-content>
-        <ion-text class="texto">Receta</ion-text>
+        <ion-text class="texto">{{publicacion.receta}}</ion-text>
       </ion-card-content>
     </ion-card>
 
@@ -99,45 +126,29 @@
 
   <hr>
 
-  <ion-label class="textoLabels">Comentarios</ion-label>
+  <ion-label class="textoLabels" (click)="mostrarComentariosFunc()">Comentarios</ion-label>
 
-  <ion-grid class="sin-espacios">
+  <ion-grid class="sin-espacios" [ngClass]="{'slide-down': mostrarComentarios, 'slide-up': !mostrarComentarios}" *ngIf="mostrarComentarios">
     <ion-row class="sin-espacios">
 
-      <ion-col size="12" class="sin-espacios">
+      <ion-col size="12" class="sin-espacios"  *ngFor="let comentario of comentarios">
         <ion-item class="tarjetaImpar">
           <ion-thumbnail slot="start">
-            <img class="img" alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            <img class="img" alt="Silhouette of mountains" src="{{comentario.fotoUsuario}}"/>
           </ion-thumbnail>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
+                <ion-label class="textoUsuario">{{comentario.nombreUsuario}}</ion-label>
+                <ion-label class="mensaje">{{comentario.comentario}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
       </ion-col>
 
-      <ion-col size="12" class="sin-espacios">
-        <ion-item class="tarjetaImpar">
-          <ion-thumbnail slot="start">
-            <img class="img" alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
     </ion-row>
   </ion-grid>
-
 
 </ion-content>
 

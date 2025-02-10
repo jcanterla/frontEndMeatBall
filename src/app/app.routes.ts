@@ -53,5 +53,9 @@ export const routes: Routes = [
   {
     path: 'verPublicacion',
     loadComponent: () => import('./ver-publicacion/ver-publicacion.component').then((m) => m.VerPublicacionComponent),
+  },
+  {
+    path: 'mensajes',
+    loadComponent: () => import('./mensajes/mensajes.component').then((m) => m.MensajesComponent),
   }
 ];
