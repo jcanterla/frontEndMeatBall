@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
+  <ion-img id="fotoPerfil" [src]="perfil.foto || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
 
   <ng-container *ngIf="!fromVerPublicacion">
     <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
   </ng-container>
   <ng-container *ngIf="fromVerPublicacion">
-    <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
+    <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
   </ng-container>
 
   <ion-label class="seguidores">{{ seguidores }} seguidores - 0 seguidos</ion-label>

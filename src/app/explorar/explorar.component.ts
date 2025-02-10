@@ -44,6 +44,7 @@ export class ExplorarComponent implements OnInit {
     this.paratiService.getPublicacionesParaTi().subscribe({
       next: (data: Publicacion[]) => {
         this.publicaciones = data;
+        console.log('Hola soy las publis ',  data)
         this.filteredItems = [...this.publicaciones];
       },
       error: (error: any) => console.error('Error: ', error),

@@ -134,7 +134,7 @@
       <ion-col size="12" class="sin-espacios"  *ngFor="let comentario of comentarios">
         <ion-item class="tarjetaImpar">
           <ion-thumbnail slot="start">
-            <img class="img" alt="Silhouette of mountains" src="{{comentario.fotoUsuario}}"/>
+            <img class="img" alt="Silhouette of mountains" [src]="comentario.fotoUsuario || 'assets/icon/foto_perfil.webp'"/>
           </ion-thumbnail>
           <ion-grid>
             <ion-row>
@@ -153,5 +153,5 @@
 </ion-content>
 
 
-<ion-button expand="block" class="editarPerfil" (click)="navigateToPerfil()">Ver Perfil</ion-button>
+<ion-button expand="block" class="editarPerfil" (click)="navigateToPerfil(publicacion.usuarioId)">Ver Perfil</ion-button>
 <app-navbar-inferior></app-navbar-inferior>

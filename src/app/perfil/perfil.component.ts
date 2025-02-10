@@ -27,15 +27,27 @@ export class PerfilComponent  implements OnInit {
   seguidores: number = 0;
   publicaciones: Publicacion[] = [];
   filteredItems: string[] = [];
+  idUsuarioPublicacion: number = 0;
 
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getPerfil();
+
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+      const idUsuario = params.get('id');
+      if (idUsuario) {
+        this.idUsuarioPublicacion = +idUsuario;
+        console.log('User ID:', this.idUsuarioPublicacion);
+      }
     });
+
+    if (this.fromVerPublicacion){
+      this.getPerfilById(this.idUsuarioPublicacion);
+    } else {
+      this.getPerfil();
+    }
 
     this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
       this.publicaciones = data;
@@ -50,6 +62,17 @@ export class PerfilComponent  implements OnInit {
 
   getPerfil(): void {
     this.perfilService.getPerfil().subscribe({
+      next: (data: Perfil) => {
+        this.perfil = data;
+        console.info('Hola soy el perfil', this.perfil);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
+  }
+
+  getPerfilById(id: number): void {
+    this.perfilService.getPerfilById(id).subscribe({
       next: (data: Perfil) => {
         this.perfil = data;
         console.info('Hola soy el perfil', this.perfil);
@@ -88,7 +111,6 @@ export class PerfilComponent  implements OnInit {
   navigateToMensajes() {
     this.router.navigate(['/mensajes']);
   }
-
 
 
   items: string[] = [

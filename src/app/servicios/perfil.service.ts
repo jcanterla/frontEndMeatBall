@@ -15,6 +15,7 @@ export class PerfilService {
   private publicacionAllUrl = '/publicacion/all';
   private perfilAllUrl2 = '/perfil/update';
   private apiUrl = environment.apiUrl;
+  private perfilId = '/perfil';
 
   constructor(private http: HttpClient, private comunService: ComunService) { }
 
@@ -26,6 +27,11 @@ export class PerfilService {
   getPerfil(): Observable<Perfil>{
     const options = this.comunService.autorizarPeticion();
     return this.http.get<any>(`${this.apiUrl+this.miPerfilUrl}`,options);
+  }
+
+  getPerfilById(id: number): Observable<Perfil>{
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<any>(`${this.apiUrl+this.perfilId}/${id}`,options);
   }
 
   getPublicacion(): Observable<Publicacion[]> {

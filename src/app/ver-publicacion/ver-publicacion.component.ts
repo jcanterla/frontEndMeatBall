@@ -150,8 +150,8 @@ export class VerPublicacionComponent  implements OnInit {
   }
 
 
-  navigateToPerfil() {
-    this.router.navigate(['/perfil', { from: 'ver-publicacion' }]);
+  navigateToPerfil(idusuario: number | undefined) {
+    this.router.navigate(['/perfil', { id: idusuario, from: 'ver-publicacion' }]);
   }
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
