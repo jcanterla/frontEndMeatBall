@@ -7,3 +7,5 @@ export class Perfil{
   telefono?: string;
   fotoPerfilLink?: string;
 }
+
+

@@ -13,32 +13,25 @@
     <ion-text>Recomendaciones</ion-text>
   </div>
 
-  <swiper-container
-    #swiper
-    (afterinit)="swiperReady()"
-    (slidechange)="swiperSlideChanged($event)"
-    [loop]="true"
-    [pagination]="true">
-    <swiper-slide>Slide1</swiper-slide>
-    <swiper-slide>Slide2</swiper-slide>
-    <swiper-slide>Slide3</swiper-slide>
+  <swiper-container  class="mySwiper" init="false" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                     pagination="true" pagination-clickable="true" navigation="true">
+    <swiper-slide *ngFor="let publicacion of publicaciones">
+      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}" (click)="navigateToVerPublicacion(publicacion)">
+    </swiper-slide>
   </swiper-container>
 
   <div class="posicion2">
     <ion-text>Probar lo siguiente</ion-text>
   </div>
 
-  <swiper-container
-    #swiper
-    (afterinit)="swiperReady()"
-    (slidechange)="swiperSlideChanged($event)"
-    [loop]="true"
-    [pagination]="true">
-    <swiper-slide>Slide1</swiper-slide>
-    <swiper-slide>Slide2</swiper-slide>
-    <swiper-slide>Slide3</swiper-slide>
+  <swiper-container class="mySwiper" init="false" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                    pagination="true" pagination-clickable="true" navigation="true">
+    <swiper-slide *ngFor="let publicacion of publicaciones">
+      <img [src]="publicacion.imagenLink" alt="Imagen de {{publicacion.titulo}}" (click)="navigateToVerPublicacion(publicacion)">
+    </swiper-slide>
   </swiper-container>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 </ion-content>
 
 <app-navbar-inferior></app-navbar-inferior>

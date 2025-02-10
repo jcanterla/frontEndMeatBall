@@ -5,9 +5,165 @@
   width: 100%;
 }
 
+ion-fab-button {
+  --background: #FFF2DB;
+}
+
+ion-fab{
+  margin-top: 2em;
+
+}
+
 ion-button {
   --background: #6C4E31;
   display: block;
-  margin: 80px 20px 0 20px;
+  margin: 10px 20px;
+}
+
+.titulo{
+  font-size: 2.2em;
+  color: #603F26;
+  font-weight: bold;
+  margin-top: 1em !important;
+}
+
+.texto {
+  margin-left: 0.5em;
+  font-size: 1.5em;
+  color: #603F26;
+}
+
+.textoLabels{
+  margin-left: 0.8em;
+  font-size: 1.2em;
+  color: #603F26;
+}
+
+ion-icon{
+  font-size: 2em;
+  color: #603F26;
+}
+
+ion-text{
+  padding: 0;
+  --padding-start: 0;
+  --margin-start: 0;
+}
+
+ion-icon{
+  font-size: 2em;
+  color: #603F26;
+  margin-bottom: 0.2em;
+}
+
+.imagenes{
+  max-height: 10em;
+  max-width: 20em;
+  border-radius: 50px !important;
+  display: block;
+  margin: 2em auto 0;
+}
+
+.centrar {
+  display: flex;
+  flex-direction: row; /* Align items horizontally */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.icono{
+  font-size: 2em;
+  color: #603F26;
+}
+
+.fila{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 1em;
+}
+
+.raciones{
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+// Comentarios
+
+ion-col.sin-espacios {
+  padding: 0;
+}
+
+.tarjetaImpar, .tarjetaPar {
+  margin: 0;
+  border-collapse: collapse;
+}
+
+
+.tarjetaImpar {
+  --background: #FFF2DB !important;
+  border-bottom: #362110 1px solid;
+}
+
+.img{
+  border-radius: 50px;
+}
+
+
+.textoUsuario {
+  font: bold 1.2em Arial;
+  color: #362110;
   margin-bottom: 10px;
+}
+
+.mensaje {
+  color: #362110;
+}
+
+hr {
+  margin-bottom: 10px;
+  height: 1px;
+  background-color: #362110;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 1000px; /* Adjust as needed */
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    max-height: 1000px; /* Adjust as needed */
+    opacity: 1;
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.slide-down {
+  overflow: hidden;
+  animation: slideDown 0.5s ease-in-out;
+}
+
+.slide-up {
+  overflow: hidden;
+  animation: slideUp 0.5s ease-in-out;
 }

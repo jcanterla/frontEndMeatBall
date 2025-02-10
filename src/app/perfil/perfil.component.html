@@ -8,18 +8,16 @@
 </ion-header>
 
 <ion-content>
+  <ion-img id="fotoPerfil" [src]="perfil.foto || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
+
   <ng-container *ngIf="!fromVerPublicacion">
-    <ion-img *ngFor="let perfil of perfiles" class="fotoPerfil" [src]="perfil.fotoPerfilLink || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
-    <ion-title *ngFor="let perfil of perfiles" class="nombreUsuario">{{ perfil.username }}</ion-title>
-    <ion-label class="seguidores">{{ seguidores }} seguidores - {{ seguidos }} seguidos</ion-label>
+    <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
   </ng-container>
-
   <ng-container *ngIf="fromVerPublicacion">
-    <ion-img *ngFor="let publicacion of publicaciones" class="fotoPerfil" [src]="publicacion.fotoPerfilLink || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
-    <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
-    <ion-label class="seguidores">{{ seguidores }} seguidores - {{ seguidos }} seguidos</ion-label>
+    <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
   </ng-container>
 
+  <ion-label class="seguidores">{{ seguidores }} seguidores - 0 seguidos</ion-label>
   <ion-label class="fraseRecetas">Recetas</ion-label>
 
   <div class="image-grid">
@@ -29,7 +27,7 @@
   </div>
 </ion-content>
 
-<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="navigateToConfiguracionPerfil()">Editar Perfil</ion-button>
+<ion-button *ngIf="!fromVerPublicacion" expand="block" class="editarPerfil" (click)="nagivateToConfiguracionPerfil()">Editar Perfil</ion-button>
 
 <div *ngIf="fromVerPublicacion" class="contenedorBotones">
   <ion-button expand="block" class="seguirPerfil" [class.siguiendo]="siguiendo" (click)="toggleSeguir()">

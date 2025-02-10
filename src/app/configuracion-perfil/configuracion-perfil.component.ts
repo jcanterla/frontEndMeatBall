@@ -25,7 +25,7 @@ import { createOutline } from 'ionicons/icons';
   ]
 })
 export class ConfiguracionPerfilComponent implements OnInit {
-  perfiles: Perfil[] = [];
+  perfil: Perfil = new Perfil();
   perfilActual: Perfil = new Perfil();
   perfilForm: FormGroup;
   inputsDisabled: boolean = true;
@@ -45,6 +45,7 @@ export class ConfiguracionPerfilComponent implements OnInit {
       "create-outline": createOutline,
     });
 
+    this.getPerfil();
     this.perfilService.getPerfilPorToken().subscribe((data: Perfil) => {
       this.perfilActual = data;
       this.perfilForm.patchValue(this.perfilActual);
@@ -81,6 +82,16 @@ export class ConfiguracionPerfilComponent implements OnInit {
         console.error('Error al actualizar el perfil:', error);
       });
     }
+  }
+
+  getPerfil(): void {
+    this.perfilService.getPerfil().subscribe({
+      next: (data: Perfil) => {
+        this.perfil = data;
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
   }
 
   async mostrarAlert() {

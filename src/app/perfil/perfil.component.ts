@@ -20,19 +20,17 @@ import { Publicacion } from "../modelos/Publicacion";
     CommonModule
   ]
 })
-export class PerfilComponent implements OnInit {
-  perfiles: Perfil[] = [];
-  publicaciones: Publicacion[] = [];
+export class PerfilComponent  implements OnInit {
+  perfil: Perfil = new Perfil();
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
   seguidores: number = 0;
+  publicaciones: Publicacion[] = [];
   seguidos: number = 0;
   filteredItems: string[] = [];
+  idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) {
-    this.seguidores = 0;
-    this.seguidos = 0;
-  }
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const username = sessionStorage.getItem('username');
@@ -41,33 +39,75 @@ export class PerfilComponent implements OnInit {
     this.seguidos = parseInt(localStorage.getItem('seguidos') || '0', 10);
 
     this.perfilService.getPerfiles().subscribe((data: Perfil[]) => {
-      this.perfiles = data.filter(perfil => perfil.id === id);
-      if (this.perfiles.length === 0) {
-        console.error('No se encontraron perfiles con el id:', id);
-      }
+      this.perfiles = data.filter(perfil => perfil.username === username);
     });
 
     this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
       this.publicaciones = data;
-      if (this.publicaciones.length === 0) {
-        console.error('No se encontraron publicaciones');
-      }
     });
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+      const idUsuario = params.get('id');
+      if (idUsuario) {
+        this.idUsuarioPublicacion = +idUsuario;
+        console.log('User ID:', this.idUsuarioPublicacion);
+      }
+    });
+
+    if (this.fromVerPublicacion){
+      this.getPerfilById(this.idUsuarioPublicacion);
+    } else {
+      this.getPerfil();
+    }
+
+    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
       this.updateSeguidoresSeguidos();
     });
 
+    const siguiendo = localStorage.getItem('siguiendo');
+    this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
+
+    this.loadSeguidores();
     this.filteredItems = [...this.items];
   }
 
-  navigateToConfiguracionPerfil() {
+  getPerfil(): void {
+    this.perfilService.getPerfil().subscribe({
+      next: (data: Perfil) => {
+        this.perfil = data;
+        console.info('Hola soy el perfil', this.perfil);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
+  }
+
+  getPerfilById(id: number): void {
+    this.perfilService.getPerfilById(id).subscribe({
+      next: (data: Perfil) => {
+        this.perfil = data;
+        console.info('Hola soy el perfil', this.perfil);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
+  }
+
+  nagivateToConfiguracionPerfil() {
     this.router.navigate(['/configuracionPerfil']);
   }
 
-  navigateToMensajes() {
-    this.router.navigate(['/mensajes']);
+  loadSeguidores() {
+    const seguidores = localStorage.getItem('seguidores');
+    if (seguidores) {
+      this.seguidores = parseInt(seguidores, 10);
+    }
+  }
+
+  saveSeguidores() {
+    localStorage.setItem('seguidores', this.seguidores.toString());
   }
 
   toggleSeguir() {
@@ -110,6 +150,11 @@ export class PerfilComponent implements OnInit {
     localStorage.setItem('seguidores', this.seguidores.toString());
     localStorage.setItem('seguidos', this.seguidos.toString());
   }
+
+  navigateToMensajes() {
+    this.router.navigate(['/mensajes']);
+  }
+
 
   items: string[] = [
     'https://www.goya.com/media/4173/creole-spaghetti.jpg?quality=80',
