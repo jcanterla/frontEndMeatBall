@@ -6,6 +6,8 @@ import {arrowBackOutline} from "ionicons/icons";
 import {addIcons} from "ionicons";
 import {CommonModule} from "@angular/common";
 import {Router} from "@angular/router";
+import {ChatService} from "../servicios/chat.service";
+import {Chat} from "../modelos/Chat";
 
 @Component({
   selector: 'app-chat',
@@ -21,11 +23,29 @@ import {Router} from "@angular/router";
 })
 export class ChatComponent  implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private chatService: ChatService) {
     addIcons({"arrow-back-outline": arrowBackOutline})
   }
 
-  ngOnInit() {}
+  chats: Chat[] = [];
+
+  ngOnInit() {
+    this.getChats();
+  }
+
+  getChats() {
+    this.chatService.getChats().subscribe({
+      next: (data) => {
+        this.chats = data;
+      },
+      error: (error) => {
+        console.error('Error fetching chats:', error);
+      },
+      complete: () => {
+        console.log('Chat fetching completed');
+      }
+    });
+  }
 
   navigateToMensajes() {
     this.router.navigate(['/mensajes']);

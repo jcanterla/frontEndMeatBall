@@ -14,196 +14,22 @@
   <ion-grid class="sin-espacios">
     <ion-row class="sin-espacios">
 
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaImpar">
+      <ion-col *ngFor="let chat of chats; let i = index" size="12" class="sin-espacios" (click)="navigateToMensajes()">
+        <ion-item [ngClass]="{'tarjetaImpar': i % 2 === 0, 'tarjetaPar': i % 2 !== 0}">
           <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            <img alt="Silhouette of mountains" src="{{chat.perfilDTO?.foto}}" />
           </ion-thumbnail>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
+                <ion-label class="textoUsuario">{{chat.perfilDTO?.username}}</ion-label>
+                <ion-label class="mensaje">{{chat.mensaje}}</ion-label>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
       </ion-col>
 
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaPar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaImpar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaPar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaImpar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaPar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaImpar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaPar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaImpar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaPar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-      <ion-col size="12" class="sin-espacios">
-        <ion-item class="tarjetaImpar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" class="sin-espacios" (click)="navigateToMensajes()">
-        <ion-item class="tarjetaPar">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-label class="textoUsuario">Item</ion-label>
-                <ion-label class="mensaje">Mensaje</ion-label>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
