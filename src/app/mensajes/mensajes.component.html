@@ -10,7 +10,7 @@
 
 <ion-content  #content scroll-y="true">
 
-  <ion-card>
+
     <ion-list #chatList>
 
       <ion-item lines="none" *ngFor="let m of mensajes">
@@ -21,7 +21,7 @@
         <ion-label class="message-bubble" *ngIf="m.idEmisor === idPerfil">
           {{ m.mensaje }}
           <br>
-          <ion-text style="font-size: 9pt">{{ m.fecha?.substring(11, 16) }}</ion-text>
+          <ion-text style="font-size: 9pt; color: #251406">{{ m.fecha?.substring(11, 16) }}</ion-text>
         </ion-label>
 
 
@@ -31,14 +31,14 @@
         <ion-label class="message-bubble" slot="end" *ngIf="m.idEmisor !== idPerfil">
           {{ m.mensaje }}
           <br>
-          <ion-text style="font-size: 9pt">{{ m.fecha?.substring(11, 16) }}</ion-text>
+          <ion-text style="font-size: 9pt; color: #251406">{{ m.fecha?.substring(11, 16) }}</ion-text>
         </ion-label>
 
       </ion-item>
 
 
     </ion-list>
-  </ion-card>
+
 
 </ion-content>
 
