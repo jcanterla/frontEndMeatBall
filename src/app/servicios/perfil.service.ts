@@ -10,10 +10,9 @@ import {Publicacion} from "../modelos/Publicacion";
   providedIn: 'root'
 })
 export class PerfilService {
-  private perfilAllUrl = '/perfil/all';
   private miPerfilUrl = '/perfil/miPerfil';
   private perfilAllUrl2 = '/perfil/update';
-  private perfilAllUrl3 = '/perfil/perfilPorToken';
+  private perfilAllUrl3 = '/perfil/miPerfil';
   private seguidoresUrl = '/usuario/seguir';
   private dejarSeguidoresUrl = '/usuario/dejarSeguir';
   private publicacionAllUrl = '/publicacion/all';
@@ -21,11 +20,6 @@ export class PerfilService {
   private perfilId = '/perfil';
 
   constructor(private http: HttpClient, private comunService: ComunService) { }
-
-  getPerfiles(): Observable<Perfil[]> {
-    const options = this.comunService.autorizarPeticion();
-    return this.http.get<any>(`${this.apiUrl+this.perfilAllUrl}`, options);
-  }
 
   getPerfilPorToken(): Observable<Perfil> {
     const options = this.comunService.autorizarPeticion();

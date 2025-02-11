@@ -22,6 +22,7 @@ import { Publicacion } from "../modelos/Publicacion";
 })
 export class PerfilComponent  implements OnInit {
   perfil: Perfil = new Perfil();
+  perfilParaSeguir: Perfil = new Perfil();
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
   seguidores: number = 0;
@@ -30,7 +31,10 @@ export class PerfilComponent  implements OnInit {
   filteredItems: string[] = [];
   idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) {
+    this.seguidores = 0;
+    this.seguidos = 0;
+  }
 
   ngOnInit() {
     const username = sessionStorage.getItem('username');
@@ -38,13 +42,13 @@ export class PerfilComponent  implements OnInit {
     this.seguidores = parseInt(localStorage.getItem('seguidores') || '0', 10);
     this.seguidos = parseInt(localStorage.getItem('seguidos') || '0', 10);
 
-    this.perfilService.getPerfiles().subscribe((data: Perfil[]) => {
-      this.perfiles = data.filter(perfil => perfil.username === username);
-    });
+    const userId = sessionStorage.getItem('userId');
 
     this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
       this.publicaciones = data;
     });
+
+    this.getPerfilParaSeguir();
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
@@ -66,6 +70,11 @@ export class PerfilComponent  implements OnInit {
       this.updateSeguidoresSeguidos();
     });
 
+    this.route.paramMap.subscribe(params => {
+      this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+      this.updateSeguidoresSeguidos();
+    });
+
     const siguiendo = localStorage.getItem('siguiendo');
     this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
 
@@ -78,6 +87,17 @@ export class PerfilComponent  implements OnInit {
       next: (data: Perfil) => {
         this.perfil = data;
         console.info('Hola soy el perfil', this.perfil);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
+  }
+
+  getPerfilParaSeguir(): void {
+    this.perfilService.getPerfil().subscribe({
+      next: (data: Perfil) => {
+        this.perfilParaSeguir = data;
+        console.info('Hola soy el perfil para seguir', this.perfil);
       },
       error: (error: any) => console.error('Error: ', error),
       complete: () => console.log('Petición completada')
@@ -106,17 +126,13 @@ export class PerfilComponent  implements OnInit {
     }
   }
 
-  saveSeguidores() {
-    localStorage.setItem('seguidores', this.seguidores.toString());
-  }
-
   toggleSeguir() {
     this.siguiendo = !this.siguiendo;
     localStorage.setItem('siguiendo', this.siguiendo.toString());
     this.updateSeguidoresSeguidos();
 
-    const seguidorId = this.perfiles[0]?.id;
-    const seguidoId = this.publicaciones[0]?.usuarioId;
+    const seguidorId = this.perfilParaSeguir.id;
+    const seguidoId = this.idUsuarioPublicacion;
 
     if (seguidorId && seguidoId) {
       const usuario = { seguidor_id: seguidorId, seguido_id: seguidoId };
