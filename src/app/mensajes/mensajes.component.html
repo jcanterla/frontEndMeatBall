@@ -2,21 +2,59 @@
   <ion-toolbar class="marronClaro">
     <div class="header-content">
       <ion-icon class="volver" name="arrow-back-outline" (click)="goBack()"></ion-icon>
-      <ion-img id="foto" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
-      <ion-title *ngFor="let publicacion of publicaciones" class="nombreUsuario">{{ publicacion.username }}</ion-title>
+      <ion-img id="foto" src="{{perfil.fotoPerfilLink}}}" alt="FotoPerfil"></ion-img>
+      <ion-title class="nombreUsuario">{{perfil.username}}</ion-title>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content  #content scroll-y="true">
+
+  <ion-card>
+    <ion-list #chatList>
+
+      <ion-item lines="none" *ngFor="let m of mensajes">
+
+        <ion-avatar slot="start" *ngIf="m.idEmisor === idPerfil">
+          <ion-img src="{{perfil.fotoPerfilLink}}"></ion-img>
+        </ion-avatar>
+        <ion-label class="message-bubble" *ngIf="m.idEmisor === idPerfil">
+          {{ m.mensaje }}
+          <br>
+          <ion-text style="font-size: 9pt">{{ m.fecha?.substring(11, 16) }}</ion-text>
+        </ion-label>
+
+
+        <ion-avatar slot="end" *ngIf="m.idEmisor !== idPerfil">
+          <ion-img src="{{perfilFoto.fotoPerfilLink}}"></ion-img>
+        </ion-avatar>
+        <ion-label class="message-bubble" slot="end" *ngIf="m.idEmisor !== idPerfil">
+          {{ m.mensaje }}
+          <br>
+          <ion-text style="font-size: 9pt">{{ m.fecha?.substring(11, 16) }}</ion-text>
+        </ion-label>
+
+      </ion-item>
+
+
+    </ion-list>
+  </ion-card>
 
 </ion-content>
 
 <ion-footer class="marronClaro">
   <ion-toolbar class="marronClaro">
-    <div class="rectangulo">
-      <ion-input style="margin-left: 10px" placeholder="Escribe un mensaje"></ion-input>
-      <ion-icon class="enviar" name="send-outline"></ion-icon>
-    </div>
+    <form [formGroup]="mensajeForm" id="formularioMensaje">
+      <ion-item class="rectangulo">
+        <ion-input formControlName="texto" id="textoMensaje" name="texto"
+                   style="margin-left: 10px; color: #0e6a95"
+                   placeholder="Escribe un mensaje">
+        </ion-input>
+        <ion-icon class="enviar" name="send-outline" size="large"
+                  style="color: #362110" (click)="enviarMensaje()">
+        </ion-icon>
+      </ion-item>
+    </form>
+
   </ion-toolbar>
 </ion-footer>

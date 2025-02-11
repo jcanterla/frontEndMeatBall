@@ -7,6 +7,7 @@ import {PerfilService} from "../servicios/perfil.service";
 import {CommonModule} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Publicacion} from "../modelos/Publicacion";
+import {ChatService} from "../servicios/chat.service";
 
 @Component({
   selector: 'app-perfil',
@@ -29,7 +30,7 @@ export class PerfilComponent  implements OnInit {
   filteredItems: string[] = [];
   idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) { }
 
   ngOnInit() {
 
@@ -108,8 +109,10 @@ export class PerfilComponent  implements OnInit {
     this.saveSeguidores();
   }
 
-  navigateToMensajes() {
-    this.router.navigate(['/mensajes']);
+  navigateToMensajes(id: number | undefined) {
+    this.chatService.setContactoId(id);
+    console.log(this.chatService.getContactoId());
+    this.router.navigate(['mensajes', id]);
   }
 
 

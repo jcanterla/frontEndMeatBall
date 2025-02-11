@@ -37,6 +37,7 @@ export class ChatComponent  implements OnInit {
     this.chatService.getChats().subscribe({
       next: (data) => {
         this.chats = data;
+        console.log('Chats:', this.chats);
       },
       error: (error) => {
         console.error('Error fetching chats:', error);
@@ -47,7 +48,9 @@ export class ChatComponent  implements OnInit {
     });
   }
 
-  navigateToMensajes() {
-    this.router.navigate(['/mensajes']);
+  navigateToMensajes(id: number | undefined) {
+    this.chatService.setContactoId(id);
+    console.log(this.chatService.getContactoId());
+    this.router.navigate(['mensajes', id]);
   }
 }

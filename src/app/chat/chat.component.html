@@ -14,10 +14,10 @@
   <ion-grid class="sin-espacios">
     <ion-row class="sin-espacios">
 
-      <ion-col *ngFor="let chat of chats; let i = index" size="12" class="sin-espacios" (click)="navigateToMensajes()">
+      <ion-col *ngFor="let chat of chats; let i = index" size="12" class="sin-espacios" (click)="navigateToMensajes(chat.perfilDTO?.id)">
         <ion-item [ngClass]="{'tarjetaImpar': i % 2 === 0, 'tarjetaPar': i % 2 !== 0}">
           <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="{{chat.perfilDTO?.foto}}" />
+            <img alt="Silhouette of mountains" src="{{chat.perfilDTO?.fotoPerfilLink}}" />
           </ion-thumbnail>
           <ion-grid>
             <ion-row>

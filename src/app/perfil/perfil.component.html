@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-img id="fotoPerfil" [src]="perfil.foto || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
+  <ion-img id="fotoPerfil" [src]="perfil.fotoPerfilLink || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil"></ion-img>
 
   <ng-container *ngIf="!fromVerPublicacion">
     <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
@@ -33,7 +33,7 @@
   <ion-button expand="block" class="seguirPerfil" [class.siguiendo]="siguiendo" (click)="toggleSeguir()">
     {{ siguiendo ? 'Siguiendo' : 'Seguir' }}
   </ion-button>
-  <ion-button expand="block" class="enviarMensaje" (click)="navigateToMensajes()">Enviar Mensaje</ion-button>
+  <ion-button expand="block" class="enviarMensaje" (click)="navigateToMensajes(perfil.id)">Enviar Mensaje</ion-button>
 </div>
 
 <app-navbar-inferior></app-navbar-inferior>

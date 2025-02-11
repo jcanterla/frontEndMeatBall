@@ -14,6 +14,7 @@ import {Agregar} from "../modelos/Agregar";
 import {AgregarService} from "../servicios/agregar.service";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-agregar',
@@ -36,7 +37,9 @@ import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.compon
     IonToolbar,
     NavbarInferiorComponent,
     NavbarSuperiorComponent,
-    IonItem
+    IonItem,
+    NgForOf,
+    NgIf
   ]
 })
 export class AgregarComponent  implements OnInit {
