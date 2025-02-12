@@ -10,14 +10,33 @@ import {Publicacion} from "../modelos/Publicacion";
   providedIn: 'root'
 })
 export class PerfilService {
-  private perfilAllUrl = '/perfil/all';
   private miPerfilUrl = '/perfil/miPerfil';
-  private publicacionAllUrl = '/publicacion/all';
   private perfilAllUrl2 = '/perfil/update';
+  private perfilAllUrl3 = '/perfil/miPerfil';
+  private seguidoresUrl = '/usuario/seguir';
+  private dejarSeguidoresUrl = '/usuario/dejarSeguir';
+  private publicacionAllUrl = '/publicacion/all';
+  private publicacionTokenUrl = '/perfil/misPublicaciones';
+  private publicacionesIDUrl = '/perfil/otrasPublicaciones';
   private apiUrl = environment.apiUrl;
   private perfilId = '/perfil';
 
   constructor(private http: HttpClient, private comunService: ComunService) { }
+
+  getPerfilPorToken(): Observable<Perfil> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<Perfil>(`${this.apiUrl+this.perfilAllUrl3}`, options);
+  }
+
+  getPublicacionPorToken(): Observable<Publicacion[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<Publicacion[]>(`${this.apiUrl + this.publicacionTokenUrl}`, options);
+  }
+
+  getPublicacionesPorId(id: number): Observable<Publicacion[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<Publicacion[]>(`${this.apiUrl+this.publicacionesIDUrl}/${id}`, options);
+  }
 
   updatePerfil(perfil: Perfil): Observable<Perfil> {
     const options = this.comunService.autorizarPeticion();
@@ -39,5 +58,13 @@ export class PerfilService {
     return this.http.get<any>(`${this.apiUrl+this.publicacionAllUrl}`, options);
   }
 
+  postSeguir(usuario: { seguidor_id: number, seguido_id: number }): Observable<any> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.post<any>(`${this.apiUrl+this.seguidoresUrl}`, usuario, options);
+  }
 
+  postDejarSeguir(usuario: { seguidor_id: number, seguido_id: number }): Observable<any> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.post<any>(`${this.apiUrl+this.dejarSeguidoresUrl}`, usuario, options);
+  }
 }

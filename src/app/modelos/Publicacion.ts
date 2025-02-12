@@ -10,5 +10,5 @@ export class Publicacion{
   raciones?:number;
   usuarioId?: number;
   username?: string;
-
+  fotoPerfilLink?: string;
 }

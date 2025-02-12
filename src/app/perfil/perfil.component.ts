@@ -23,17 +23,33 @@ import {ChatService} from "../servicios/chat.service";
 })
 export class PerfilComponent  implements OnInit {
   perfil: Perfil = new Perfil();
+  perfilParaSeguir: Perfil = new Perfil();
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
   seguidores: number = 0;
   publicaciones: Publicacion[] = [];
-  filteredItems: string[] = [];
+  seguidos: number = 0;
+  filteredItems: Publicacion[] = [];
   idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) { }
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) {
+    this.seguidores = 0;
+    this.seguidos = 0;
+  }
 
   ngOnInit() {
+    const username = sessionStorage.getItem('username');
+    this.siguiendo = localStorage.getItem('siguiendo') === 'true';
+    this.seguidores = parseInt(localStorage.getItem('seguidores') || '0', 10);
+    this.seguidos = parseInt(localStorage.getItem('seguidos') || '0', 10);
 
+    const userId = sessionStorage.getItem('userId');
+
+    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
+    });
+
+    this.getPerfilParaSeguir();
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
@@ -44,21 +60,34 @@ export class PerfilComponent  implements OnInit {
       }
     });
 
-    if (this.fromVerPublicacion){
-      this.getPerfilById(this.idUsuarioPublicacion);
-    } else {
-      this.getPerfil();
-    }
-
-    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
-      this.publicaciones = data;
+      if (this.fromVerPublicacion) {
+        this.getPerfilById(this.idUsuarioPublicacion);
+        this.getPublicacionesPorId(this.idUsuarioPublicacion);
+      } else {
+        this.getPerfil();
+        this.getPublicaciones();
+      }
     });
 
     const siguiendo = localStorage.getItem('siguiendo');
     this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
 
     this.loadSeguidores();
-    this.filteredItems = [...this.items];
+    this.filteredItems = [...this.publicaciones];
+  }
+
+  getPublicaciones(): void {
+    this.perfilService.getPublicacionPorToken().subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
+      this.filteredItems = [...this.publicaciones];
+    });
+  }
+
+  getPublicacionesPorId(id: number): void {
+    this.perfilService.getPublicacionesPorId(id).subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
+      this.filteredItems = [...this.publicaciones];
+    });
   }
 
   getPerfil(): void {
@@ -66,6 +95,17 @@ export class PerfilComponent  implements OnInit {
       next: (data: Perfil) => {
         this.perfil = data;
         console.info('Hola soy el perfil', this.perfil);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
+  }
+
+  getPerfilParaSeguir(): void {
+    this.perfilService.getPerfil().subscribe({
+      next: (data: Perfil) => {
+        this.perfilParaSeguir = data;
+        console.info('Hola soy el perfil para seguir', this.perfil);
       },
       error: (error: any) => console.error('Error: ', error),
       complete: () => console.log('Petición completada')
@@ -100,13 +140,43 @@ export class PerfilComponent  implements OnInit {
 
   toggleSeguir() {
     this.siguiendo = !this.siguiendo;
-    localStorage.setItem('siguiendo', JSON.stringify(this.siguiendo));
-    if (this.siguiendo) {
-      this.seguidores += 1;
-    } else if (this.seguidores > 0) {
-      this.seguidores -= 1;
+    localStorage.setItem('siguiendo', this.siguiendo.toString());
+    this.updateSeguidoresSeguidos();
+
+    const seguidorId = this.perfilParaSeguir.id;
+    const seguidoId = this.idUsuarioPublicacion;
+
+    if (seguidorId && seguidoId) {
+      const usuario = { seguidor_id: seguidorId, seguido_id: seguidoId };
+
+      if (this.siguiendo) {
+        this.perfilService.postSeguir(usuario).subscribe(response => {
+          console.log('Post de seguir realizado con éxito:', response);
+        }, error => {
+          console.error('Error al realizar el post de seguir:', error);
+        });
+      } else {
+        this.perfilService.postDejarSeguir(usuario).subscribe(response => {
+          console.log('Post de dejar de seguir realizado con éxito:', response);
+        }, error => {
+          console.error('Error al realizar el post de dejar de seguir:', error);
+        });
+      }
+    } else {
+      console.error('No se pudieron obtener los IDs de seguidor o seguido.');
     }
-    this.saveSeguidores();
+  }
+
+  updateSeguidoresSeguidos() {
+    if (this.fromVerPublicacion) {
+      this.seguidores = this.siguiendo ? 1 : 0;
+      this.seguidos = 0;
+    } else {
+      this.seguidores = 0;
+      this.seguidos = this.siguiendo ? 1 : 0;
+    }
+    localStorage.setItem('seguidores', this.seguidores.toString());
+    localStorage.setItem('seguidos', this.seguidos.toString());
   }
 
   navigateToMensajes(id: number | undefined) {
@@ -115,13 +185,8 @@ export class PerfilComponent  implements OnInit {
     this.router.navigate(['mensajes', id]);
   }
 
-
-  items: string[] = [
-    'https://www.goya.com/media/4173/creole-spaghetti.jpg?quality=80',
-    'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/02/carne-mechada.jpg',
-    'https://www.cnature.es/wp-content/uploads/2020/08/gazpacho-gallego-.jpg',
-    'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/cocido-madrileno-1080x671.jpg',
-    'https://www.bekiacocina.com/images/cocina/0000/179-h.jpg',
-    'https://www.annarecetasfaciles.com/files/pollo-en-salsa-1-1024x640.jpg'
-  ];
+  navigateToVerPublicacion(item: any) {
+    sessionStorage.setItem('publicacion', JSON.stringify(item));
+    this.router.navigate(['/verPublicacion']);
+  }
 }

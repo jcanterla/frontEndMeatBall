@@ -9,7 +9,7 @@
 
 <ion-content id="centrar">
   <div style="text-align: center;">
-    <ion-img id="fotoPerfil" src="assets/icon/foto_perfil.webp" alt="FotoPerfil"></ion-img>
+    <ion-img id="fotoPerfil" [src]="perfil.fotoPerfilLink || 'assets/icon/foto_perfil.webp'" alt="FotoPerfil" (click)="mostrarAlert()"></ion-img>
     <ion-icon name="create-outline" id="iconoPerfil" (click)="activarInput()"></ion-icon>
   </div>
 

@@ -17,12 +17,12 @@
     <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
   </ng-container>
 
-  <ion-label class="seguidores">{{ seguidores }} seguidores - 0 seguidos</ion-label>
+  <ion-label class="seguidores">{{ seguidores }} seguidores - {{ seguidos }} seguidos</ion-label>
   <ion-label class="fraseRecetas">Recetas</ion-label>
 
   <div class="image-grid">
     <div class="image-item" *ngFor="let item of filteredItems">
-      <img [src]="item" alt="Image">
+      <img [src]="item.imagenLink" [alt]="item.titulo" (click)="navigateToVerPublicacion(item)">
     </div>
   </div>
 </ion-content>

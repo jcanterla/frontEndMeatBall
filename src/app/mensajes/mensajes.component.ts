@@ -160,6 +160,8 @@ export class MensajesComponent implements OnInit {
         console.info(this.perfilFoto)
 
     });
+
+
   }
 
   goBack() {
