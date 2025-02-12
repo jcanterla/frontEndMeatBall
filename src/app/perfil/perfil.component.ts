@@ -32,7 +32,7 @@ export class PerfilComponent  implements OnInit {
   filteredItems: Publicacion[] = [];
   idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) {
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) {
     this.seguidores = 0;
     this.seguidos = 0;
   }
@@ -67,7 +67,6 @@ export class PerfilComponent  implements OnInit {
         this.getPerfil();
         this.getPublicaciones();
       }
-    });
 
     const siguiendo = localStorage.getItem('siguiendo');
     this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;

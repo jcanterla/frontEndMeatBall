@@ -58,6 +58,7 @@ export class VerPublicacionComponent  implements OnInit {
       const storedData = sessionStorage.getItem('publicacion');
       if (storedData) {
         this.publicacion = JSON.parse(storedData);
+        console.info('Publicación recibida', this.publicacion);
       } else {
         console.error('No se recibió la publicación');
       }
@@ -68,7 +69,7 @@ export class VerPublicacionComponent  implements OnInit {
 
     const leHaDadoLike = localStorage.getItem('leHaDadoLike');
     this.leHaDadoLike = leHaDadoLike ? JSON.parse(leHaDadoLike) : false;
-
+    console.info('Publicacion ', this.publicacion);
     addIcons({
       "happy-outline": happyOutline,
       "stopwatch-outline": stopwatchOutline,
