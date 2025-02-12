@@ -1,15 +1,14 @@
 import { AlertController } from "@ionic/angular";
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
-  AbstractControl, AsyncValidator,
+  AbstractControl, ValidatorFn,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
-  ValidatorFn,
-  Validators,
-  AsyncValidatorFn
+  Validators
 } from "@angular/forms";
 import { Registro } from "../modelos/Registro";
 import { CommonModule } from "@angular/common";
@@ -22,8 +21,7 @@ import {
   IonList, IonText,
   IonTitle
 } from "@ionic/angular/standalone";
-import {Router} from "@angular/router";
-import {catchError, map, Observable, of, switchMap} from "rxjs";
+import { Router } from "@angular/router";
 
 export const comprobarPassword: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
@@ -74,8 +72,19 @@ export class RegistrarComponent implements OnInit {
       this.registroService.registrarUsuario(this.registro).subscribe(
         response => {
           console.log('Registro exitoso:', response);
-          this.registroForm.reset()
-          this.router.navigate(['/login']);
+          this.registroService.enviarEmail(this.registroForm.value).subscribe(
+            emailResponse => {
+              console.log('Email enviado:', emailResponse);
+              this.registroForm.reset();
+              this.router.navigate(['/login']);
+            },
+            emailError => {
+              console.error('Error al enviar el email:', emailError);
+              if (emailError instanceof HttpErrorResponse) {
+                console.error('Detalles del error:', emailError.message);
+              }
+            }
+          );
         },
         error => {
           console.error('Error en el registro:', error);
