@@ -86,3 +86,18 @@ ion-button {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.no-publicaciones {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: #6C4E31;
+}
+
+.no-publicaciones ion-icon {
+  margin-top: 55px;
+  margin-bottom: 15px;
+  font-size: 125px;
+}

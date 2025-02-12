@@ -8,6 +8,8 @@ import {CommonModule} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Publicacion} from "../modelos/Publicacion";
 import {ChatService} from "../servicios/chat.service";
+import {addIcons} from "ionicons";
+import {imageOutline} from "ionicons/icons";
 
 @Component({
   selector: 'app-perfil',
@@ -33,6 +35,7 @@ export class PerfilComponent  implements OnInit {
   idUsuarioPublicacion: number = 0;
 
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) {
+    addIcons({"image-outline": imageOutline});
     this.seguidores = 0;
     this.seguidos = 0;
   }
