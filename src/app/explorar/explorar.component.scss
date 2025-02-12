@@ -59,6 +59,10 @@ ion-icon {
   margin-top: 10px;
 }
 
+.image-item {
+  position: relative;
+}
+
 .image-item img {
   width: 100%;
   height: 200px;
@@ -66,8 +70,23 @@ ion-icon {
   border-radius: 10px;
 }
 
+.image-item p {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: white;
+  color: #603F26;
+  font-size: 1em;
+  font-weight: bolder;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0;
+}
+
 @media (min-width: 768px) {
   .image-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+
