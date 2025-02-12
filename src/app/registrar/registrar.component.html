@@ -1,10 +1,7 @@
 <ion-content [fullscreen]="true">
   <div class="contenido">
-
     <ion-title class="titulo">Registro</ion-title>
-
-    <ion-text class="rellenar">Rellena lo siguientes datos personales</ion-text>
-
+    <ion-text class="rellenar">Rellena los siguientes datos personales</ion-text>
 
     <form [formGroup]="registroForm" id="registro">
       <ion-list class="lista">
@@ -27,8 +24,7 @@
         <div class="contenedor">
           <ion-input
             class="confirmarPasswordInput"
-            [ngClass]="{
-            'input-error': registroForm.errors?.['noCoinciden'] && registroForm.get('confirmarPassword')?.touched}"
+            [ngClass]="{'input-error': registroForm.errors?.['noCoinciden'] && registroForm.get('confirmarPassword')?.touched}"
             placeholder="Vuelve a introducir tu contraseña"
             fill="outline"
             formControlName="confirmarPassword"
@@ -46,6 +42,5 @@
     </div>
 
     <ion-button expand="block" class="botonSiguiente" (click)="doRegister()" [disabled]="!registroForm.valid">Siguiente</ion-button>
-
   </div>
 </ion-content>
