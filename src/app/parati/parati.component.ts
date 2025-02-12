@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
-import { IonicModule } from "@ionic/angular";
+import { IonicModule, ViewWillEnter } from "@ionic/angular";
 import { NavbarSuperiorComponent } from "../navbar-superior/navbar-superior.component";
 import { NavbarInferiorComponent } from "../navbar-inferior/navbar-inferior.component";
 import { addIcons } from "ionicons";
@@ -9,7 +9,6 @@ import Swiper from "swiper";
 import { Publicacion } from "../modelos/Publicacion";
 import { ParatiService } from "../servicios/parati.service";
 import { CommonModule } from "@angular/common";
-import { NgForOf } from "@angular/common";
 
 @Component({
   selector: 'app-parati',
@@ -24,13 +23,12 @@ import { NgForOf } from "@angular/common";
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ParatiComponent implements OnInit, OnDestroy {
+export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
   publicaciones: Publicacion[] = [];
-
-  slides: string[] = ['Slide1', 'Slide2', 'Slide3'];
+  publicacionesAleatorias: Publicacion[] = [];
 
   constructor(private router: Router, private paratiService: ParatiService) {
     addIcons({ "notifications-outline": notificationsOutline });
@@ -38,8 +36,14 @@ export class ParatiComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getPublicaciones();
-    this.initializeSwipers();
+    this.getPublicacionesAleatorias();
+    setTimeout(() => this.initializeSwipers(), 0);
     window.addEventListener('resize', this.onResize.bind(this));
+  }
+
+  ionViewWillEnter() {
+    this.getPublicaciones();
+    this.getPublicacionesAleatorias();
   }
 
   ngOnDestroy() {
@@ -51,11 +55,21 @@ export class ParatiComponent implements OnInit, OnDestroy {
   }
 
   getPublicaciones(): void {
-    this.paratiService.getPublicacionesParaTi().subscribe({
+    this.paratiService.getPublicacionesDeSeguidos().subscribe({
       next: (data: Publicacion[]) => {
         this.publicaciones = data;
-        console.info('Hola soy las publicaciones', this.publicaciones);
-        setTimeout(() => this.initializeSwipers(), 0); // Inicializa Swiper después de cargar las publicaciones
+        setTimeout(() => this.initializeSwipers(), 0);
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
+    });
+  }
+
+  getPublicacionesAleatorias(): void {
+    this.paratiService.getPublicacionesAleatorias().subscribe({
+      next: (data: Publicacion[]) => {
+        this.publicacionesAleatorias = data;
+        setTimeout(() => this.initializeSwipers(), 0);
       },
       error: (error: any) => console.error('Error: ', error),
       complete: () => console.log('Petición completada')
@@ -64,10 +78,9 @@ export class ParatiComponent implements OnInit, OnDestroy {
 
   initializeSwipers() {
     const swiperElements = document.querySelectorAll('swiper-container');
+
     swiperElements.forEach(swiperEl => {
       Object.assign(swiperEl, {
-        slidesPerView: 1,
-        spaceBetween: 10,
         pagination: {
           clickable: true,
         },
@@ -75,14 +88,17 @@ export class ParatiComponent implements OnInit, OnDestroy {
           640: {
             slidesPerView: 2,
             spaceBetween: 20,
+            slidesPerGroup: 2,
           },
           768: {
-            slidesPerView: 3, // Cambiar a 3 imágenes en vista de ordenador
+            slidesPerView: 3,
             spaceBetween: 30,
+            slidesPerGroup: 3,
           },
           1024: {
-            slidesPerView: 3, // Cambiar a 3 imágenes en vista de ordenador
+            slidesPerView: 4,
             spaceBetween: 40,
+            slidesPerGroup: 4,
           },
         },
       });
@@ -90,8 +106,8 @@ export class ParatiComponent implements OnInit, OnDestroy {
     });
   }
 
-  navigateToVerPublicacion(item: any) {
-    sessionStorage.setItem('publicacion', JSON.stringify(item));
+  navigateToVerPublicacion(publicacion: Publicacion) {
+    sessionStorage.setItem('publicacion', JSON.stringify(publicacion));
     this.router.navigate(['/verPublicacion']);
   }
 

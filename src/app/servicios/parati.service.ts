@@ -41,7 +41,7 @@ export class ParatiService {
     const authHeader = this.comunService.autorizarPeticion();
 
     return this.httpClient.post<any>(
-      `/api/publicacion/unlike`,
+      `/api/publicacion/quitarlike`,
       null,
       {
         ...authHeader,
@@ -55,4 +55,13 @@ export class ParatiService {
     return this.httpClient.post<any>("/api/publicacion/comentar", comentarioEnviar, authHeader);
   }
 
+  getPublicacionesDeSeguidos(): Observable<Publicacion[]> {
+    const authHeader = this.comunService.autorizarPeticion();
+    return this.httpClient.get<Publicacion[]>('/api/publicacion/seguidos', authHeader);
+  }
+
+  getPublicacionesAleatorias(): Observable<Publicacion[]> {
+    const authHeader = this.comunService.autorizarPeticion();
+    return this.httpClient.get<Publicacion[]>('/api/publicacion/aleatorias', authHeader);
+  }
 }
