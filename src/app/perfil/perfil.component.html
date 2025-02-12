@@ -21,7 +21,11 @@
   <ion-label class="seguidores">{{ seguidores }} seguidores - {{ seguidos }} seguidos</ion-label>
   <ion-label class="fraseRecetas">Recetas</ion-label>
 
-  <div class="image-grid">
+  <div *ngIf="filteredItems.length === 0" class="no-publicaciones">
+    <ion-label>No tiene publicaciones</ion-label>
+  </div>
+
+  <div *ngIf="filteredItems.length > 0" class="image-grid">
     <div class="image-item" *ngFor="let item of filteredItems">
       <img [src]="item.imagenLink" [alt]="item.titulo" (click)="navigateToVerPublicacion(item)">
     </div>
