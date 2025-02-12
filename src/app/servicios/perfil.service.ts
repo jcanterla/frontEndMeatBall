@@ -16,6 +16,8 @@ export class PerfilService {
   private seguidoresUrl = '/usuario/seguir';
   private dejarSeguidoresUrl = '/usuario/dejarSeguir';
   private publicacionAllUrl = '/publicacion/all';
+  private publicacionTokenUrl = '/perfil/misPublicaciones';
+  private publicacionesIDUrl = '/perfil/otrasPublicaciones';
   private apiUrl = environment.apiUrl;
   private perfilId = '/perfil';
 
@@ -24,6 +26,16 @@ export class PerfilService {
   getPerfilPorToken(): Observable<Perfil> {
     const options = this.comunService.autorizarPeticion();
     return this.http.get<Perfil>(`${this.apiUrl+this.perfilAllUrl3}`, options);
+  }
+
+  getPublicacionPorToken(): Observable<Publicacion[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<Publicacion[]>(`${this.apiUrl + this.publicacionTokenUrl}`, options);
+  }
+
+  getPublicacionesPorId(id: number): Observable<Publicacion[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<Publicacion[]>(`${this.apiUrl+this.publicacionesIDUrl}/${id}`, options);
   }
 
   updatePerfil(perfil: Perfil): Observable<Perfil> {

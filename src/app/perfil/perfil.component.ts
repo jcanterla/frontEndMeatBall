@@ -20,7 +20,7 @@ import { Publicacion } from "../modelos/Publicacion";
     CommonModule
   ]
 })
-export class PerfilComponent  implements OnInit {
+export class PerfilComponent implements OnInit {
   perfil: Perfil = new Perfil();
   perfilParaSeguir: Perfil = new Perfil();
   fromVerPublicacion: boolean = false;
@@ -28,7 +28,7 @@ export class PerfilComponent  implements OnInit {
   seguidores: number = 0;
   publicaciones: Publicacion[] = [];
   seguidos: number = 0;
-  filteredItems: string[] = [];
+  filteredItems: Publicacion[] = [];
   idUsuarioPublicacion: number = 0;
 
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute) {
@@ -57,29 +57,35 @@ export class PerfilComponent  implements OnInit {
         this.idUsuarioPublicacion = +idUsuario;
         console.log('User ID:', this.idUsuarioPublicacion);
       }
-    });
 
-    if (this.fromVerPublicacion){
-      this.getPerfilById(this.idUsuarioPublicacion);
-    } else {
-      this.getPerfil();
-    }
-
-    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
-      this.publicaciones = data;
-      this.updateSeguidoresSeguidos();
-    });
-
-    this.route.paramMap.subscribe(params => {
-      this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
-      this.updateSeguidoresSeguidos();
+      if (this.fromVerPublicacion) {
+        this.getPerfilById(this.idUsuarioPublicacion);
+        this.getPublicacionesPorId(this.idUsuarioPublicacion);
+      } else {
+        this.getPerfil();
+        this.getPublicaciones();
+      }
     });
 
     const siguiendo = localStorage.getItem('siguiendo');
     this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
 
     this.loadSeguidores();
-    this.filteredItems = [...this.items];
+    this.filteredItems = [...this.publicaciones];
+  }
+
+  getPublicaciones(): void {
+    this.perfilService.getPublicacionPorToken().subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
+      this.filteredItems = [...this.publicaciones];
+    });
+  }
+
+  getPublicacionesPorId(id: number): void {
+    this.perfilService.getPublicacionesPorId(id).subscribe((data: Publicacion[]) => {
+      this.publicaciones = data;
+      this.filteredItems = [...this.publicaciones];
+    });
   }
 
   getPerfil(): void {
@@ -171,13 +177,8 @@ export class PerfilComponent  implements OnInit {
     this.router.navigate(['/mensajes']);
   }
 
-
-  items: string[] = [
-    'https://www.goya.com/media/4173/creole-spaghetti.jpg?quality=80',
-    'https://recetasdecocina.elmundo.es/wp-content/uploads/2020/02/carne-mechada.jpg',
-    'https://www.cnature.es/wp-content/uploads/2020/08/gazpacho-gallego-.jpg',
-    'https://www.laespanolaaceites.com/wp-content/uploads/2019/06/cocido-madrileno-1080x671.jpg',
-    'https://www.bekiacocina.com/images/cocina/0000/179-h.jpg',
-    'https://www.annarecetasfaciles.com/files/pollo-en-salsa-1-1024x640.jpg'
-  ];
+  navigateToVerPublicacion(item: any) {
+    sessionStorage.setItem('publicacion', JSON.stringify(item));
+    this.router.navigate(['/verPublicacion']);
+  }
 }

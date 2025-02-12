@@ -9,6 +9,7 @@ import { NavbarSuperiorComponent } from '../navbar-superior/navbar-superior.comp
 import { NavbarInferiorComponent } from '../navbar-inferior/navbar-inferior.component';
 import { addIcons } from 'ionicons';
 import { createOutline } from 'ionicons/icons';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-configuracion-perfil',
@@ -35,8 +36,14 @@ export class ConfiguracionPerfilComponent implements OnInit {
       nombre: new FormControl({ value: '', disabled: this.inputsDisabled }),
       apellidos: new FormControl({ value: '', disabled: this.inputsDisabled }),
       usuario: new FormControl({ value: '', disabled: true}),
-      email: new FormControl({ value: '', disabled: this.inputsDisabled }),
-      telefono: new FormControl({ value: '', disabled: this.inputsDisabled }),
+      email: new FormControl({ value: '', disabled: this.inputsDisabled }, [
+        Validators.required,
+        Validators.email
+      ]),
+      telefono: new FormControl({ value: '', disabled: this.inputsDisabled }, [
+        Validators.required,
+        Validators.pattern('^[0-9]{9}$')
+      ]),
     });
   }
 
@@ -81,6 +88,14 @@ export class ConfiguracionPerfilComponent implements OnInit {
       }, error => {
         console.error('Error al actualizar el perfil:', error);
       });
+    } else {
+      const telefonoControl = this.perfilForm.get('telefono');
+      const emailControl = this.perfilForm.get('email');
+      if (telefonoControl?.invalid) {
+        this.mostrarError('El teléfono debe tener 9 dígitos y solo contener números.');
+      } else if (emailControl?.invalid) {
+        this.mostrarError('El email debe tener un formato correcto.');
+      }
     }
   }
 
@@ -127,6 +142,15 @@ export class ConfiguracionPerfilComponent implements OnInit {
       ]
     });
 
+    await alert.present();
+  }
+
+  async mostrarError(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: mensaje,
+      buttons: ['OK']
+    });
     await alert.present();
   }
 }
