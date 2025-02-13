@@ -67,12 +67,15 @@ export class VerPublicacionComponent  implements OnInit {
   }
 
   ngOnInit() {
+    if (this.publicacion?.id) { // Solo accede si `id` está definido
+      const likesGuardados = JSON.parse(localStorage.getItem('likesPublicaciones') || '{}');
+      this.leHaDadoLike = !!likesGuardados[this.publicacion.id];
+    } else {
+      this.leHaDadoLike = false;
+    }
 
+    console.info('Estado de like:', this.leHaDadoLike);
 
-
-    const leHaDadoLike = localStorage.getItem('leHaDadoLike');
-    this.leHaDadoLike = leHaDadoLike ? JSON.parse(leHaDadoLike) : false;
-    console.info('Publicacion ', this.publicacion);
     addIcons({
       "happy-outline": happyOutline,
       "stopwatch-outline": stopwatchOutline,
@@ -80,9 +83,11 @@ export class VerPublicacionComponent  implements OnInit {
       "restaurant-outline": restaurantOutline,
       "chatbubble-outline": chatbubbleOutline,
       "heart-outline": heartOutline
-    })
+    });
+
     this.getComentarios();
   }
+
 
   getComentarios(): void {
     if (!this.publicacion?.id) {
@@ -99,18 +104,22 @@ export class VerPublicacionComponent  implements OnInit {
     });
   }
 
-    darLike(){
+  darLike() {
     if (!this.publicacion?.id) {
       console.error('Error: La publicación o su ID no están definidos.');
       return;
     }
 
-    if(this.leHaDadoLike){
+    let likesGuardados = JSON.parse(localStorage.getItem('likesPublicaciones') || '{}');
+
+    if (likesGuardados[this.publicacion.id]) {
       this.quitarLike();
+      return;
     }
 
-    this.leHaDadoLike = !this.leHaDadoLike;
-    localStorage.setItem('leHaDadoLike', JSON.stringify(this.leHaDadoLike));
+    this.leHaDadoLike = true;
+    likesGuardados[this.publicacion.id] = true;
+    localStorage.setItem('likesPublicaciones', JSON.stringify(likesGuardados));
 
     this.paratiService.darLike(this.publicacion.id).subscribe({
       next: (data: any) => {
@@ -120,11 +129,19 @@ export class VerPublicacionComponent  implements OnInit {
     });
   }
 
-  quitarLike(){
+
+  quitarLike() {
     if (!this.publicacion?.id) {
       console.error('Error: La publicación o su ID no están definidos.');
       return;
     }
+
+    let likesGuardados = JSON.parse(localStorage.getItem('likesPublicaciones') || '{}');
+
+    delete likesGuardados[this.publicacion.id];
+    localStorage.setItem('likesPublicaciones', JSON.stringify(likesGuardados));
+
+    this.leHaDadoLike = false;
 
     this.paratiService.quitarLike(this.publicacion.id).subscribe({
       next: (data: any) => {
@@ -133,6 +150,7 @@ export class VerPublicacionComponent  implements OnInit {
       error: (error: any) => console.error('Error: ', error),
     });
   }
+
 
 
   comentar(){
