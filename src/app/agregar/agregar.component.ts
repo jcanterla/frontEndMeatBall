@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {
   IonButton,
   IonCheckbox,
@@ -17,6 +17,7 @@ import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.compon
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {IngredienteDTO} from "../modelos/IngredienteDTO";
 import {EtiquetaDTO} from "../modelos/EtiquetaDTO";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-agregar',
@@ -57,7 +58,7 @@ export class AgregarComponent  implements OnInit {
   etiquetasFiltradas: string[] = [];
 
 
-  constructor(private fb: FormBuilder, private agregarService: AgregarService) {
+  constructor(private fb: FormBuilder, private agregarService: AgregarService, private router: Router) {
     this.agregarForm = this.fb.group({
       titulo: [this.agregar.titulo, Validators.required],
       imagen: [this.agregar.imagenLink, Validators.required],
@@ -204,14 +205,19 @@ export class AgregarComponent  implements OnInit {
 
     console.log('Publicación:', this.agregar);
 
-    this.agregarService.agregar(this.agregar).subscribe(
-      (agregar) => {
+    this.agregarService.agregar(this.agregar).subscribe({
+      next: (agregar) => {
         console.log('Publicación añadida:', agregar);
+        this.router.navigate(['/parati']);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error añadiendo publicación:', error);
+        this.router.navigate(['/parati']);
+      },
+      complete: () => {
+        console.log('Publicación completada');
       }
-    );
+    });
   }
 
 
