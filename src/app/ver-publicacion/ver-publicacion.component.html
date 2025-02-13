@@ -117,9 +117,19 @@
 
     <ion-card color="light">
       <ion-card-content>
-        <ion-text class="texto">Ingredientes de la receta Ingredientes de la receta Ingredientes de la receta
-          Ingredientes de la receta Ingredientes de la receta Ingredientes de la receta Ingredientes de la receta Ingredientes de la receta
-        </ion-text>
+          <div *ngFor="let ingrediente of publicacion.ingredientes" class="texto">
+            {{ ingrediente.nombre }}: {{ ingrediente.cantidad }} {{ ingrediente.unidad }}
+          </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-label class="textoLabels">Etiquetas</ion-label>
+
+    <ion-card color="light">
+      <ion-card-content>
+          <div *ngFor="let etiqueta of publicacion.etiquetas" class="texto">
+            {{ etiqueta.nombre }}
+          </div>
       </ion-card-content>
     </ion-card>
   </div>

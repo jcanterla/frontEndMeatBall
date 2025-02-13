@@ -19,6 +19,7 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
 import {comentarioEnviar} from "../modelos/comentarioEnviar";
+import {IngredienteDTO} from "../modelos/IngredienteDTO";
 
 @Component({
   selector: 'app-ver-publicacion',
@@ -66,6 +67,8 @@ export class VerPublicacionComponent  implements OnInit {
   }
 
   ngOnInit() {
+
+
 
     const leHaDadoLike = localStorage.getItem('leHaDadoLike');
     this.leHaDadoLike = leHaDadoLike ? JSON.parse(leHaDadoLike) : false;

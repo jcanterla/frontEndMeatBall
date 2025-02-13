@@ -1,3 +1,6 @@
+import {IngredienteDTO} from "./IngredienteDTO";
+import {EtiquetaDTO} from "./EtiquetaDTO";
+
 export class Publicacion{
   id?:number;
   titulo?:string;
@@ -11,4 +14,7 @@ export class Publicacion{
   usuarioId?: number;
   username?: string;
   fotoPerfilLink?: string;
+
+  ingredientes?: IngredienteDTO[];
+  etiquetas?: EtiquetaDTO[];
 }
