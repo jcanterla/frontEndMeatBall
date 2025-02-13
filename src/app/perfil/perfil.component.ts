@@ -54,8 +54,11 @@ export class PerfilComponent  implements OnInit {
 
     this.getPerfilParaSeguir();
 
+
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+      console.log('fromVerPublicacion:', this.fromVerPublicacion);
+      this.updateSeguidoresSeguidos();
       const idUsuario = params.get('id');
       if (idUsuario) {
         this.idUsuarioPublicacion = +idUsuario;
@@ -154,12 +157,14 @@ export class PerfilComponent  implements OnInit {
       if (this.siguiendo) {
         this.perfilService.postSeguir(usuario).subscribe(response => {
           console.log('Post de seguir realizado con éxito:', response);
+          this.updateSeguidoresSeguidos();
         }, error => {
           console.error('Error al realizar el post de seguir:', error);
         });
       } else {
         this.perfilService.postDejarSeguir(usuario).subscribe(response => {
           console.log('Post de dejar de seguir realizado con éxito:', response);
+          this.updateSeguidoresSeguidos();
         }, error => {
           console.error('Error al realizar el post de dejar de seguir:', error);
         });
