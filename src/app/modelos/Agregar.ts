@@ -1,12 +1,19 @@
+import {IngredienteDTO} from "./IngredienteDTO";
+import {EtiquetaDTO} from "./EtiquetaDTO";
+
 export class Agregar {
   id?: number;
   titulo?: string;
-  imagen_link?: string;
+  imagenLink?: string;
   descripcion?: string;
   receta?: string;
   dificultad?: string;
-  tiempo_preparacion?: number;
-  tiempo_coccion?: number;
+  tiempoPreparacion?: number;
+  tiempoCoccion?: number;
   raciones?: number;
   estado?: string;
+  usuarioId?: number;
+  username?: string;
+  ingredientes?: IngredienteDTO[];
+  etiquetas?: EtiquetaDTO[];
 }

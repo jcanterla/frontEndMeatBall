@@ -38,26 +38,39 @@
 
         <div class="ingredientes-busqueda">
           <div class="busqueda-contenedor">
-            <ion-searchbar class="busqueda" placeholder="Buscar" formControlName="ingredienteBusqueda"></ion-searchbar>
+            <ion-searchbar
+              class="busqueda"
+              placeholder="Buscar"
+              formControlName="ingredienteBusqueda">
+            </ion-searchbar>
           </div>
+
           <div class="cant-unidad-contenedor">
             <ion-input class="cantidad" placeholder="Cantidad" formControlName="cantidad"></ion-input>
             <ion-select class="unidad" placeholder="Unidad" formControlName="unidad">
-              <ion-select-option value="gramos">Gramos</ion-select-option>
-              <ion-select-option value="mililitros">Mililitros</ion-select-option>
-              <ion-select-option value="litros">Litros</ion-select-option>
-              <ion-select-option value="kilogramos">Kilogramos</ion-select-option>
-              <ion-select-option value="onzas">Onzas</ion-select-option>
-              <ion-select-option value="tazas">Tazas</ion-select-option>
-              <ion-select-option value="cucharadas">Cucharadas</ion-select-option>
-              <ion-select-option value="cucharaditas">Cucharaditas</ion-select-option>
+              <ion-select-option value="Unidades">Unidades</ion-select-option>
+              <ion-select-option value="Pizca">Pizca</ion-select-option>
+              <ion-select-option value="Kilogramos">Kilogramos</ion-select-option>
+              <ion-select-option value="Gramos">Gramos</ion-select-option>
+              <ion-select-option value="Miligramos">Miligramos</ion-select-option>
+              <ion-select-option value="Litros">Litros</ion-select-option>
+              <ion-select-option value="Mililitros">Mililitros</ion-select-option>
+              <ion-select-option value="Cucharada">Cucharada</ion-select-option>
+              <ion-select-option value="Cucharadita">Cucharadita</ion-select-option>
+              <ion-select-option value="Taza">Taza</ion-select-option>
             </ion-select>
           </div>
         </div>
 
-        <ion-list *ngIf="ingredientesFiltrados.length > 0">
-          <ion-item *ngFor="let ingrediente of ingredientesFiltrados">{{ ingrediente }}</ion-item>
-        </ion-list>
+
+        <div [ngClass]="{'margen-negativo': ingredientesFiltrados.length > 0}">
+          <ion-list *ngIf="ingredientesFiltrados.length > 0">
+            <ion-item *ngFor="let ingrediente of ingredientesFiltrados" (click)="seleccionarIngrediente(ingrediente)">
+              {{ ingrediente }}
+            </ion-item>
+          </ion-list>
+        </div>
+
 
         <ion-text class="receta">Paso a paso</ion-text>
         <div class="contenedor">
@@ -74,9 +87,43 @@
           <ion-button class="add-button-2" (click)="anyadirEtiqueta()">Añadir</ion-button>
         </div>
 
-        <ion-list *ngIf="etiquetasFiltradas.length > 0">
-          <ion-item *ngFor="let etiqueta of etiquetasFiltradas">{{ etiqueta }}</ion-item>
-        </ion-list>
+        <div [ngClass]="{'margen-negativo-2': etiquetasFiltradas.length > 0}">
+          <ion-list *ngIf="etiquetasFiltradas.length > 0">
+            <ion-item *ngFor="let etiqueta of etiquetasFiltradas" (click)="seleccionarEtiqueta(etiqueta)">
+              {{ etiqueta }}
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <div class="contenedor-dif-rac">
+          <div class="contenedor-dificultad">
+            <ion-text class="dificultad">Dificultad</ion-text>
+            <ion-select class="select_dif" placeholder="Dificultad" formControlName="dificultad">
+              <ion-select-option value="Facil">Fácil</ion-select-option>
+              <ion-select-option value="Medio">Medio</ion-select-option>
+              <ion-select-option value="Dificil">Difícil</ion-select-option>
+              <ion-select-option value="Muy_dificil">Muy difícil</ion-select-option>
+            </ion-select>
+          </div>
+
+          <div class="contenedor-raciones">
+            <ion-text class="raciones">Número de raciones</ion-text>
+            <ion-input class="input_raciones" placeholder="Número de raciones" type="number" formControlName="raciones"></ion-input>
+          </div>
+        </div>
+
+        <div class="contenedor-tiempo-prep-cocc">
+          <div class="contenedor-tiempo-prep">
+            <ion-text class="tiempo_prep">Tiempo de preparación</ion-text>
+            <ion-input class="input_tiempo_prep" placeholder="T. de preparación" type="number" formControlName="tiempo_preparacion"></ion-input>
+          </div>
+
+          <div class="contenedor-tiempo-cocc">
+            <ion-text class="tiempo_coccion">Tiempo de cocción</ion-text>
+            <ion-input class="input_tiempo_coccion" placeholder="T. de cocción" type="number" formControlName="tiempo_coccion"></ion-input>
+          </div>
+        </div>
+
       </ion-list>
       <ion-button class="button_anyadir" expand="full" (click)="doAnyadirPublicacion()">Añadir nueva receta</ion-button>
     </form>

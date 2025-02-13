@@ -3,7 +3,7 @@ ion-content {
 }
 
 .contenido {
-  min-height: 1250px;
+  min-height: 1450px;
 }
 
 .titulo {
@@ -193,4 +193,97 @@ ion-title {
 
 .ingredientesInput.extra-padding {
   padding-bottom: 20px;
+}
+
+.margen-negativo {
+  margin-top: -35px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.margen-negativo-2 {
+  margin-top: -25px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.contenedor-dif-rac {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  gap: 15px;
+}
+
+.contenedor-dificultad, .contenedor-raciones {
+  flex: 1;
+  min-width: 150px;
+}
+
+.select_dif, .input_raciones {
+  width: 100%;
+  background: white;
+  border: 1px solid #603F26;
+  border-radius: 8px;
+}
+
+.select_dif {
+  padding-left: 10px;
+}
+
+.dificultad,.raciones, .tiempo_prep, .tiempo_coccion {
+  padding-left: 0px;
+}
+
+.select_dif, .input_raciones, .input_tiempo_prep, .input_tiempo_coccion {
+  margin-top: 10px;
+}
+
+
+.contenedor-tiempo-prep-cocc {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  border-radius: 12px;
+  gap: 15px;
+}
+
+.contenedor-tiempo-prep, .contenedor-tiempo-cocc {
+  flex: 1;
+  min-width: 150px;
+}
+
+.input_tiempo_prep, .input_tiempo_coccion {
+  width: 100%;
+  background: white;
+  border: 1px solid #603F26;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+
+@media (max-width: 410px) {
+  .ingredientes-busqueda {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .busqueda-contenedor {
+    margin-right: 20px;
+  }
+
+  .cant-unidad-contenedor {
+    margin-left: 20px;
+    width: 100%;
+  }
+
+  .cant-unidad-contenedor ion-input,
+  .cant-unidad-contenedor ion-select {
+    width: 100%;
+  }
 }
