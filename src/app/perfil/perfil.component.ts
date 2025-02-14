@@ -137,20 +137,26 @@ export class PerfilComponent  implements OnInit {
       const usuario = { seguidor_id: seguidorId, seguido_id: seguidoId };
 
       if (this.siguiendo) {
-        this.perfilService.postSeguir(usuario).subscribe(response => {
-          console.log('Post de seguir realizado con éxito:', response);
-          localStorage.setItem('siguiendo', 'true');
-        }, error => {
-          console.error('Error al realizar el post de seguir:', error);
-          this.siguiendo = false;
+        this.perfilService.postSeguir(usuario).subscribe({
+          next: (response) => {
+            console.log('Post de seguir realizado con éxito:', response);
+            localStorage.setItem('siguiendo', 'true');
+          },
+          error: (error) => {
+            console.error('Error al realizar el post de seguir:', error);
+            this.siguiendo = false;
+          }
         });
       } else {
-        this.perfilService.postDejarSeguir(usuario).subscribe(response => {
-          console.log('Post de dejar de seguir realizado con éxito:', response);
-          localStorage.setItem('siguiendo', 'false');
-        }, error => {
-          console.error('Error al realizar el post de dejar de seguir:', error);
-          this.siguiendo = true;
+        this.perfilService.postDejarSeguir(usuario).subscribe({
+          next: (response) => {
+            console.log('Post de dejar de seguir realizado con éxito:', response);
+            localStorage.setItem('siguiendo', 'false');
+          },
+          error: (error) => {
+            console.error('Error al realizar el post de dejar de seguir:', error);
+            this.siguiendo = true;
+          }
         });
       }
     } else {
