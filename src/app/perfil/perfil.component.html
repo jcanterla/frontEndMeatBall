@@ -12,13 +12,14 @@
 
   <ng-container *ngIf="!fromVerPublicacion">
     <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
+    <ion-label class="seguidores">{{ seguidoresCount }} seguidores - {{ seguidosCount}} seguidos</ion-label>
   </ng-container>
 
   <ng-container *ngIf="fromVerPublicacion">
     <ion-title class="nombreUsuario">{{ perfil.username }}</ion-title>
+    <ion-label class="seguidores">{{ seguidoresCount }} seguidores - {{ seguidosCount }} seguidos</ion-label>
   </ng-container>
 
-  <ion-label class="seguidores">{{ seguidores }} seguidores - {{ seguidos }} seguidos</ion-label>
   <ion-label class="fraseRecetas">Recetas</ion-label>
 
   <div *ngIf="filteredItems.length === 0" class="no-publicaciones">

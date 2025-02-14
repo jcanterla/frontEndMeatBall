@@ -28,25 +28,19 @@ export class PerfilComponent  implements OnInit {
   perfilParaSeguir: Perfil = new Perfil();
   fromVerPublicacion: boolean = false;
   siguiendo: boolean = false;
-  seguidores: number = 0;
   publicaciones: Publicacion[] = [];
-  seguidos: number = 0;
   filteredItems: Publicacion[] = [];
   idUsuarioPublicacion: number = 0;
+  seguidoresCount: number = 0;
+  seguidosCount: number = 0;
 
   constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) {
     addIcons({"image-outline": imageOutline});
-    this.seguidores = 0;
-    this.seguidos = 0;
   }
 
   ngOnInit() {
     const username = sessionStorage.getItem('username');
     this.siguiendo = localStorage.getItem('siguiendo') === 'true';
-    this.seguidores = parseInt(localStorage.getItem('seguidores') || '0', 10);
-    this.seguidos = parseInt(localStorage.getItem('seguidos') || '0', 10);
-
-    const userId = sessionStorage.getItem('userId');
 
     this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
       this.publicaciones = data;
@@ -56,25 +50,27 @@ export class PerfilComponent  implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+      console.log('fromVerPublicacion:', this.fromVerPublicacion);
       const idUsuario = params.get('id');
       if (idUsuario) {
         this.idUsuarioPublicacion = +idUsuario;
         console.log('User ID:', this.idUsuarioPublicacion);
+        this.verSeguidores(this.idUsuarioPublicacion);
+        this.verSeguidos(this.idUsuarioPublicacion);
       }
     });
 
-      if (this.fromVerPublicacion) {
-        this.getPerfilById(this.idUsuarioPublicacion);
-        this.getPublicacionesPorId(this.idUsuarioPublicacion);
-      } else {
-        this.getPerfil();
-        this.getPublicaciones();
-      }
+    this.verSeguidores(this.idUsuarioPublicacion);
+    this.verSeguidos(this.idUsuarioPublicacion);
 
-    const siguiendo = localStorage.getItem('siguiendo');
-    this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
+    if (this.fromVerPublicacion) {
+      this.getPerfilById(this.idUsuarioPublicacion);
+      this.getPublicacionesPorId(this.idUsuarioPublicacion);
+    } else {
+      this.getPerfil();
+      this.getPublicaciones();
+    }
 
-    this.loadSeguidores();
     this.filteredItems = [...this.publicaciones];
   }
 
@@ -129,21 +125,8 @@ export class PerfilComponent  implements OnInit {
     this.router.navigate(['/configuracionPerfil']);
   }
 
-  loadSeguidores() {
-    const seguidores = localStorage.getItem('seguidores');
-    if (seguidores) {
-      this.seguidores = parseInt(seguidores, 10);
-    }
-  }
-
-  saveSeguidores() {
-    localStorage.setItem('seguidores', this.seguidores.toString());
-  }
-
   toggleSeguir() {
     this.siguiendo = !this.siguiendo;
-    localStorage.setItem('siguiendo', this.siguiendo.toString());
-    this.updateSeguidoresSeguidos();
 
     const seguidorId = this.perfilParaSeguir.id;
     const seguidoId = this.idUsuarioPublicacion;
@@ -154,31 +137,23 @@ export class PerfilComponent  implements OnInit {
       if (this.siguiendo) {
         this.perfilService.postSeguir(usuario).subscribe(response => {
           console.log('Post de seguir realizado con éxito:', response);
+          localStorage.setItem('siguiendo', 'true');
         }, error => {
           console.error('Error al realizar el post de seguir:', error);
+          this.siguiendo = false;
         });
       } else {
         this.perfilService.postDejarSeguir(usuario).subscribe(response => {
           console.log('Post de dejar de seguir realizado con éxito:', response);
+          localStorage.setItem('siguiendo', 'false');
         }, error => {
           console.error('Error al realizar el post de dejar de seguir:', error);
+          this.siguiendo = true;
         });
       }
     } else {
       console.error('No se pudieron obtener los IDs de seguidor o seguido.');
     }
-  }
-
-  updateSeguidoresSeguidos() {
-    if (this.fromVerPublicacion) {
-      this.seguidores = this.siguiendo ? 1 : 0;
-      this.seguidos = 0;
-    } else {
-      this.seguidores = 0;
-      this.seguidos = this.siguiendo ? 1 : 0;
-    }
-    localStorage.setItem('seguidores', this.seguidores.toString());
-    localStorage.setItem('seguidos', this.seguidos.toString());
   }
 
   navigateToMensajes(id: number | undefined) {
@@ -190,5 +165,27 @@ export class PerfilComponent  implements OnInit {
   navigateToVerPublicacion(item: any) {
     sessionStorage.setItem('publicacion', JSON.stringify(item));
     this.router.navigate(['/verPublicacion']);
+  }
+
+  verSeguidores(id: number): void {
+    this.perfilService.getSeguidores(id).subscribe({
+      next: (data: number) => {
+        this.seguidoresCount = data;
+        console.log('Número de seguidores:', this.seguidoresCount);
+      },
+      error: (error: any) => console.error('Error al obtener seguidores:', error),
+      complete: () => console.log('Petición de seguidores completada')
+    });
+  }
+
+  verSeguidos(id: number): void {
+    this.perfilService.getSeguidos(id).subscribe({
+      next: (data: number) => {
+        this.seguidosCount = data;
+        console.log('Número de seguidos:', this.seguidosCount);
+      },
+      error: (error: any) => console.error('Error al obtener seguidos:', error),
+      complete: () => console.log('Petición de seguidos completada')
+    });
   }
 }

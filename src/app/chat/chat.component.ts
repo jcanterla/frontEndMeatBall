@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
-import {arrowBackOutline} from "ionicons/icons";
+import {arrowBackOutline, chatbubblesOutline} from "ionicons/icons";
 import {addIcons} from "ionicons";
 import {CommonModule} from "@angular/common";
 import {Router} from "@angular/router";
@@ -24,7 +24,7 @@ import {Chat} from "../modelos/Chat";
 export class ChatComponent  implements OnInit {
 
   constructor(private router: Router, private chatService: ChatService) {
-    addIcons({"arrow-back-outline": arrowBackOutline})
+    addIcons({"arrow-back-outline": arrowBackOutline, "chatbubbles-outline": chatbubblesOutline})
   }
 
   chats: Chat[] = [];
