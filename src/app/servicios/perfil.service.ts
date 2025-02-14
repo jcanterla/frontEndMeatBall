@@ -19,6 +19,8 @@ export class PerfilService {
   private publicacionTokenUrl = '/perfil/misPublicaciones';
   private publicacionesIDUrl = '/perfil/otrasPublicaciones';
   private contarSeguidoresUrl = '/perfil/seguidores';
+  private contarSeguidoresPerfilUrl = '/perfil/seguidoresPerfil';
+  private contarSeguidosPerfilUrl = '/perfil/seguidosPerfil';
   private contarSeguidosUrl = '/perfil/seguidos';
   private apiUrl = environment.apiUrl;
   private perfilId = '/perfil';
@@ -78,5 +80,15 @@ export class PerfilService {
   getSeguidos(id: number): Observable<number> {
     const options = this.comunService.autorizarPeticion();
     return this.http.get<number>(`${this.apiUrl + this.contarSeguidosUrl}/${id}`, options);
+  }
+
+  getSeguidoresPerfil(): Observable<number> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<number>(`${this.apiUrl + this.contarSeguidoresPerfilUrl}`, options);
+  }
+
+  getSeguidosPerfil(): Observable<number> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<number>(`${this.apiUrl + this.contarSeguidosPerfilUrl}`, options);
   }
 }

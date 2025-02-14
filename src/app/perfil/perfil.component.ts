@@ -69,6 +69,8 @@ export class PerfilComponent  implements OnInit {
     } else {
       this.getPerfil();
       this.getPublicaciones();
+      this.verSeguidoresPerfil();
+      this.verSeguidosPerfil();
     }
 
     this.filteredItems = [...this.publicaciones];
@@ -188,4 +190,27 @@ export class PerfilComponent  implements OnInit {
       complete: () => console.log('Petición de seguidos completada')
     });
   }
+
+  verSeguidosPerfil(): void {
+    this.perfilService.getSeguidosPerfil().subscribe({
+      next: (data: number) => {
+        this.seguidosCount = data;
+        console.log('Número de seguidos:', this.seguidosCount);
+      },
+      error: (error: any) => console.error('Error al obtener seguidos:', error),
+      complete: () => console.log('Petición de seguidos completada')
+     });
+  }
+
+  verSeguidoresPerfil(): void {
+    this.perfilService.getSeguidoresPerfil().subscribe({
+      next: (data: number) => {
+        this.seguidoresCount = data;
+        console.log('Número de seguidores:', this.seguidoresCount);
+      },
+      error: (error: any) => console.error('Error al obtener seguidores:', error),
+      complete: () => console.log('Petición de seguidores completada')
+    });
+  }
+
 }
