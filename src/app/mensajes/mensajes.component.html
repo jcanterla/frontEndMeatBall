@@ -16,7 +16,7 @@
       <ion-item lines="none" *ngFor="let m of mensajes">
 
         <ion-avatar slot="start" *ngIf="m.idEmisor === idPerfil">
-          <ion-img src="{{perfilFoto.fotoPerfilLink}}"></ion-img>
+          <ion-img src="{{perfil.fotoPerfilLink}}"></ion-img>
         </ion-avatar>
         <ion-label class="message-bubble" *ngIf="m.idEmisor === idPerfil">
           {{ m.mensaje }}
