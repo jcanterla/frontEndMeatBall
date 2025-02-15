@@ -19,15 +19,7 @@
         showCancelButton="focus"
       ></ion-searchbar>
 
-      <ion-select
-        class="filtro select-blanco"
-        [(ngModel)]="selectedFilter"
-        (ionChange)="onFilterChange()"
-      >
-        <ion-select-option *ngFor="let filter of filters" [value]="filter">
-          {{ filter }}
-        </ion-select-option>
-      </ion-select>
+      <span class="filter-asterisk" (click)="openFilterModal()">▼</span>
     </div>
   </ion-card-content>
 
@@ -40,3 +32,44 @@
 </ion-content>
 
 <app-navbar-inferior></app-navbar-inferior>
+
+<ion-modal [isOpen]="isFilterModalOpen" (didDismiss)="closeFilterModal()" class="custom-modal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="modal-title">Filtrar</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeFilterModal()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-select
+            [(ngModel)]="selectedIngredientes"
+            (ionChange)="onFilterChange()"
+            multiple="true"
+            placeholder="Ingredientes"
+          >
+            <ion-select-option *ngFor="let ingrediente of ingredientes" [value]="ingrediente">
+              {{ ingrediente }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-select
+            [(ngModel)]="selectedEtiquetas"
+            (ionChange)="onFilterChange()"
+            multiple="true"
+            placeholder="Etiquetas"
+          >
+            <ion-select-option *ngFor="let etiqueta of etiquetas" [value]="etiqueta">
+              {{ etiqueta }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>

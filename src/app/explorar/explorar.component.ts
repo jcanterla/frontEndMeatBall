@@ -8,7 +8,10 @@ import { CommonModule } from '@angular/common';
 import { addIcons } from "ionicons";
 import { notificationsOutline } from "ionicons/icons";
 import { ParatiService } from "../servicios/parati.service";
+import { AgregarService } from "../servicios/agregar.service";
 import { Publicacion } from "../modelos/Publicacion";
+import { IngredienteDTO } from "../modelos/IngredienteDTO";
+import { EtiquetaDTO } from "../modelos/EtiquetaDTO";
 
 @Component({
   selector: 'app-explorar',
@@ -27,28 +30,51 @@ export class ExplorarComponent implements OnInit {
   publicaciones: Publicacion[] = [];
   filteredItems: Publicacion[] = [];
   searchText: string = ''; // Texto ingresado por el usuario
-  selectedFilter: string | null = null; // Filtro seleccionado
+  selectedIngredientes: string[] = []; // Ingredientes seleccionados
+  selectedEtiquetas: string[] = []; // Etiquetas seleccionadas
 
   // Opciones para el filtro
-  filters: string[] = ['Todos', 'Empiezan con A', 'Empiezan con B'];
+  ingredientes: string[] = [];
+  etiquetas: string[] = [];
 
-  constructor(private router: Router, private paratiService: ParatiService) {
+  isFilterModalOpen: boolean = false;
+
+  constructor(private router: Router, private paratiService: ParatiService, private agregarService: AgregarService) {
     addIcons({ "notifications-outline": notificationsOutline });
   }
 
   ngOnInit() {
     this.getPublicaciones();
+    this.getIngredientes();
+    this.getEtiquetas();
   }
 
   getPublicaciones(): void {
     this.paratiService.getPublicacionesParaTi().subscribe({
       next: (data: Publicacion[]) => {
         this.publicaciones = data;
-        console.log('Hola soy las publis ',  data)
         this.filteredItems = [...this.publicaciones];
       },
       error: (error: any) => console.error('Error: ', error),
       complete: () => console.log('Petición completada')
+    });
+  }
+
+  getIngredientes(): void {
+    this.agregarService.obtenerIngredientes().subscribe({
+      next: (data: string[]) => {
+        this.ingredientes = data;
+      },
+      error: (error: any) => console.error('Error: ', error)
+    });
+  }
+
+  getEtiquetas(): void {
+    this.agregarService.obtenerEtiquetas().subscribe({
+      next: (data: string[]) => {
+        this.etiquetas = data;
+      },
+      error: (error: any) => console.error('Error: ', error)
     });
   }
 
@@ -71,16 +97,33 @@ export class ExplorarComponent implements OnInit {
       item.titulo?.toLowerCase().includes(lowerCaseSearchText)
     );
 
-    // Aplicar el filtro adicional (si corresponde)
-    if (this.selectedFilter === 'Empiezan con A') {
+    // Aplicar el filtro de ingredientes
+    if (this.selectedIngredientes.length > 0) {
       this.filteredItems = this.filteredItems.filter((item) =>
-        item.titulo?.toLowerCase().startsWith('a')
-      );
-    } else if (this.selectedFilter === 'Empiezan con B') {
-      this.filteredItems = this.filteredItems.filter((item) =>
-        item.titulo?.toLowerCase().startsWith('b')
+        this.selectedIngredientes.every(ingrediente =>
+          item.ingredientes?.some((ing: IngredienteDTO) => ing.nombre === ingrediente)
+        )
       );
     }
+
+    // Aplicar el filtro de etiquetas
+    if (this.selectedEtiquetas.length > 0) {
+      this.filteredItems = this.filteredItems.filter((item) =>
+        this.selectedEtiquetas.every(etiqueta =>
+          item.etiquetas?.some((etq: EtiquetaDTO) => etq.nombre === etiqueta)
+        )
+      );
+    }
+  }
+
+  // Método para abrir el modal de filtros
+  openFilterModal() {
+    this.isFilterModalOpen = true;
+  }
+
+  // Método para cerrar el modal de filtros
+  closeFilterModal() {
+    this.isFilterModalOpen = false;
   }
 
   // Método para navegar a Notificaciones
@@ -92,5 +135,4 @@ export class ExplorarComponent implements OnInit {
     sessionStorage.setItem('publicacion', JSON.stringify(item));
     this.router.navigate(['/verPublicacion']);
   }
-
 }

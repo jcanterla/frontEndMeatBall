@@ -89,4 +89,24 @@ ion-icon {
   }
 }
 
+.search-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.filter-asterisk {
+  font-size: 1em;
+  color: #603F26;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.custom-modal {
+  --width: 300px;
+  --height: 200px;
+}
+
+.modal-title {
+  color: #603F26;
+}
