@@ -60,3 +60,9 @@ ion-list {
 .caja_detalles_grupo {
   margin-left: auto;
 }
+
+
+.custom-segment-button {
+  --color-checked: #362110; /* White color for the selected text */
+  --color: #362110; /* White color for the unselected text */
+}

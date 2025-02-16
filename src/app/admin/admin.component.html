@@ -10,14 +10,14 @@
 <ion-content>
 
 
-  <ion-segment [(ngModel)]="segmento_seleccionado" (ionChange)="Segmento_cambiado($event)" >
-    <ion-segment-button value="perfiles">
-      <ion-label>Perfiles</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="publicaciones">
-      <ion-label>Publicaciones</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+    <ion-segment [(ngModel)]="segmento_seleccionado" (ionChange)="Segmento_cambiado($event)" class="custom-segment">
+        <ion-segment-button value="perfiles" class="custom-segment-button">
+            <ion-label>Perfiles</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="publicaciones" class="custom-segment-button">
+            <ion-label>Publicaciones</ion-label>
+        </ion-segment-button>
+    </ion-segment>
 
 
   <!--Datos - Parte inferior-->

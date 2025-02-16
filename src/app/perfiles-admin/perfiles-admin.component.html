@@ -1,7 +1,19 @@
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+    <ion-card-content>
+        <div class="search-filter-container buscador">
+            <ion-searchbar
+                    class="searchbar-blanco"
+                    placeholder="Escribe tu búsqueda..."
+                    [(ngModel)]="searchText"
+                    (ionInput)="onSearch()"
+                    showCancelButton="focus"
+            ></ion-searchbar>
 
-  <ion-card *ngFor="let perfil of perfiles">
+            <span class="filter-asterisk" (click)="openFilterModal()">▼</span>
+        </div>
+    </ion-card-content>
+
+  <ion-card *ngFor="let perfil of filteredItems">
     <ion-card-header>
       <div class="caja_contenido_card" style="display: flex; align-items: center;">
         <div class="caja_logo_grupo">
@@ -25,3 +37,33 @@
     </ion-card-header>
   </ion-card>
 </ion-content>
+
+
+<ion-modal [isOpen]="isFilterModalOpen" (didDismiss)="closeFilterModal()" class="custom-modal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="modal-title">Filtrar</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeFilterModal()">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-select
+            [(ngModel)]="selectedEstado"
+            (ionChange)="onFilterChange()"
+            multiple="false"
+            placeholder="Estados"
+          >
+            <ion-select-option value="activo">Activo</ion-select-option>
+            <ion-select-option value="baneado">Baneado</ion-select-option>
+            <ion-select-option value="pendiente_revision">Revision</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>

@@ -17,7 +17,6 @@ import {PublicacionesAdminComponent} from "../publicaciones-admin/publicaciones-
     IonicModule,
     CommonModule,
     FormsModule,
-    NavbarSuperiorComponent,
     AdminNavbarsuperiorComponent,
     AdminNavbarinferiorComponent,
     PerfilesAdminComponent,

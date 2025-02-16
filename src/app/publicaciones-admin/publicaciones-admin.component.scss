@@ -81,3 +81,21 @@ ion-list {
   --background: #362110 !important;
   --color: #6C4E31;
 }
+
+.search-filter-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.buscador {
+  margin-top: 10px;
+  border-radius: 40px ;
+}
+
+.filter-asterisk {
+  font-size: 1em;
+  color: #603F26;
+  cursor: pointer;
+  padding-right: 10px;
+}

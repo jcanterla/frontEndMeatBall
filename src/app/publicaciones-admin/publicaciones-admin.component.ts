@@ -7,6 +7,7 @@ import {Publicacion} from "../modelos/Publicacion";
 import {ParatiService} from "../servicios/parati.service";
 import {addIcons} from "ionicons";
 import {banOutline, eyeOutline} from "ionicons/icons";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-publicaciones-admin',
@@ -15,7 +16,8 @@ import {banOutline, eyeOutline} from "ionicons/icons";
   standalone: true,
   imports: [
     IonicModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class PublicacionesAdminComponent  implements OnInit {
@@ -27,6 +29,10 @@ export class PublicacionesAdminComponent  implements OnInit {
     })
   }
   publicaciones: Publicacion[] = [];
+  filteredItems: Publicacion[] = [];
+  searchText: string = '';
+  selectedEstado: string | null = null;
+  isFilterModalOpen: boolean = false;
 
 
   ngOnInit() {
@@ -38,6 +44,8 @@ export class PublicacionesAdminComponent  implements OnInit {
       next: (data: Publicacion[]) => {
         this.publicaciones = data;
         console.log('Publicaciones fetched successfully:', data);
+        this.filteredItems = [...this.publicaciones];
+        this.applyFilters();
       },
       error: (err: any) => {
         console.error('Error fetching publicaciones:', err);
@@ -45,6 +53,8 @@ export class PublicacionesAdminComponent  implements OnInit {
       complete: () => {
         console.log('Fetch publicaciones complete');
         console.log(this.publicaciones);
+        this.filteredItems = [...this.publicaciones];
+        this.applyFilters();
       }
     });
   }
@@ -87,6 +97,40 @@ export class PublicacionesAdminComponent  implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+
+  onSearch() {
+    this.applyFilters();
+  }
+
+  onFilterChange() {
+    this.applyFilters();
+  }
+
+  private applyFilters() {
+    const lowerCaseSearchText = this.searchText.toLowerCase().trim();
+
+    this.filteredItems = this.publicaciones.filter((item) => {
+      const matchesSearch = item.username?.toLowerCase().includes(lowerCaseSearchText);
+      const matchesEstado = this.selectedEstado
+        ? item.estado?.toLowerCase() === this.selectedEstado.toLowerCase()
+        : true; // Si no hay filtro de estado, no se filtra por estado
+      return matchesSearch && matchesEstado;
+    });
+
+    console.log('Perfiles filtrados:', this.filteredItems);
+  }
+
+
+
+  openFilterModal() {
+    this.isFilterModalOpen = true;
+    console.log('Modal abierto');
+  }
+
+  closeFilterModal() {
+    this.isFilterModalOpen = false;
+    console.log('Modal cerrado');
   }
 
 
