@@ -57,5 +57,9 @@ export const routes: Routes = [
   {
     path: 'mensajes/:id',
     loadComponent: () => import('./mensajes/mensajes.component').then((m) => m.MensajesComponent),
+  },
+  {
+    path:'admin',
+    loadComponent: () => import('./admin/admin.component').then((m) => m.AdminComponent),
   }
 ];

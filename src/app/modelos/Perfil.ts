@@ -6,6 +6,7 @@ export class Perfil{
   email?: string;
   telefono?: string;
   fotoPerfilLink?: string;
+  estado?: string;
 }
 
 

@@ -1,0 +1,27 @@
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+
+  <ion-card *ngFor="let perfil of perfiles">
+    <ion-card-header>
+      <div class="caja_contenido_card" style="display: flex; align-items: center;">
+        <div class="caja_logo_grupo">
+          <ion-avatar>
+            <img src="{{perfil.fotoPerfilLink}}">
+          </ion-avatar>
+        </div>
+        <div class="caja_tit_grupo" style="margin-right: auto; padding-bottom: 5px">
+          <ion-card-title> {{perfil.username}}</ion-card-title>
+          <ion-card-title> {{perfil.estado}}</ion-card-title>
+        </div>
+        <div class="caja_botones">
+          <ion-button class="botones" (click)="setBaneado(perfil.id)">
+            <ion-icon name="ban-outline"></ion-icon>
+          </ion-button>
+          <ion-button class="botones" (click)="setActivo(perfil.id)">
+            <ion-icon name="eye-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

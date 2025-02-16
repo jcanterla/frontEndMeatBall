@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar class="marronClaro">
+    <div class="header-content">
+      <ion-title class="blanco">Admin</ion-title>
+      <app-admin-navbarsuperior></app-admin-navbarsuperior>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-segment [(ngModel)]="segmento_seleccionado" (ionChange)="Segmento_cambiado($event)" >
+    <ion-segment-button value="perfiles">
+      <ion-label>Perfiles</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="publicaciones">
+      <ion-label>Publicaciones</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <!--Datos - Parte inferior-->
+  <ng-container *ngIf="segmento_seleccionado === 'perfiles'">
+    <app-perfiles-admin></app-perfiles-admin>
+  </ng-container>
+
+  <ng-container *ngIf="segmento_seleccionado === 'publicaciones'">
+    <app-publicaciones-admin></app-publicaciones-admin>
+  </ng-container>
+
+
+</ion-content>
+<app-admin-navbarinferior></app-admin-navbarinferior>
