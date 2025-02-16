@@ -14,10 +14,16 @@
   <ion-grid class="sin-espacios">
     <ion-row class="sin-espacios">
 
+      <ion-col *ngIf="chats.length === 0" size="12" class="centered-content">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+        <ion-text>No hay chat disponibles</ion-text>
+        <ion-text>Prueba a enviar un mensaje</ion-text>
+      </ion-col>
+
       <ion-col *ngFor="let chat of chats; let i = index" size="12" class="sin-espacios" (click)="navigateToMensajes(chat.perfilDTO?.id)">
         <ion-item [ngClass]="{'tarjetaImpar': i % 2 === 0, 'tarjetaPar': i % 2 !== 0}">
           <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="{{chat.perfilDTO?.fotoPerfilLink}}" />
+            <img alt="Silhouette of mountains" src="{{chat.perfilDTO?.fotoPerfilLink || 'assets/icon/foto_perfil.webp'}}" />
           </ion-thumbnail>
           <ion-grid>
             <ion-row>

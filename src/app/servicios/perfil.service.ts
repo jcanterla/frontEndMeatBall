@@ -21,7 +21,32 @@ export class PerfilService {
   private apiUrl = environment.apiUrl;
   private perfilId = '/perfil';
 
+  private contarSeguidores = '/perfil/seguidores';
+  private contarSeguidos = '/perfil/seguidos';
+  private contarSeguidoresPerfil = '/perfil/seguidoresPerfil';
+  private contarSeguidosPerfil = '/perfil/seguidosPerfil';
+
   constructor(private http: HttpClient, private comunService: ComunService) { }
+
+  getContarSeguidores(id: number): Observable<number> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<number>(`${this.apiUrl+this.contarSeguidores}/${id}`, options);
+  }
+
+  getContarSeguidos(id: number): Observable<number> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<number>(`${this.apiUrl+this.contarSeguidos}/${id}`, options);
+  }
+
+  getContarSeguidoresPerfil(): Observable<number> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<number>(`${this.apiUrl+this.contarSeguidoresPerfil}`, options);
+  }
+
+  getContarSeguidosPerfil(): Observable<number> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<number>(`${this.apiUrl+this.contarSeguidosPerfil}`, options);
+  }
 
   getPerfilPorToken(): Observable<Perfil> {
     const options = this.comunService.autorizarPeticion();

@@ -17,7 +17,6 @@ ion-col.sin-espacios {
   border-collapse: collapse;
 }
 
-
 .tarjetaImpar {
   --background: #FFF2DB !important;
   border: #362110 1px solid;
@@ -31,7 +30,8 @@ ion-col.sin-espacios {
 .textoUsuario {
   font: bold 1.2em Arial;
   color: #362110;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  font-size: 25px;
 }
 
 .mensaje {
@@ -45,16 +45,10 @@ ion-col.sin-espacios {
   width: 100%;
 }
 
-ion-title {
-  margin: 0;
-  font-size: 20px;
-}
-
 app-navbar-superior {
   display: flex;
   gap: 15px;
 }
-
 
 // Simplemente quito los bordes porque si no, se ve mal el borde
 ion-item.tarjetaImpar, ion-item.tarjetaPar {
@@ -70,10 +64,6 @@ ion-thumbnail img {
   border-radius: 50px;
 }
 
-.blanco {
-  color: white;
-}
-
 .back-arrow {
   display: none;
   color: white;
@@ -87,4 +77,20 @@ ion-thumbnail img {
     margin-top: 1%;
     margin-right: 5%;
   }
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  color: #6C4E31;
+  font-size: 20px;
+}
+
+.centered-content ion-icon {
+  font-size: 100px;
+  margin-bottom: 20px;
 }
