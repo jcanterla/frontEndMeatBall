@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {
+  accessibilityOutline,
   addCircleOutline,
   chatbubbleOutline,
   homeOutline,
@@ -10,6 +11,7 @@ import {
 import {CommonModule} from "@angular/common";
 import {addIcons} from "ionicons";
 import {Router} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-navbar-inferior',
@@ -17,7 +19,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar-inferior.component.scss'],
   standalone: true,
   imports: [
-    IonicModule, CommonModule,
+    IonicModule, CommonModule,FormsModule
   ]
 })
 export class NavbarInferiorComponent  implements OnInit {
@@ -29,8 +31,11 @@ export class NavbarInferiorComponent  implements OnInit {
       "person-outline": personOutline,
       "search-outline": searchOutline,
       "chatbubble-outline": chatbubbleOutline,
+      "accessibility-outline": accessibilityOutline
     })
   }
+
+  isAdmin = JSON.parse(sessionStorage.getItem('isAdmin') || 'false');
 
   ngOnInit() {}
 
@@ -52,5 +57,9 @@ export class NavbarInferiorComponent  implements OnInit {
 
   navigateToAgregar() {
     this.router.navigate(['/agregar']);
+  }
+
+  navigateToAdmin() {
+    this.router.navigate(['/admin']);
   }
 }

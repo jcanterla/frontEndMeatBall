@@ -20,12 +20,20 @@ export class PerfilService {
   private publicacionesIDUrl = '/perfil/otrasPublicaciones';
   private apiUrl = environment.apiUrl;
   private perfilId = '/perfil';
+  private perfilAll = '/perfil/all';
+  private perfilActivo = '/perfil/setActivo';
+  private perfilBaneado = '/perfil/setBaneado';
 
   constructor(private http: HttpClient, private comunService: ComunService) { }
 
   getPerfilPorToken(): Observable<Perfil> {
     const options = this.comunService.autorizarPeticion();
     return this.http.get<Perfil>(`${this.apiUrl+this.perfilAllUrl3}`, options);
+  }
+
+  getPerfiles(): Observable<Perfil[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<Perfil[]>(`${this.apiUrl+this.perfilAll}`, options);
   }
 
   getPublicacionPorToken(): Observable<Publicacion[]> {
@@ -66,5 +74,20 @@ export class PerfilService {
   postDejarSeguir(usuario: { seguidor_id: number, seguido_id: number }): Observable<any> {
     const options = this.comunService.autorizarPeticion();
     return this.http.post<any>(`${this.apiUrl+this.dejarSeguidoresUrl}`, usuario, options);
+  }
+
+  setBaneado(id: number): Observable<Perfil[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.post<any>(`${this.apiUrl+this.perfilBaneado}/${id}`,null, options);
+  }
+
+  setActivo(id: number): Observable<Perfil[]> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.post<any>(`${this.apiUrl+this.perfilActivo}/${id}`,null, options);
+  }
+
+  isAdmin(): Observable<boolean> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<boolean>(`${this.apiUrl}/perfil/isAdmin`, options);
   }
 }

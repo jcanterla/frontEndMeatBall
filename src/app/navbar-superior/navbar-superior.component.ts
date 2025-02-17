@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-navbar-superior',
@@ -8,12 +10,15 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar-superior.component.scss'],
   standalone: true,
   imports: [
-    IonicModule
+    IonicModule,
+    FormsModule,
+    CommonModule
   ]
 })
 export class NavbarSuperiorComponent  implements OnInit {
 
   constructor(private router: Router) { }
+   isAdmin = JSON.parse(sessionStorage.getItem('isAdmin') || 'false');
 
   ngOnInit() {}
 
@@ -35,5 +40,9 @@ export class NavbarSuperiorComponent  implements OnInit {
 
   navigateToAgregar() {
     this.router.navigate(['/agregar']);
+  }
+
+  navigateToAdmin() {
+    this.router.navigate(['/admin']);
   }
 }
