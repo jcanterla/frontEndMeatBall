@@ -239,4 +239,5 @@ export class VerPublicacionComponent  implements OnInit {
     });
   }
 
+
 }
