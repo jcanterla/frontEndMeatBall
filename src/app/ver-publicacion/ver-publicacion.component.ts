@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {IonicModule, IonModal} from "@ionic/angular";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {addIcons} from "ionicons";
 
 import {
@@ -53,7 +53,9 @@ export class VerPublicacionComponent  implements OnInit {
 
   mostrarComentarios = false;
 
-  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef, private perfilService: PerfilService) {
+  mostrarBotonPerfil = true;
+
+  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef, private route: ActivatedRoute, perfilService: PerfilService) {
 
   }
 
@@ -79,6 +81,12 @@ export class VerPublicacionComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    const from = this.route.snapshot.paramMap.get('from');
+    if (from === 'perfil') {
+      this.mostrarBotonPerfil = false;
+    }
+
     const navigation = this.router.getCurrentNavigation();
     this.publicacion = navigation?.extras.state?.['publicacion'];
 

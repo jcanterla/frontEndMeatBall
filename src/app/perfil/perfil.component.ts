@@ -195,7 +195,7 @@ export class PerfilComponent  implements OnInit {
 
   navigateToVerPublicacion(item: any) {
     sessionStorage.setItem('publicacion', JSON.stringify(item));
-    this.router.navigate(['/verPublicacion']);
+    this.router.navigate(['/verPublicacion', { from: 'perfil' }]);
   }
 
 
