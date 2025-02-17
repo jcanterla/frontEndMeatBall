@@ -67,4 +67,16 @@ export class PerfilService {
     const options = this.comunService.autorizarPeticion();
     return this.http.post<any>(`${this.apiUrl+this.dejarSeguidoresUrl}`, usuario, options);
   }
+
+  reportarUsuario(id: number): Observable<Perfil> {
+    const options = this.comunService.autorizarPeticion();
+    const url = `${this.apiUrl}/perfil/setPendienteRevision/${id}`;
+    return this.http.post<Perfil>(url, null, options);
+  }
+
+  reportarPublicacion(id: number): Observable<Publicacion> {
+    const options = this.comunService.autorizarPeticion();
+    const url = `${this.apiUrl}/publicacion/setPendiente/${id}`;
+    return this.http.post<Publicacion>(url, null, options);
+  }
 }

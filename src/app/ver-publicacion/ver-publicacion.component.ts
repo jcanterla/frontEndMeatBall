@@ -15,6 +15,7 @@ import {
 import {Publicacion} from "../modelos/Publicacion";
 import {Comentario} from "../modelos/Comentario";
 import {ParatiService} from "../servicios/parati.service";
+import {PerfilService} from "../servicios/perfil.service";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -51,7 +52,7 @@ export class VerPublicacionComponent  implements OnInit {
 
   mostrarComentarios = false;
 
-  constructor(private router: Router, private paratiService: ParatiService) {
+  constructor(private router: Router, private paratiService: ParatiService, private perfilService: PerfilService) {
     const navigation = this.router.getCurrentNavigation();
     this.publicacion = navigation?.extras.state?.['publicacion'];
 
@@ -197,6 +198,21 @@ export class VerPublicacionComponent  implements OnInit {
 
   mostrarComentariosFunc(){
     this.mostrarComentarios = !this.mostrarComentarios;
+  }
+
+
+  reportarPublicacion(id: number | undefined) {
+    if (!id) {
+      console.error('Error: La publicación o su ID no están definidos.');
+      return;
+    }
+
+    this.perfilService.reportarPublicacion(id).subscribe({
+      next: (data: any) => {
+        console.info('Publicación reportada', data);
+      },
+      error: (error: any) => console.error('Error: ', error),
+    });
   }
 
 }

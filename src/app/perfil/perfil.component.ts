@@ -11,6 +11,7 @@ import {ChatService} from "../servicios/chat.service";
 import {addIcons} from "ionicons";
 import {imageOutline} from "ionicons/icons";
 
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -195,5 +196,20 @@ export class PerfilComponent  implements OnInit {
   navigateToVerPublicacion(item: any) {
     sessionStorage.setItem('publicacion', JSON.stringify(item));
     this.router.navigate(['/verPublicacion']);
+  }
+
+
+  reportarUsuario(id: number | undefined) {
+    if (id !== undefined) {
+      this.perfilService.reportarUsuario(id).subscribe({
+        next: (data: Perfil) => {
+          console.info('Usuario reportado:', data);
+        },
+        error: (error: any) => console.error('Error al reportar usuario:', error),
+        complete: () => console.log('Petición completada')
+      });
+    } else {
+      console.error('ID de usuario no válido.');
+    }
   }
 }
