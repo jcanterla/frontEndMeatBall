@@ -163,5 +163,5 @@
 </ion-content>
 
 
-<ion-button expand="block" class="editarPerfil" (click)="navigateToPerfil(publicacion.usuarioId)">Ver Perfil</ion-button>
+<ion-button expand="block" class="editarPerfil" *ngIf="mostrarBotonPerfil" (click)="navigateToPerfil(publicacion.usuarioId)">Ver Perfil</ion-button>
 <app-navbar-inferior></app-navbar-inferior>
