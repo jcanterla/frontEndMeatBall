@@ -39,9 +39,10 @@ export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
   ngOnInit() {
     this.getPublicaciones();
     this.getPublicacionesAleatorias();
+    this.isAdmin();
     setTimeout(() => this.initializeSwipers(), 0);
     window.addEventListener('resize', this.onResize.bind(this));
-    this.isAdmin();
+
   }
 
   ionViewWillEnter() {
@@ -112,13 +113,12 @@ export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
   isAdmin(): void{
     this.perfilService.isAdmin().subscribe({
       next: (data: boolean) => {
-        if (data) {
           this.isAdminB = data;
-          sessionStorage.setItem('isAdmin', JSON.stringify(this.isAdminB));
-        }
+          sessionStorage.setItem('isAdmin', this.isAdminB.toString());
+          console.log('Es admin', this.isAdminB);
       },
       error: (error: any) => console.error('Error: ', error),
-      complete: () => console.log('Petición completada')
+      complete: () => console.log('Petición completada de admin')
     });
   }
 
