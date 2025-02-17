@@ -3,8 +3,6 @@ import {CommonModule} from "@angular/common";
 import {IonicModule} from "@ionic/angular";
 import {FormsModule} from "@angular/forms";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
-import {AdminNavbarsuperiorComponent} from "../admin-navbarsuperior/admin-navbarsuperior.component";
-import {AdminNavbarinferiorComponent} from "../admin-navbarinferior/admin-navbarinferior.component";
 import {PerfilesAdminComponent} from "../perfiles-admin/perfiles-admin.component";
 import {PublicacionesAdminComponent} from "../publicaciones-admin/publicaciones-admin.component";
 
@@ -17,10 +15,9 @@ import {PublicacionesAdminComponent} from "../publicaciones-admin/publicaciones-
     IonicModule,
     CommonModule,
     FormsModule,
-    AdminNavbarsuperiorComponent,
-    AdminNavbarinferiorComponent,
     PerfilesAdminComponent,
     PublicacionesAdminComponent,
+    NavbarSuperiorComponent,
   ]
 })
 export class AdminComponent  implements OnInit {

@@ -86,5 +86,8 @@ export class PerfilService {
     return this.http.post<any>(`${this.apiUrl+this.perfilActivo}/${id}`,null, options);
   }
 
-
+  isAdmin(): Observable<boolean> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.get<boolean>(`${this.apiUrl}/perfil/isAdmin`, options);
+  }
 }

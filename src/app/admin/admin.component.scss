@@ -8,6 +8,13 @@
   transform: translateY(-50%);
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 #container strong {
   font-size: 20px;
   line-height: 26px;
@@ -66,3 +73,10 @@ ion-list {
   --color-checked: #362110; /* White color for the selected text */
   --color: #362110; /* White color for the unselected text */
 }
+ion-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+
+}
+

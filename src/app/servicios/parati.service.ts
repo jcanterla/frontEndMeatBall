@@ -79,4 +79,5 @@ export class ParatiService {
     const authHeader = this.comunService.autorizarPeticion();
     return this.httpClient.post<any>(`/api/publicacion/setBaneada/${idPublicacion}`, null, authHeader);
   }
+
 }

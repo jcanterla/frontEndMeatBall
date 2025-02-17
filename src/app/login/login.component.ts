@@ -6,6 +6,7 @@ import {Login} from "../modelos/Login";
 import {Router} from "@angular/router";
 import {LoginService} from "../servicios/login.service";
 import {AlertController} from "@ionic/angular";
+import {PerfilService} from "../servicios/perfil.service";
 
 @Component({
     selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   login: Login = new Login();
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private alertController: AlertController) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private alertController: AlertController, perfilService: PerfilService) {
     this.loginForm = this.fb.group({
       username: [this.login.username, Validators.required],
       password: [this.login.password, Validators.required],

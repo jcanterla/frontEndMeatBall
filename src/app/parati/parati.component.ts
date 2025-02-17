@@ -9,6 +9,7 @@ import Swiper from "swiper";
 import { Publicacion } from "../modelos/Publicacion";
 import { ParatiService } from "../servicios/parati.service";
 import { CommonModule } from "@angular/common";
+import {PerfilService} from "../servicios/perfil.service";
 
 @Component({
   selector: 'app-parati',
@@ -19,7 +20,7 @@ import { CommonModule } from "@angular/common";
     IonicModule,
     NavbarSuperiorComponent,
     NavbarInferiorComponent,
-    CommonModule
+    CommonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
@@ -29,8 +30,9 @@ export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
   swiper?: Swiper;
   publicaciones: Publicacion[] = [];
   publicacionesAleatorias: Publicacion[] = [];
+  isAdminB: boolean = false;
 
-  constructor(private router: Router, private paratiService: ParatiService) {
+  constructor(private router: Router, private paratiService: ParatiService, private perfilService: PerfilService) {
     addIcons({ "notifications-outline": notificationsOutline });
   }
 
@@ -39,6 +41,7 @@ export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
     this.getPublicacionesAleatorias();
     setTimeout(() => this.initializeSwipers(), 0);
     window.addEventListener('resize', this.onResize.bind(this));
+    this.isAdmin();
   }
 
   ionViewWillEnter() {
@@ -103,6 +106,19 @@ export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
         },
       });
       swiperEl.initialize();
+    });
+  }
+
+  isAdmin(): void{
+    this.perfilService.isAdmin().subscribe({
+      next: (data: boolean) => {
+        if (data) {
+          this.isAdminB = data;
+          sessionStorage.setItem('isAdmin', JSON.stringify(this.isAdminB));
+        }
+      },
+      error: (error: any) => console.error('Error: ', error),
+      complete: () => console.log('Petición completada')
     });
   }
 
