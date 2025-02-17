@@ -162,7 +162,7 @@
 
 </ion-content>
 
-<div class="contenedorBotones">
+<div class="contenedorBotones" *ngIf="mostrarBotonPerfil">
   <ion-button expand="block" class="editarPerfil" (click)="navigateToPerfil(publicacion.usuarioId)">Ver Perfil</ion-button>
   <ion-button expand="block" class="reportarPublicacion" (click)="reportarPublicacion(publicacion.id)">Reportar Publicación</ion-button>
 </div>
