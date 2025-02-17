@@ -70,6 +70,11 @@ export class ParatiService {
     return this.httpClient.get<Publicacion[]>('/api/publicacion/all', authHeader);
   }
 
+  getPublicacionesBaneadas(): Observable<Publicacion[]> {
+    const authHeader = this.comunService.autorizarPeticion();
+    return this.httpClient.get<Publicacion[]>('/api/publicacion/baneadas', authHeader);
+  }
+
   setActivo(idPublicacion: number): Observable<any> {
     const authHeader = this.comunService.autorizarPeticion();
     return this.httpClient.post<any>(`/api/publicacion/setActiva/${idPublicacion}`, null, authHeader);

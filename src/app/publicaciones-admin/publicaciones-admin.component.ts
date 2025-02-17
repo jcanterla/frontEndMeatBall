@@ -37,12 +37,33 @@ export class PublicacionesAdminComponent  implements OnInit {
 
   ngOnInit() {
     this.getPublicaciones();
+    this.getPublicacionesBaneadas();
   }
 
   getPublicaciones() {
     this.publicacionService.getPublicaciones().subscribe({
       next: (data: Publicacion[]) => {
         this.publicaciones = data;
+        console.log('Publicaciones fetched successfully:', data);
+        this.filteredItems = [...this.publicaciones];
+        this.applyFilters();
+      },
+      error: (err: any) => {
+        console.error('Error fetching publicaciones:', err);
+      },
+      complete: () => {
+        console.log('Fetch publicaciones complete');
+        console.log(this.publicaciones);
+        this.filteredItems = [...this.publicaciones];
+        this.applyFilters();
+      }
+    });
+  }
+
+  getPublicacionesBaneadas() {
+    this.publicacionService.getPublicacionesBaneadas().subscribe({
+      next: (data: Publicacion[]) => {
+        this.publicaciones = [...this.publicaciones, ...data];
         console.log('Publicaciones fetched successfully:', data);
         this.filteredItems = [...this.publicaciones];
         this.applyFilters();
