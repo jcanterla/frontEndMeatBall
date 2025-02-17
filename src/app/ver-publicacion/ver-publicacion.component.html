@@ -31,20 +31,26 @@
     </ion-row>
   </ion-grid>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)" class="marronOscuro">
+  <ion-modal
+    trigger="open-modal"
+    (willDismiss)="onWillDismiss($event)"
+    class="marronOscuro"
+    [breakpoints]="[0, 0.5, 1]"
+    [initialBreakpoint]="0.5"
+  >
     <ng-template>
-      <ion-header class="marronOscuro">
+      <ion-header class="marronOscuro modal-header">
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancelar</ion-button>
+            <ion-button (click)="cancel()" class="modal-button">Cancelar</ion-button>
           </ion-buttons>
-          <ion-title>Comentar Publicación</ion-title>
+          <ion-title class="modal-title">Comentar Publicación</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
+            <ion-button (click)="confirm()" [strong]="true" class="modal-button">Confirmar</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
+      <ion-content class="ion-padding modal-content">
         <ion-item>
           <ion-input
             label="Comentario"
@@ -52,6 +58,7 @@
             type="text"
             placeholder="Escribe el comentario"
             [(ngModel)]="textoComentario"
+            class="modal-input"
           ></ion-input>
         </ion-item>
       </ion-content>

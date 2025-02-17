@@ -5,6 +5,7 @@ import {FormsModule} from "@angular/forms";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 import {PerfilesAdminComponent} from "../perfiles-admin/perfiles-admin.component";
 import {PublicacionesAdminComponent} from "../publicaciones-admin/publicaciones-admin.component";
+import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
 
 @Component({
   selector: 'app-admin',
@@ -18,6 +19,7 @@ import {PublicacionesAdminComponent} from "../publicaciones-admin/publicaciones-
     PerfilesAdminComponent,
     PublicacionesAdminComponent,
     NavbarSuperiorComponent,
+    NavbarInferiorComponent,
   ]
 })
 export class AdminComponent  implements OnInit {
