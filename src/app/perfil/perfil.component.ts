@@ -61,14 +61,9 @@ export class PerfilComponent  implements OnInit {
 
       this.route.paramMap.subscribe(params => {
         this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
-        console.log('fromVerPublicacion:', this.fromVerPublicacion);
         const idUsuario = params.get('id');
         if (idUsuario) {
           this.idUsuarioPublicacion = +idUsuario;
-          console.log('User ID:', this.idUsuarioPublicacion);
-        }
-
-        if (this.fromVerPublicacion) {
           this.getPerfilById(this.idUsuarioPublicacion);
           this.getPublicacionesPorId(this.idUsuarioPublicacion);
         } else {
@@ -158,7 +153,7 @@ export class PerfilComponent  implements OnInit {
     this.perfilService.getPerfilById(id).subscribe({
       next: (data: Perfil) => {
         this.perfil = data;
-        console.info('Hola soy el perfil', this.perfil);
+        this.updateSiguiendoState();
         this.getSeguidores();
         this.getSeguidos();
       },
@@ -178,6 +173,14 @@ export class PerfilComponent  implements OnInit {
     }
   }
 
+  updateSiguiendoState() {
+    const username = sessionStorage.getItem('username');
+    if (username) {
+      const siguiendoKey = `siguiendo_${username}_${this.perfil.id}`;
+      this.siguiendo = localStorage.getItem(siguiendoKey) === 'true';
+    }
+  }
+
   toggleSeguir() {
     const username = sessionStorage.getItem('username');
     if (!username) {
@@ -185,10 +188,7 @@ export class PerfilComponent  implements OnInit {
       return;
     }
 
-    const siguiendoKey = `siguiendo_${username}`;
-    const seguidoresKey = `seguidores_${username}`;
-    const seguidosKey = `seguidos_${username}`;
-
+    const siguiendoKey = `siguiendo_${username}_${this.perfil.id}`;
     this.siguiendo = !this.siguiendo;
     localStorage.setItem(siguiendoKey, this.siguiendo.toString());
     this.updateSeguidoresSeguidos(username);
