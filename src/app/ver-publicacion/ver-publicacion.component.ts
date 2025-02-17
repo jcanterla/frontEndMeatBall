@@ -55,7 +55,7 @@ export class VerPublicacionComponent  implements OnInit {
 
   mostrarBotonPerfil = true;
 
-  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef, private route: ActivatedRoute, perfilService: PerfilService) {
+  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef, private route: ActivatedRoute, private perfilService: PerfilService) {
 
   }
 
