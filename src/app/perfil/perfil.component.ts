@@ -289,4 +289,5 @@ export class PerfilComponent  implements OnInit {
 
     await alert.present();
   }
+
 }
