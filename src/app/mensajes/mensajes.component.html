@@ -2,7 +2,7 @@
   <ion-toolbar class="marronClaro">
     <div class="header-content">
       <ion-icon class="volver" name="arrow-back-outline" (click)="goBack()"></ion-icon>
-      <ion-img class="foto" src="{{perfil.fotoPerfilLink}}" alt="FotoPerfil"></ion-img>
+      <ion-img class="foto" src="{{perfil.fotoPerfilLink || 'assets/icon/foto_perfil.webp'}}" alt="FotoPerfil"></ion-img>
       <ion-title class="nombreUsuario">{{perfil.username}}</ion-title>
     </div>
   </ion-toolbar>
@@ -16,7 +16,7 @@
       <ion-item lines="none" *ngFor="let m of mensajes">
 
         <ion-avatar slot="start" *ngIf="m.idEmisor === idPerfil">
-          <ion-img src="{{perfil.fotoPerfilLink}}"></ion-img>
+          <ion-img src="{{perfil.fotoPerfilLink || 'assets/icon/foto_perfil.webp'}}"></ion-img>
         </ion-avatar>
         <ion-label class="message-bubble" *ngIf="m.idEmisor === idPerfil">
           {{ m.mensaje }}
@@ -26,7 +26,7 @@
 
 
         <ion-avatar slot="end" *ngIf="m.idEmisor !== idPerfil">
-          <ion-img src="{{perfilFoto.fotoPerfilLink}}"></ion-img>
+          <ion-img src="{{perfilFoto.fotoPerfilLink || 'assets/icon/foto_perfil.webp'}}"></ion-img>
         </ion-avatar>
         <ion-label class="message-bubble" slot="end" *ngIf="m.idEmisor !== idPerfil">
           {{ m.mensaje }}
@@ -47,7 +47,7 @@
     <form [formGroup]="mensajeForm" id="formularioMensaje">
       <ion-item class="rectangulo">
         <ion-input formControlName="texto" id="textoMensaje" name="texto"
-                   style="margin-left: 10px; color: #0e6a95"
+                   style="color: #6C4E31"
                    placeholder="Escribe un mensaje">
         </ion-input>
         <ion-icon class="enviar" name="send-outline" size="large"

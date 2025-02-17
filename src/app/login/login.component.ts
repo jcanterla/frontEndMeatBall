@@ -59,12 +59,28 @@ export class LoginComponent implements OnInit {
           const username = this.login.username || '';
           sessionStorage.setItem("username", username);
           this.loginService.setAuthState(true);
+
+          this.loginService.islogueado(token).subscribe({
+            next: (isBaneado) => {
+              if (isBaneado) {
+                this.alertaError('Usuario Baneado', 'El usuario actualmente se encuentra baneado.');
+                sessionStorage.removeItem("authToken");
+                sessionStorage.removeItem("username");
+                this.loginService.setAuthState(false);
+              } else {
+                this.router.navigate(['parati']);
+              }
+            },
+            error: (e) => {
+              console.error(e);
+              this.alertaError('Error | Validación', 'No se pudo verificar el estado del usuario.');
+            }
+          });
         },
         error: (e) => {
           console.error(e);
           this.alertaError('Error | Validación', 'La contraseña o el nombre de usuario son incorrectos.');
-        },
-        complete: () => this.router.navigate(['parati'])
+        }
       });
     } else {
       this.alertaError('Error | Sin Datos', 'Los campos están vacíos. Por favor inserta los datos.');

@@ -9,7 +9,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Publicacion} from "../modelos/Publicacion";
 import {ChatService} from "../servicios/chat.service";
 import {addIcons} from "ionicons";
-import {imageOutline} from "ionicons/icons";
+import {imageOutline, trashOutline} from "ionicons/icons";
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -35,51 +36,84 @@ export class PerfilComponent  implements OnInit {
   filteredItems: Publicacion[] = [];
   idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) {
-    addIcons({"image-outline": imageOutline});
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService, private alertController: AlertController) {
+    addIcons({"image-outline": imageOutline, "trash-outline": trashOutline});
     this.seguidores = 0;
     this.seguidos = 0;
   }
 
   ngOnInit() {
     const username = sessionStorage.getItem('username');
-    this.siguiendo = localStorage.getItem('siguiendo') === 'true';
-    this.seguidores = parseInt(localStorage.getItem('seguidores') || '0', 10);
-    this.seguidos = parseInt(localStorage.getItem('seguidos') || '0', 10);
+    if (username) {
+      const siguiendoKey = `siguiendo_${username}`;
+      const seguidoresKey = `seguidores_${username}`;
+      const seguidosKey = `seguidos_${username}`;
 
-    const userId = sessionStorage.getItem('userId');
+      this.siguiendo = localStorage.getItem(siguiendoKey) === 'true';
+      this.seguidores = parseInt(localStorage.getItem(seguidoresKey) || '0', 10);
+      this.seguidos = parseInt(localStorage.getItem(seguidosKey) || '0', 10);
 
-    this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
-      this.publicaciones = data;
+      this.perfilService.getPublicacion().subscribe((data: Publicacion[]) => {
+        this.publicaciones = data;
+      });
+
+      this.getPerfilParaSeguir();
+
+      this.route.paramMap.subscribe(params => {
+        this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
+        console.log('fromVerPublicacion:', this.fromVerPublicacion);
+        const idUsuario = params.get('id');
+        if (idUsuario) {
+          this.idUsuarioPublicacion = +idUsuario;
+          console.log('User ID:', this.idUsuarioPublicacion);
+        }
+
+        if (this.fromVerPublicacion) {
+          this.getPerfilById(this.idUsuarioPublicacion);
+          this.getPublicacionesPorId(this.idUsuarioPublicacion);
+        } else {
+          this.getPerfil();
+          this.getPublicaciones();
+        }
+      });
+
+      this.loadSeguidores();
+      this.filteredItems = [...this.publicaciones];
+    } else {
+      console.error('Username is not available in sessionStorage');
+    }
+  }
+
+  getSeguidoresPerfil() {
+    this.perfilService.getContarSeguidoresPerfil().subscribe((data: number) => {
+      this.seguidores = data;
     });
+  }
 
-    this.getPerfilParaSeguir();
-
-
-    this.route.paramMap.subscribe(params => {
-      this.fromVerPublicacion = params.get('from') === 'ver-publicacion';
-      console.log('fromVerPublicacion:', this.fromVerPublicacion);
-      this.updateSeguidoresSeguidos();
-      const idUsuario = params.get('id');
-      if (idUsuario) {
-        this.idUsuarioPublicacion = +idUsuario;
-        console.log('User ID:', this.idUsuarioPublicacion);
-      }
+  getSeguidosPerfil() {
+    this.perfilService.getContarSeguidosPerfil().subscribe((data: number) => {
+      this.seguidos = data;
     });
+  }
 
-      if (this.fromVerPublicacion) {
-        this.getPerfilById(this.idUsuarioPublicacion);
-        this.getPublicacionesPorId(this.idUsuarioPublicacion);
-      } else {
-        this.getPerfil();
-        this.getPublicaciones();
-      }
+  getSeguidores() {
+    if (this.perfil && this.perfil.id !== undefined) {
+      this.perfilService.getContarSeguidores(this.perfil.id).subscribe((data: number) => {
+        this.seguidores = data;
+      });
+    } else {
+      console.error('Perfil ID is undefined');
+    }
+  }
 
-    const siguiendo = localStorage.getItem('siguiendo');
-    this.siguiendo = siguiendo ? JSON.parse(siguiendo) : false;
-
-    this.loadSeguidores();
-    this.filteredItems = [...this.publicaciones];
+  getSeguidos() {
+    if (this.perfil && this.perfil.id !== undefined) {
+      this.perfilService.getContarSeguidos(this.perfil.id).subscribe((data: number) => {
+        this.seguidos = data;
+      });
+    } else {
+      console.error('Perfil ID is undefined');
+    }
   }
 
   getPublicaciones(): void {
@@ -101,6 +135,8 @@ export class PerfilComponent  implements OnInit {
       next: (data: Perfil) => {
         this.perfil = data;
         console.info('Hola soy el perfil', this.perfil);
+        this.getSeguidores();
+        this.getSeguidos();
       },
       error: (error: any) => console.error('Error: ', error),
       complete: () => console.log('Petición completada')
@@ -123,6 +159,8 @@ export class PerfilComponent  implements OnInit {
       next: (data: Perfil) => {
         this.perfil = data;
         console.info('Hola soy el perfil', this.perfil);
+        this.getSeguidores();
+        this.getSeguidos();
       },
       error: (error: any) => console.error('Error: ', error),
       complete: () => console.log('Petición completada')
@@ -140,14 +178,20 @@ export class PerfilComponent  implements OnInit {
     }
   }
 
-  saveSeguidores() {
-    localStorage.setItem('seguidores', this.seguidores.toString());
-  }
-
   toggleSeguir() {
+    const username = sessionStorage.getItem('username');
+    if (!username) {
+      console.error('Username is not available in sessionStorage');
+      return;
+    }
+
+    const siguiendoKey = `siguiendo_${username}`;
+    const seguidoresKey = `seguidores_${username}`;
+    const seguidosKey = `seguidos_${username}`;
+
     this.siguiendo = !this.siguiendo;
-    localStorage.setItem('siguiendo', this.siguiendo.toString());
-    this.updateSeguidoresSeguidos();
+    localStorage.setItem(siguiendoKey, this.siguiendo.toString());
+    this.updateSeguidoresSeguidos(username);
 
     const seguidorId = this.perfilParaSeguir.id;
     const seguidoId = this.idUsuarioPublicacion;
@@ -158,14 +202,14 @@ export class PerfilComponent  implements OnInit {
       if (this.siguiendo) {
         this.perfilService.postSeguir(usuario).subscribe(response => {
           console.log('Post de seguir realizado con éxito:', response);
-          this.updateSeguidoresSeguidos();
+          this.updateSeguidoresSeguidos(username);
         }, error => {
           console.error('Error al realizar el post de seguir:', error);
         });
       } else {
         this.perfilService.postDejarSeguir(usuario).subscribe(response => {
           console.log('Post de dejar de seguir realizado con éxito:', response);
-          this.updateSeguidoresSeguidos();
+          this.updateSeguidoresSeguidos(username);
         }, error => {
           console.error('Error al realizar el post de dejar de seguir:', error);
         });
@@ -175,16 +219,20 @@ export class PerfilComponent  implements OnInit {
     }
   }
 
-  updateSeguidoresSeguidos() {
+  updateSeguidoresSeguidos(username: string) {
+    const seguidoresKey = `seguidores_${username}`;
+    const seguidosKey = `seguidos_${username}`;
+
     if (this.fromVerPublicacion) {
-      this.seguidores = this.siguiendo ? 1 : 0;
-      this.seguidos = 0;
+      this.getSeguidores();
+      this.getSeguidos();
     } else {
-      this.seguidores = 0;
-      this.seguidos = this.siguiendo ? 1 : 0;
+      this.getSeguidoresPerfil();
+      this.getSeguidosPerfil();
     }
-    localStorage.setItem('seguidores', this.seguidores.toString());
-    localStorage.setItem('seguidos', this.seguidos.toString());
+
+    localStorage.setItem(seguidoresKey, this.seguidores.toString());
+    localStorage.setItem(seguidosKey, this.seguidos.toString());
   }
 
   navigateToMensajes(id: number | undefined) {
@@ -211,5 +259,34 @@ export class PerfilComponent  implements OnInit {
     } else {
       console.error('ID de usuario no válido.');
     }
+  }
+
+  async confirmarEliminarPublicacion(id: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Estás seguro de que deseas borrar la publicación?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Eliminación de publicación cancelada.');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.perfilService.getEliminarPublicacion(id).subscribe(response => {
+              console.log('Publicación eliminada con éxito:', response);
+              this.getPublicaciones();
+            }, error => {
+              console.error('Error al eliminar la publicación:', error);
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
