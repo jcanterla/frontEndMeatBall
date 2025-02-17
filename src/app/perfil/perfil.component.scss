@@ -101,3 +101,16 @@ ion-button {
   margin-bottom: 15px;
   font-size: 125px;
 }
+
+.image-item {
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 0px;
+  font-size: 50px;
+  cursor: pointer;
+  color: red;
+}

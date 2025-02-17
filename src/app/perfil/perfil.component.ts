@@ -9,7 +9,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Publicacion} from "../modelos/Publicacion";
 import {ChatService} from "../servicios/chat.service";
 import {addIcons} from "ionicons";
-import {imageOutline} from "ionicons/icons";
+import {imageOutline, trashOutline} from "ionicons/icons";
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -34,8 +35,8 @@ export class PerfilComponent  implements OnInit {
   filteredItems: Publicacion[] = [];
   idUsuarioPublicacion: number = 0;
 
-  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService) {
-    addIcons({"image-outline": imageOutline});
+  constructor(private perfilService: PerfilService, private router: Router, private route: ActivatedRoute, private chatService: ChatService, private alertController: AlertController) {
+    addIcons({"image-outline": imageOutline, "trash-outline": trashOutline});
     this.seguidores = 0;
     this.seguidos = 0;
   }
@@ -239,8 +240,37 @@ export class PerfilComponent  implements OnInit {
     this.router.navigate(['mensajes', id]);
   }
 
-  navigateToVerPublicacion(item: any) {
-    sessionStorage.setItem('publicacion', JSON.stringify(item));
+  navigateToVerPublicacion(publicacion: any) {
+    sessionStorage.setItem('publicacion', JSON.stringify(publicacion));
     this.router.navigate(['/verPublicacion']);
+  }
+
+  async confirmarEliminarPublicacion(id: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: '¿Estás seguro de que deseas borrar la publicación?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Eliminación de publicación cancelada.');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.perfilService.getEliminarPublicacion(id).subscribe(response => {
+              console.log('Publicación eliminada con éxito:', response);
+              this.getPublicaciones();
+            }, error => {
+              console.error('Error al eliminar la publicación:', error);
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

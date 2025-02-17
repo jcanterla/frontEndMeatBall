@@ -20,13 +20,18 @@ export class PerfilService {
   private publicacionesIDUrl = '/perfil/otrasPublicaciones';
   private apiUrl = environment.apiUrl;
   private perfilId = '/perfil';
-
   private contarSeguidores = '/perfil/seguidores';
   private contarSeguidos = '/perfil/seguidos';
   private contarSeguidoresPerfil = '/perfil/seguidoresPerfil';
   private contarSeguidosPerfil = '/perfil/seguidosPerfil';
+  private eliminarPublicacionUrl = '/perfil/eliminarPublicacion';
 
   constructor(private http: HttpClient, private comunService: ComunService) { }
+
+  getEliminarPublicacion(id: number): Observable<any> {
+    const options = this.comunService.autorizarPeticion();
+    return this.http.delete<any>(`${this.apiUrl+this.eliminarPublicacionUrl}/${id}`, options);
+  }
 
   getContarSeguidores(id: number): Observable<number> {
     const options = this.comunService.autorizarPeticion();

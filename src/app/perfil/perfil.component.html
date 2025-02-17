@@ -29,6 +29,7 @@
   <div *ngIf="filteredItems.length > 0" class="image-grid">
     <div class="image-item" *ngFor="let item of filteredItems">
       <img [src]="item.imagenLink" [alt]="item.titulo" (click)="navigateToVerPublicacion(item)">
+      <ion-icon *ngIf="!fromVerPublicacion" name="trash-outline" class="close-icon" (click)="item.id ? confirmarEliminarPublicacion(item.id) : null"></ion-icon>
     </div>
   </div>
 </ion-content>
