@@ -17,6 +17,7 @@ ion-col.sin-espacios {
   border-collapse: collapse;
 }
 
+
 .tarjetaImpar {
   --background: #FFF2DB !important;
   border: #362110 1px solid;
@@ -30,8 +31,7 @@ ion-col.sin-espacios {
 .textoUsuario {
   font: bold 1.2em Arial;
   color: #362110;
-  margin-bottom: 5px;
-  font-size: 25px;
+  margin-bottom: 10px;
 }
 
 .mensaje {
@@ -45,16 +45,27 @@ ion-col.sin-espacios {
   width: 100%;
 }
 
+ion-title {
+  margin: 0;
+  font-size: 20px;
+}
+
 app-navbar-superior {
   display: flex;
   gap: 15px;
 }
 
+
 // Simplemente quito los bordes porque si no, se ve mal el borde
+// Agregamos borde solo en la parte superior e inferior
 ion-item.tarjetaImpar, ion-item.tarjetaPar {
   --inner-border-width: 0px;
-  align-items: center;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid #362110;
+  border-bottom: 1px solid #362110;
 }
+
 
 // Quitamos bordes y espacios de la foto, también la hacemos redonda
 ion-thumbnail img {
@@ -62,6 +73,10 @@ ion-thumbnail img {
   width: 100%;
   height: 100%;
   border-radius: 50px;
+}
+
+.blanco {
+  color: white;
 }
 
 .back-arrow {
@@ -77,20 +92,4 @@ ion-thumbnail img {
     margin-top: 1%;
     margin-right: 5%;
   }
-}
-
-.centered-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  color: #6C4E31;
-  font-size: 20px;
-}
-
-.centered-content ion-icon {
-  font-size: 100px;
-  margin-bottom: 20px;
 }
