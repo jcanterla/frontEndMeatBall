@@ -79,7 +79,7 @@ ion-list {
 
 .botones{
   --background: #362110 !important;
-  --color: #6C4E31;
+  --color: #e5c0af;
 }
 
 .search-filter-container {
@@ -91,6 +91,15 @@ ion-list {
 .buscador {
   margin-top: 10px;
   border-radius: 40px ;
+  --background: white !important;/* Fondo del input */
+  --color: black !important;              /* Color del texto */
+  --placeholder-color: gray !important;   /* Color del placeholder */
+  --icon-color: black !important;         /* Color del icono de búsqueda */
+  --clear-button-color: black !important;
+}
+
+.buscador .searchbar-input{
+  color: black !important;
 }
 
 .filter-asterisk {
