@@ -19,4 +19,5 @@ export class ComunService {
 
     return {headers: headers}
   }
+
 }

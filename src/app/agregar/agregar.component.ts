@@ -56,6 +56,7 @@ export class AgregarComponent  implements OnInit {
   ingredientesFiltrados: string[] = [];
   etiquetas: string[] = [];
   etiquetasFiltradas: string[] = [];
+  isAdmin: boolean = false;
 
 
   constructor(private fb: FormBuilder, private agregarService: AgregarService, private router: Router) {
@@ -278,4 +279,5 @@ export class AgregarComponent  implements OnInit {
       });
     }
   }
+
 }

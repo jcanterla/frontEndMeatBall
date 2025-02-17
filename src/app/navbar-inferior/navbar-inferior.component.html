@@ -1,4 +1,3 @@
-<!--Menú Teléfono-->
 <ion-footer class="mobile-menu">
 
   <ion-toolbar class="marronClaro">
@@ -24,6 +23,10 @@
 
         <ion-col class="centrar" >
           <ion-icon name="person-outline" style="color: #362110;" (click)="navigateToPerfil()"></ion-icon>
+        </ion-col>
+
+        <ion-col class="centrar" *ngIf="isAdmin">
+          <ion-icon name="accessibility-outline" style="color: #362110;" (click)="navigateToAdmin()"></ion-icon>
         </ion-col>
 
       </ion-row>

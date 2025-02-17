@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {IonicModule, IonModal} from "@ionic/angular";
 import {NavbarSuperiorComponent} from "../navbar-superior/navbar-superior.component";
 import {NavbarInferiorComponent} from "../navbar-inferior/navbar-inferior.component";
 import {Router} from "@angular/router";
 import {addIcons} from "ionicons";
+
 import {
   chatbubbleEllipsesSharp, chatbubbleOutline,
   flashOutline,
@@ -52,6 +53,32 @@ export class VerPublicacionComponent  implements OnInit {
 
   mostrarComentarios = false;
 
+  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef) {
+
+  }
+
+  ngOnInit() {
+    addIcons({
+      "happy-outline": happyOutline,
+      "stopwatch-outline": stopwatchOutline,
+      "flash-outline": flashOutline,
+      "restaurant-outline": restaurantOutline,
+      "chatbubble-outline": chatbubbleOutline,
+      "heart-outline": heartOutline
+    });
+  }
+
+  ngOnDestroy() {
+    sessionStorage.removeItem('publicacion');
+  }
+
+  ionViewWillLeave() {
+    console.info('Saliendo de la vista VerPublicacionComponent');
+    sessionStorage.removeItem('publicacion');
+    console.info(sessionStorage.getItem('publicacion'));
+  }
+
+  ionViewWillEnter() {
   constructor(private router: Router, private paratiService: ParatiService, private perfilService: PerfilService) {
     const navigation = this.router.getCurrentNavigation();
     this.publicacion = navigation?.extras.state?.['publicacion'];
@@ -65,9 +92,7 @@ export class VerPublicacionComponent  implements OnInit {
         console.error('No se recibió la publicación');
       }
     }
-  }
 
-  ngOnInit() {
     if (this.publicacion?.id) { // Solo accede si `id` está definido
       const likesGuardados = JSON.parse(localStorage.getItem('likesPublicaciones') || '{}');
       this.leHaDadoLike = !!likesGuardados[this.publicacion.id];
@@ -87,8 +112,8 @@ export class VerPublicacionComponent  implements OnInit {
     });
 
     this.getComentarios();
+    this.cdr.detectChanges();
   }
-
 
   getComentarios(): void {
     if (!this.publicacion?.id) {

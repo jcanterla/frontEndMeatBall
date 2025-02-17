@@ -64,4 +64,20 @@ export class ParatiService {
     const authHeader = this.comunService.autorizarPeticion();
     return this.httpClient.get<Publicacion[]>('/api/publicacion/aleatorias', authHeader);
   }
+
+  getPublicaciones(): Observable<Publicacion[]> {
+    const authHeader = this.comunService.autorizarPeticion();
+    return this.httpClient.get<Publicacion[]>('/api/publicacion/all', authHeader);
+  }
+
+  setActivo(idPublicacion: number): Observable<any> {
+    const authHeader = this.comunService.autorizarPeticion();
+    return this.httpClient.post<any>(`/api/publicacion/setActiva/${idPublicacion}`, null, authHeader);
+  }
+
+  setBaneado(idPublicacion: number): Observable<any> {
+    const authHeader = this.comunService.autorizarPeticion();
+    return this.httpClient.post<any>(`/api/publicacion/setBaneada/${idPublicacion}`, null, authHeader);
+  }
+
 }

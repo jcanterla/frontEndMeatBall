@@ -1,0 +1,82 @@
+#container {
+  text-align: center;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-list {
+  --ion-item-border-color: transparent;
+}
+
+.ion-padding {
+  margin-left: 25px;
+}
+
+
+// CSS de los cards de los grupos
+.caja_contenido_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.caja_logo_grupo {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.caja_logo_grupo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.caja_tit_grupo {
+  margin-left: 10px;
+}
+
+.caja_detalles_grupo {
+  margin-left: auto;
+}
+
+
+.custom-segment-button {
+  --color-checked: #362110; /* White color for the selected text */
+  --color: #362110; /* White color for the unselected text */
+}
+ion-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+
+}
+

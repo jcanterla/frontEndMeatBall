@@ -14,6 +14,7 @@ export class Publicacion{
   usuarioId?: number;
   username?: string;
   fotoPerfilLink?: string;
+  estado?: string;
 
   ingredientes?: IngredienteDTO[];
   etiquetas?: EtiquetaDTO[];
