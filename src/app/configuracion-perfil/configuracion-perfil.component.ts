@@ -41,7 +41,6 @@ export class ConfiguracionPerfilComponent implements OnInit {
         Validators.email
       ]),
       telefono: new FormControl({ value: '', disabled: this.inputsDisabled }, [
-        Validators.required,
         Validators.pattern('^[0-9]{9}$')
       ]),
     });
@@ -91,7 +90,7 @@ export class ConfiguracionPerfilComponent implements OnInit {
     } else {
       const telefonoControl = this.perfilForm.get('telefono');
       const emailControl = this.perfilForm.get('email');
-      if (telefonoControl?.invalid) {
+      if (telefonoControl?.invalid && telefonoControl?.value) {
         this.mostrarError('El teléfono debe tener 9 dígitos y solo contener números.');
       } else if (emailControl?.invalid) {
         this.mostrarError('El email debe tener un formato correcto.');
