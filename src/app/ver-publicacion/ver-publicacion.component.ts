@@ -16,12 +16,12 @@ import {
 import {Publicacion} from "../modelos/Publicacion";
 import {Comentario} from "../modelos/Comentario";
 import {ParatiService} from "../servicios/parati.service";
-import {PerfilService} from "../servicios/perfil.service";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
 import {comentarioEnviar} from "../modelos/comentarioEnviar";
 import {IngredienteDTO} from "../modelos/IngredienteDTO";
+import {PerfilService} from "../servicios/perfil.service";
 
 @Component({
   selector: 'app-ver-publicacion',
@@ -53,7 +53,7 @@ export class VerPublicacionComponent  implements OnInit {
 
   mostrarComentarios = false;
 
-  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef) {
+  constructor(private router: Router, private paratiService: ParatiService, private cdr: ChangeDetectorRef, private perfilService: PerfilService) {
 
   }
 
@@ -79,7 +79,6 @@ export class VerPublicacionComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
-  constructor(private router: Router, private paratiService: ParatiService, private perfilService: PerfilService) {
     const navigation = this.router.getCurrentNavigation();
     this.publicacion = navigation?.extras.state?.['publicacion'];
 
