@@ -130,4 +130,8 @@ export class ParatiComponent implements OnInit, OnDestroy, ViewWillEnter {
   onResize() {
     this.initializeSwipers();
   }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

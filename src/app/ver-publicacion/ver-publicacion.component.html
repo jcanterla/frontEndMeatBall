@@ -24,20 +24,14 @@
       <ion-col size="2" class="centrar">
         <ion-fab>
           <ion-fab-button>
-            <ion-icon name="chatbubble-outline" id="open-modal" expand="block"></ion-icon>
+            <ion-icon name="chatbubble-outline" (click)="openModal()" expand="block"></ion-icon>
           </ion-fab-button>
         </ion-fab>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-modal
-    trigger="open-modal"
-    (willDismiss)="onWillDismiss($event)"
-    class="marronOscuro"
-    [breakpoints]="[0, 0.5, 1]"
-    [initialBreakpoint]="0.5"
-  >
+  <ion-modal #modalRef (willDismiss)="onWillDismiss($event)" class="marronOscuro" [breakpoints]="[0, 0.5, 1]" [initialBreakpoint]="0.5">
     <ng-template>
       <ion-header class="marronOscuro modal-header">
         <ion-toolbar>
