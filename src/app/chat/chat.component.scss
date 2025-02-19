@@ -93,3 +93,19 @@ ion-thumbnail img {
     margin-right: 5%;
   }
 }
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  color: #6C4E31;
+  font-size: 20px;
+}
+
+.centered-content ion-icon {
+  font-size: 100px;
+  margin-bottom: 20px;
+}
