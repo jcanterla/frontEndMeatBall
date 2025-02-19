@@ -6,29 +6,31 @@ import {ComunService} from "./comun.service";
 import { HttpParams } from '@angular/common/http';
 import {Comentario} from "../modelos/Comentario";
 import {comentarioEnviar} from "../modelos/comentarioEnviar";
+import {environment} from "../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
 export class ParatiService {
+  private apiUrl = environment.apiUrl;
 
   constructor(private httpClient : HttpClient ,  private comunService:ComunService) { }
 
   getPublicacionesParaTi(): Observable<Publicacion[]>{
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.get<any>("/api/publicacion/parati", authHeader);
+    return this.httpClient.get<any>(`${this.apiUrl}/publicacion/parati`, authHeader);
   }
 
   getComentariosPublicacion(idPublicacion: number): Observable<Comentario[]> {
     const authHeader = this.comunService.autorizarPeticion()
     console.log(authHeader);
-    return this.httpClient.get<any>(`/api/publicacion/comentarios?idPublicacion=${idPublicacion.toString()}`, authHeader );
+    return this.httpClient.get<any>(`${this.apiUrl}/publicacion/comentarios?idPublicacion=${idPublicacion.toString()}`, authHeader );
   }
 
   darLike(idPublicacion: number): Observable<any> {
     const authHeader = this.comunService.autorizarPeticion();
 
     return this.httpClient.post<any>(
-      `/api/publicacion/like`,
+      `${this.apiUrl}/publicacion/like`,
       null,
       {
         ...authHeader,
@@ -41,7 +43,7 @@ export class ParatiService {
     const authHeader = this.comunService.autorizarPeticion();
 
     return this.httpClient.post<any>(
-      `/api/publicacion/quitarlike`,
+      `${this.apiUrl}/publicacion/quitarlike`,
       null,
       {
         ...authHeader,
@@ -52,37 +54,37 @@ export class ParatiService {
 
   comentarPublicacion(comentarioEnviar: comentarioEnviar): Observable<any> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.post<any>("/api/publicacion/comentar", comentarioEnviar, authHeader);
+    return this.httpClient.post<any>(`${this.apiUrl}/publicacion/comentar`, comentarioEnviar, authHeader);
   }
 
   getPublicacionesDeSeguidos(): Observable<Publicacion[]> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.get<Publicacion[]>('/api/publicacion/seguidos', authHeader);
+    return this.httpClient.get<Publicacion[]>(`${this.apiUrl}/publicacion/seguidos`, authHeader);
   }
 
   getPublicacionesAleatorias(): Observable<Publicacion[]> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.get<Publicacion[]>('/api/publicacion/aleatorias', authHeader);
+    return this.httpClient.get<Publicacion[]>(`${this.apiUrl}/publicacion/aleatorias`, authHeader);
   }
 
   getPublicaciones(): Observable<Publicacion[]> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.get<Publicacion[]>('/api/publicacion/all', authHeader);
+    return this.httpClient.get<Publicacion[]>(`${this.apiUrl}/publicacion/all`, authHeader);
   }
 
   getPublicacionesBaneadas(): Observable<Publicacion[]> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.get<Publicacion[]>('/api/publicacion/baneadas', authHeader);
+    return this.httpClient.get<Publicacion[]>(`${this.apiUrl}/publicacion/baneadas`, authHeader);
   }
 
   setActivo(idPublicacion: number): Observable<any> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.post<any>(`/api/publicacion/setActiva/${idPublicacion}`, null, authHeader);
+    return this.httpClient.post<any>(`${this.apiUrl}/publicacion/setActiva/${idPublicacion}`, null, authHeader);
   }
 
   setBaneado(idPublicacion: number): Observable<any> {
     const authHeader = this.comunService.autorizarPeticion();
-    return this.httpClient.post<any>(`/api/publicacion/setBaneada/${idPublicacion}`, null, authHeader);
+    return this.httpClient.post<any>(`${this.apiUrl}/publicacion/setBaneada/${idPublicacion}`, null, authHeader);
   }
 
 }

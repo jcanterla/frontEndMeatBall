@@ -4,6 +4,7 @@ import {Chat} from "../modelos/Chat";
 import {ComunService} from "./comun.service";
 import {HttpClient} from "@angular/common/http";
 import {Mensaje} from "../modelos/Mensaje";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class ChatService {
   constructor(private comunService : ComunService, private http : HttpClient) { }
 
   private urlChats  = '/chat/chats';
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = environment.apiUrl;
   private urlMensajeEnviar  = '/chat/enviar';
   private urlMensajesChatPrivado  = '/chat/';
 

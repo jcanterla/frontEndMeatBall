@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: '/api',
+  apiUrl: 'https://meatball-7hed.onrender.com',
   production: false
 };
 
