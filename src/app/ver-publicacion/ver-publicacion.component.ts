@@ -34,7 +34,7 @@ import { PerfilService } from "../servicios/perfil.service";
 })
 export class VerPublicacionComponent implements OnInit {
 
-  @ViewChild('modalRef', {static: true}) modal!: IonModal;  // ✅ REFERENCIA AL MODAL
+  @ViewChild('modalRef', { static: true }) modal!: IonModal;  // ✅ REFERENCIA AL MODAL
   textoComentario: string = '';  // ✅ Variable para el input del comentario
 
   publicacion: Publicacion = new Publicacion();
@@ -50,8 +50,7 @@ export class VerPublicacionComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
     private perfilService: PerfilService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     addIcons({
@@ -140,7 +139,7 @@ export class VerPublicacionComponent implements OnInit {
   }
 
   navigateToPerfil(idusuario?: number) {
-    this.router.navigate(['/perfil', {id: idusuario, from: 'ver-publicacion'}]);
+    this.router.navigate(['/perfil', { id: idusuario, from: 'ver-publicacion' }]);
   }
 
   // ✅✅✅ MANEJO DEL MODAL ✅✅✅
@@ -156,5 +155,24 @@ export class VerPublicacionComponent implements OnInit {
     console.log("Comentario enviado:", this.textoComentario);
     await this.modal.dismiss();
     this.comentar();
+  }
+
+  onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
+    if (event.detail.role === 'confirm') {
+      console.log(`Comentario enviado: ${this.textoComentario}`);
+    }
+  }
+
+  mostrarComentariosFunc() {
+    this.mostrarComentarios = !this.mostrarComentarios;
+  }
+
+  reportarPublicacion(id?: number) {
+    if (!id) return console.error('Error: La publicación o su ID no están definidos.');
+
+    this.perfilService.reportarPublicacion(id).subscribe({
+      next: (data) => console.info('Publicación reportada', data),
+      error: (error) => console.error('Error: ', error),
+    });
   }
 }
