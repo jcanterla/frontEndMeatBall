@@ -45,4 +45,5 @@ export class NavbarSuperiorComponent  implements OnInit {
   navigateToAdmin() {
     this.router.navigate(['/admin']);
   }
+
 }
